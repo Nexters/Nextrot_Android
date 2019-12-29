@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main.PageFragment">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.nextrot.troter.main.PageViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/section_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@{viewmodel.text}">
+        </TextView>
+    </LinearLayout>
+</layout>
