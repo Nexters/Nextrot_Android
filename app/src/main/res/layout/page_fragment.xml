@@ -2,11 +2,11 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".main.PageFragment">
+    tools:context=".page.PageFragment">
     <data>
         <variable
             name="viewmodel"
-            type="com.nextrot.troter.main.PageViewModel" />
+            type="com.nextrot.troter.page.PageViewModel" />
     </data>
 
     <LinearLayout

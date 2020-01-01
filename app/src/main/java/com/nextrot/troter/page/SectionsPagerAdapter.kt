@@ -1,4 +1,4 @@
-package com.nextrot.troter.main
+package com.nextrot.troter.page
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -12,9 +12,10 @@ private val TAB_TITLES = arrayOf(
     R.string.tab_title_3
 )
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager): FragmentPagerAdapter(fm) {
+class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, private val fragments: ArrayList<out Fragment>): FragmentPagerAdapter(fm) {
+
     override fun getItem(position: Int): Fragment {
-        return PageFragment.newInstance(position + 1)
+        return fragments[position]
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
@@ -22,6 +23,6 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager): F
     }
 
     override fun getCount(): Int {
-        return TAB_TITLES.size
+        return fragments.size
     }
 }

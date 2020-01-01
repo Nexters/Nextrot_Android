@@ -1,4 +1,4 @@
-package com.nextrot.troter.main
+package com.nextrot.troter.page
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.nextrot.troter.databinding.PageFragmentBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class PageFragment private constructor(): Fragment() {
+class PageFragment : Fragment() {
     private val pageViewModel: PageViewModel by viewModel()
     private lateinit var pageFragmentBinding: PageFragmentBinding
 

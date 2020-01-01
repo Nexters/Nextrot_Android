@@ -1,4 +1,4 @@
-package com.nextrot.troter.main
+package com.nextrot.troter.page
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +11,7 @@ import com.nextrot.troter.data.TestRepository
 
 class PageViewModel(private val repo: TestRepository): ViewModel() {
     private val _index = MutableLiveData<Int>()
+
     val text: LiveData<String> = Transformations.map(_index) {
         "${repo.giveData()} $it"
     }
