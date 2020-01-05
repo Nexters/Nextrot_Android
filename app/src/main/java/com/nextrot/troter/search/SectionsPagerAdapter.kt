@@ -1,4 +1,4 @@
-package com.nextrot.troter.page
+package com.nextrot.troter.search
 
 import android.content.Context
 import androidx.fragment.app.Fragment

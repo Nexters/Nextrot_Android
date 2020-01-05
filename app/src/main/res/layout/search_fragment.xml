@@ -2,11 +2,12 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".page.PageFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".search.SearchFragment">
     <data>
         <variable
             name="viewmodel"
-            type="com.nextrot.troter.page.PageViewModel" />
+            type="com.nextrot.troter.search.SearchViewModel" />
     </data>
 
     <LinearLayout
@@ -14,11 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/section_text"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@{viewmodel.text}">
-        </TextView>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:items="@{viewmodel.searchResult}">
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </layout>

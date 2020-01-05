@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nextrot.troter">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".TroterApplication"
         android:allowBackup="true"
