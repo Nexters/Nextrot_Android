@@ -12,13 +12,7 @@ import java.util.*
 class SearchViewModel(private val repo: VideoRepository): ViewModel() {
     val searchResult = MutableLiveData<List<Item>>(Collections.emptyList())
 
-    init {
-
-        // 임시 데이터로 안녕하세요를 검색
-        search("안녕하세요")
-    }
-
-    private fun search(query: String) {
+    fun search(query: String) {
         viewModelScope.launch {
             try {
                 val result = repo.search(query)

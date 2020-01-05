@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.PagerAdapter
 import com.nextrot.troter.databinding.SearchFragmentBinding
 import com.nextrot.troter.search.list.SearchListAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class SearchFragment : Fragment() {
+class SearchFragment(private val index: Int) : Fragment() {
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var searchFragmentBinding: SearchFragmentBinding
 
@@ -21,6 +22,11 @@ class SearchFragment : Fragment() {
         searchFragmentBinding = SearchFragmentBinding.inflate(inflater, container, false).apply {
             viewmodel = searchViewModel
         }
+
+        // TODO : 지금은 TAB_TITLE 을 검색 query 로 사용하도록 해놨음. 이 정책이 어디서 관리될 것인지 검토 필요
+        val query = context!!.getString(SectionsPagerAdapter.TAB_TITLES[index])
+        searchViewModel.search(query)
+
         return searchFragmentBinding.root
     }
 

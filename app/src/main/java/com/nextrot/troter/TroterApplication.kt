@@ -41,7 +41,11 @@ val appModule = module {
     factory { SearchViewModel(get()) }
     factory { MainActivity() }
     factory<ArrayList<Fragment>> {
-        arrayListOf(SearchFragment())
+        arrayListOf(
+            SearchFragment(0),
+            SearchFragment(1),
+            SearchFragment(2)
+        )
     }
 }
 

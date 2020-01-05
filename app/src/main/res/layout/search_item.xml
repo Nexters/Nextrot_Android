@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -13,16 +14,21 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/thumb"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:src="@{item}">
+        </ImageView>
 
         <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.id.videoId}">
+            android:text="@{item.snippet.title}">
         </TextView>
-
     </LinearLayout>
 </layout>
