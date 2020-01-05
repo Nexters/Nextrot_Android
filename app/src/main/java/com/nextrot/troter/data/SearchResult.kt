@@ -1,7 +1,13 @@
 package com.nextrot.troter.data
 
-import com.google.gson.annotations.SerializedName
+import android.annotation.SuppressLint
+import android.os.Parcelable
 
+import kotlinx.android.parcel.Parcelize
+
+import com.google.gson.annotations.SerializedName
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class SearchResult(
     @SerializedName("etag")
     val etag: String,
@@ -15,8 +21,10 @@ data class SearchResult(
     val pageInfo: PageInfo,
     @SerializedName("regionCode")
     val regionCode: String
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class Item(
     @SerializedName("etag")
     val etag: String,
@@ -26,15 +34,19 @@ data class Item(
     val kind: String,
     @SerializedName("snippet")
     val snippet: Snippet
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class Id(
     @SerializedName("kind")
     val kind: String,
     @SerializedName("videoId")
     val videoId: String
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class Snippet(
     @SerializedName("channelId")
     val channelId: String,
@@ -50,8 +62,10 @@ data class Snippet(
     val thumbnails: Thumbnails,
     @SerializedName("title")
     val title: String
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class Thumbnails(
     @SerializedName("default")
     val default: Default,
@@ -59,8 +73,10 @@ data class Thumbnails(
     val high: High,
     @SerializedName("medium")
     val medium: Medium
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class Default(
     @SerializedName("height")
     val height: Int,
@@ -68,8 +84,10 @@ data class Default(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class High(
     @SerializedName("height")
     val height: Int,
@@ -77,8 +95,10 @@ data class High(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class Medium(
     @SerializedName("height")
     val height: Int,
@@ -86,11 +106,13 @@ data class Medium(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class PageInfo(
     @SerializedName("resultsPerPage")
     val resultsPerPage: Int,
     @SerializedName("totalResults")
     val totalResults: Int
-)
+) : Parcelable

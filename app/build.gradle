@@ -89,9 +89,13 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     kapt 'com.github.bumptech.glide:compiler:4.10.0'
+
     implementation 'com.google.firebase:firebase-ads:18.3.0'
 
     // collapsing toolbar layout
     implementation "com.google.android.material:material:1.0.0"
     implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.0.0"
+
+    // YouTube Player View
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 }

@@ -8,7 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.ads.*
 import com.google.android.material.tabs.TabLayout
 import com.nextrot.troter.search.SectionsPagerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         adView.loadAd(adRequest)
     }
 
+    // TODO: lifecycle 바인딩 시킬 수 있는 지 확인
     public override fun onPause() {
         adView.pause()
         super.onPause()
