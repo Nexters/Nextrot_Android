@@ -33,7 +33,7 @@ val appModule = module {
             .Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient)
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.API_ADDRESS)
             .build()
     }
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
