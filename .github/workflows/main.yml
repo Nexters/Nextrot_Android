@@ -15,9 +15,6 @@ jobs:
         java-version: 1.8
     - name: Build with Gradle
       run: |
-        echo $PWD
-        ls -al
         echo 'API_ADDRESS="${{ secrets.API_ADDRESS }}"' >> ${{ env.BUILD_CONFIG }}
         echo 'AUTH_TOKEN="${{ secrets.AUTH_TOKEN }}"' >> ${{ env.BUILD_CONFIG }}
-        cat ${{ env.BUILD_CONFIG }}
         ./gradlew build
