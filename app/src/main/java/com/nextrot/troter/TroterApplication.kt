@@ -4,9 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.nextrot.troter.BuildConfig
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.VideoRepository
-import com.nextrot.troter.data.remote.BASE_URL
 import com.nextrot.troter.data.remote.RemoteClient
 import com.nextrot.troter.search.SearchFragment
 import com.nextrot.troter.search.SearchViewModel
@@ -33,7 +33,7 @@ val appModule = module {
             .Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient)
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.API_ADDRESS)
             .build()
     }
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
