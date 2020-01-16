@@ -17,4 +17,6 @@ jobs:
       run: |
         echo 'API_ADDRESS="${{ secrets.API_ADDRESS }}"' >> ${{ env.BUILD_CONFIG }}
         echo 'AUTH_TOKEN="${{ secrets.AUTH_TOKEN }}"' >> ${{ env.BUILD_CONFIG }}
+        echo 'ADMOB_APPLICATION_ID="${{ secrets.ADMOB_APPLICATION_ID }}"' >> ${{ env.BUILD_CONFIG }}
+        echo 'ADMOB_BANNER_ID="${{ secrets.ADMOB_BANNER_ID }}"' >> ${{ env.BUILD_CONFIG }}
         ./gradlew build

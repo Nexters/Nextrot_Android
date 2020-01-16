@@ -20,10 +20,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_ADDRESS", API_ADDRESS
             buildConfigField "String", "AUTH_TOKEN", AUTH_TOKEN
+            buildConfigField "String", "ADMOB_BANNER_ID", ADMOB_BANNER_ID
+            // string 대소문자 주의
+            resValue "string", "ADMOB_APPLICATION_ID", ADMOB_APPLICATION_ID
         }
         debug {
             buildConfigField "String", "API_ADDRESS", API_ADDRESS
             buildConfigField "String", "AUTH_TOKEN", AUTH_TOKEN
+            buildConfigField "String", "ADMOB_BANNER_ID", ADMOB_BANNER_ID
+            // string 대소문자 주의
+            resValue "string", "ADMOB_APPLICATION_ID", ADMOB_APPLICATION_ID
         }
     }
 
@@ -58,6 +64,9 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 
+    // admob - show me the money!
+    implementation 'com.google.android.gms:play-services-ads:18.3.0'
+
     // Koin
     implementation "org.koin:koin-core:$koin_version"
     implementation "org.koin:koin-core-ext:$koin_version"
@@ -80,4 +89,5 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     kapt 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.google.firebase:firebase-ads:18.3.0'
 }
