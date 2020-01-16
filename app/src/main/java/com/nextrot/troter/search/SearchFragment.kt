@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.PagerAdapter
 import com.nextrot.troter.databinding.SearchFragmentBinding
 import com.nextrot.troter.search.list.SearchListAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
