@@ -1,47 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
+        android:fitsSystemWindows="true">
+        <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
+            android:layout_height="200dp"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="bottom"
+            app:layout_scrollFlags="scroll"
+            app:subtitle="@string/app_name"
+            app:expandedSubtitleTextAppearance="@style/app_slogan"
+            app:expandedTitleTextAppearance="@style/app_title"
+            app:title="@string/app_slogan_1">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat" />
+
+        </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:layout_gravity="top"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_gravity="start"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
-        app:layout_constraintTop_toTopOf="@id/appBarLayout"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="wrap_content">
+
+    </androidx.viewpager.widget.ViewPager>
     <FrameLayout
         android:id="@+id/ad_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="bottom"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

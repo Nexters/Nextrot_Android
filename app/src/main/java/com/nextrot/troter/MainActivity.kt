@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, fragments)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
