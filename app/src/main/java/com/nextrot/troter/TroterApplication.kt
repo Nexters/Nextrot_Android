@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.nextrot.troter.BuildConfig
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.VideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
@@ -51,6 +50,7 @@ val appModule = module {
 
 
 // TODO: Nexus 4 API 19 emulator 에서 앱 크래시 현상 확인 필요
+@Suppress("unused")
 class TroterApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
