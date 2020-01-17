@@ -1,7 +1,11 @@
 <resources>
-    <string name="app_name">Troter</string>
-    <string name="tab_title_1">안녕하세요</string>
-    <string name="tab_title_2">송가인</string>
-    <string name="tab_title_3">트로트</string>
     <string name="thumbnail">thumbnail</string>
+    <string name="app_slogan_1">신이나는 트로트집</string>
+    <string name="app_slogan_2">기운나는 트로트집</string>
+    <string name="app_slogan_3">흥이나는 트로트집</string>
+    <string name="app_name">넥스트롯</string>
+
+    <string name="tab_title_1">인기곡</string>
+    <string name="tab_title_2">가수별</string>
+    <string name="tab_title_3">보관함</string>
 </resources>
