@@ -1,4 +1,4 @@
-name: ci
+name: android-ci
 
 on: [push]
 env:
