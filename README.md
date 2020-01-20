@@ -1,4 +1,4 @@
-# 넥스트롯 Android ![badge](https://github.com/Nexters/Nextrot_Android/workflows/android-ci/badge.svg)
+# 넥스트롯 Android <a href="https://github.com/Nexters/Nextrot_Android/actions"><image src="https://github.com/Nexters/Nextrot_Android/workflows/android-ci/badge.svg"/></a>
 
 7080 메들리~
 
