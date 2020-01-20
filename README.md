@@ -8,9 +8,9 @@
 
 ## Designer
 
-이주연
+이주연([z8ki](https://www.behance.net/z8ki))
 
-장혜연
+장혜연([hyeday](https://www.behance.net/hyeday))
 
 ## Developer
 
