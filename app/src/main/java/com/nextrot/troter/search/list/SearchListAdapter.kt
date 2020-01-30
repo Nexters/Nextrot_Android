@@ -1,5 +1,6 @@
 package com.nextrot.troter.search.list
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -20,14 +21,18 @@ class SearchListAdapter(private val viewmodel: SearchViewModel, private val frag
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(viewmodel, fragment, item)
+        holder.bind(viewmodel, fragment, item, position+1)
     }
 
     class ViewHolder constructor(private val binding: SearchItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewmodel: SearchViewModel, fragment: SearchFragment, item: Item) {
+        fun bind(viewmodel: SearchViewModel, fragment: SearchFragment, item: Item, position: Int) {
             binding.viewmodel = viewmodel
             binding.item = item
+            binding.itemRank.text = position.toString()
             binding.fragment = fragment
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                binding.thumb.clipToOutline = true
+            }
             binding.executePendingBindings()
         }
     }

@@ -1,11 +1,12 @@
 package com.nextrot.troter.search
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.nextrot.troter.data.Item
+import com.nextrot.troter.data.SearchResult
 import com.nextrot.troter.data.VideoRepository
 import kotlinx.coroutines.launch
 import java.util.*

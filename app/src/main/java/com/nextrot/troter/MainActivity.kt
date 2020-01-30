@@ -1,11 +1,18 @@
 package com.nextrot.troter
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.nextrot.troter.search.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.main_activity.*
@@ -14,11 +21,20 @@ import org.koin.android.ext.android.inject
 class MainActivity : AppCompatActivity() {
     private val fragments: ArrayList<Fragment> by inject()
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (appBarLayout.totalScrollRange + verticalOffset==0) {
+                list_section.background = getDrawable(R.drawable.white)
+            }else {
+                list_section.background = getDrawable(R.drawable.arc_top)
+            }
+        })
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, fragments)
         val viewPager: ViewPager = findViewById(R.id.view_pager)

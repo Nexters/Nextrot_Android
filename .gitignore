@@ -86,3 +86,6 @@ lint/tmp/
 .idea/
 
 app/gradle.properties
+.DS_Store
+.project
+.settings
