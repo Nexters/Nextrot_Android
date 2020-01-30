@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.mooveit.library.Fakeit
 import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.VideoRepository
