@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.nextrot.troter.data.Item" />
+
+        <variable
+            name="fragment"
+            type="com.nextrot.troter.player.list.PlaylistFragment" />
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> fragment.onClickItem(item)}"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/thumb"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:src="@{item}"
+            android:contentDescription="@string/thumbnail">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.snippet.title}">
+        </TextView>
+    </LinearLayout>
+</layout>

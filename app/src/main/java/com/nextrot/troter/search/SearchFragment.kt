@@ -49,7 +49,8 @@ class SearchFragment(private val index: Int) : Fragment() {
 
     fun onClickItem(item: Item) {
         val intent = Intent(context!!.applicationContext, PlayerActivity::class.java).apply {
-            putExtra(PlayerActivity.BUNDLE_PLAYER_ITEM, item)
+            val list = arrayListOf(item)
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_PLAYER_ITEM, list)
         }
         startActivity(intent)
     }
