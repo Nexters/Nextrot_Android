@@ -24,8 +24,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, pr
         @JvmStatic
         val TAB_TITLES = arrayOf(
             R.string.tab_title_1,
-            R.string.tab_title_2,
-            R.string.tab_title_3
+            R.string.tab_title_2
         )
     }
 }

@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.VideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
@@ -36,14 +37,14 @@ val appModule = module {
             .build()
     }
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
-    single<VideoRepository> { RemoteVideoRepository(get()) }
+//    single<VideoRepository> { RemoteVideoRepository(get()) }
+    single<VideoRepository> { FakeVideoRepository(get()) }
     factory { SearchViewModel(get()) }
     factory { MainActivity() }
     factory<ArrayList<Fragment>> {
         arrayListOf(
             SearchFragment(0),
-            SearchFragment(1),
-            SearchFragment(2)
+            SearchFragment(1)
         )
     }
 }
@@ -60,7 +61,6 @@ class TroterApplication : MultiDexApplication() {
             androidContext(this@TroterApplication)
             modules(appModule)
         }
-
         Stetho.initializeWithDefaults(this)
     }
 }

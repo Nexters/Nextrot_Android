@@ -7,15 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:background="@color/colorPrimary"
+        app:elevation="0dp">
 
-        <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -23,32 +26,56 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="bottom"
             app:layout_scrollFlags="scroll"
-            app:subtitle="@string/app_name"
             app:expandedSubtitleTextAppearance="@style/app_slogan"
-            app:expandedTitleTextAppearance="@style/app_title"
-            app:title="@string/app_slogan_1">
+            app:expandedTitleTextAppearance="@style/app_title">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                app:title=""
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat" />
 
-        </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
+        android:id="@+id/list_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/arc_top"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
+            android:background="@drawable/arc_top">
+
+            <com.google.android.material.tabs.TabLayout
+                android:paddingTop="25dp"
+                android:id="@+id/tabs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@android:color/transparent"
+                android:layout_marginStart="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최근재생"
+                android:textSize="16sp"
+                android:letterSpacing="-0.04"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
@@ -65,4 +92,6 @@
         android:layout_centerInParent="true"
         android:layout_gravity="bottom"/>
 
+
+<!--    <include layout="@layout/bottom_sheet_dialog" />-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
