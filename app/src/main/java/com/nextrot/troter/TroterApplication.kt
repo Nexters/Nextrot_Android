@@ -38,7 +38,13 @@ val appModule = module {
     }
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
 //    single<VideoRepository> { RemoteVideoRepository(get()) }
-    single<VideoRepository> { FakeVideoRepository(get()) }
+    single {
+        if (BuildConfig.DEBUG) {
+            FakeVideoRepository(get())
+        } else {
+            RemoteVideoRepository(get())
+        }
+    }
     factory { SearchViewModel(get()) }
     factory { MainActivity() }
     factory<ArrayList<Fragment>> {
