@@ -13,17 +13,10 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="app_title" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">14sp</item>
+    <style name="tab_text" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:typeface">@font/noto_sans</item>
-        <item name="android:textColor">@android:color/black</item>
-    </style>
-    <style name="app_slogan" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:typeface">@font/noto_sans</item>
+        <item name="android:textAlignment">viewStart</item>
     </style>
 
     <style name="play_tab_text" parent="TextAppearance.Design.Tab">

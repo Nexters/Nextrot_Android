@@ -1,6 +1,5 @@
 package com.nextrot.troter
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -18,6 +17,7 @@ import com.nextrot.troter.search.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 
+
 class MainActivity : AppCompatActivity() {
     private val fragments: ArrayList<Fragment> by inject()
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (appBarLayout.totalScrollRange + verticalOffset==0) {
+            if (appBarLayout.totalScrollRange + verticalOffset<20) {
                 list_section.background = getDrawable(R.drawable.white)
             }else {
                 list_section.background = getDrawable(R.drawable.arc_top)
@@ -42,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
 
+
+        indicator.createIndicators(3,0)
+        indicator.setViewPager(banner_view_pager)
         initAdView()
     }
 

@@ -48,10 +48,8 @@ class SearchFragment(private val index: Int) : Fragment() {
     }
 
     fun onClickItem(item: Item) {
-        val intent = Intent(context!!.applicationContext, PlayerActivity::class.java).apply {
-            val list = arrayListOf(item)
-            putParcelableArrayListExtra(PlayerActivity.BUNDLE_PLAYER_ITEM, list)
-        }
-        startActivity(intent)
+        val viewmodel = searchFragmentBinding.viewmodel
+        viewmodel!!.toggleSelect(item)
+        searchFragmentBinding.list.adapter?.notifyDataSetChanged()
     }
 }

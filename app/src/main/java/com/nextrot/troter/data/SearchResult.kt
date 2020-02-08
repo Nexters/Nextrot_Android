@@ -2,6 +2,9 @@ package com.nextrot.troter.data
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import androidx.databinding.Observable
+import androidx.databinding.ObservableBoolean
+import com.google.gson.annotations.Expose
 
 import kotlinx.android.parcel.Parcelize
 
@@ -33,7 +36,9 @@ data class Item(
     @SerializedName("kind")
     val kind: String,
     @SerializedName("snippet")
-    val snippet: Snippet
+    val snippet: Snippet,
+    @Expose
+    var selected: Boolean = false
 ) : Parcelable
 
 @SuppressLint("ParcelCreator")
