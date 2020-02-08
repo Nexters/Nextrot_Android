@@ -1,16 +1,12 @@
 package com.nextrot.troter.search
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.nextrot.troter.BottomSheetDialog
-import com.nextrot.troter.R
 import com.nextrot.troter.data.Item
 import com.nextrot.troter.databinding.SearchFragmentBinding
-import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.search.list.SearchListAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -47,9 +43,8 @@ class SearchFragment(private val index: Int) : Fragment() {
         }
     }
 
-    fun onClickItem(item: Item) {
-        val viewmodel = searchFragmentBinding.viewmodel
-        viewmodel!!.toggleSelect(item)
+    fun onClickItem(item: SearchListAdapter.ViewHolder) {
+        item.toggleSelected()
         searchFragmentBinding.list.adapter?.notifyDataSetChanged()
     }
 }

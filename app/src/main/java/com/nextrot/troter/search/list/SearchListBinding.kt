@@ -1,6 +1,7 @@
 package com.nextrot.troter.search.list
 
 import android.widget.ImageView
+import android.widget.ListAdapter
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,7 +16,7 @@ fun setItems(list: RecyclerView, items: List<Item>) {
     if (adapter is SearchListAdapter) {
         adapter.submitList(items)
     } else if (adapter is PlaylistAdapter) {
-        adapter.submitList((items))
+        adapter.submitList(items)
     }
 }
 

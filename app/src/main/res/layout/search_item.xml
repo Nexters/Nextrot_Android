@@ -15,6 +15,10 @@
         <variable
             name="fragment"
             type="com.nextrot.troter.search.SearchFragment" />
+
+        <variable
+            name="viewHolder"
+            type="com.nextrot.troter.search.list.SearchListAdapter.ViewHolder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,8 +26,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:background="@{item.selected ? @drawable/rounded_square_white_selected : @drawable/rounded_square_white}"
-        android:onClick="@{() -> fragment.onClickItem(item)}"
+        android:background="@{viewHolder.selected ? @drawable/rounded_square_white_selected : @drawable/rounded_square_white}"
+        android:onClick="@{() -> fragment.onClickItem(viewHolder)}"
         tools:ignore="UseCompoundDrawables"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

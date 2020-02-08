@@ -36,9 +36,7 @@ data class Item(
     @SerializedName("kind")
     val kind: String,
     @SerializedName("snippet")
-    val snippet: Snippet,
-    @Expose
-    var selected: Boolean = false
+    val snippet: Snippet
 ) : Parcelable
 
 @SuppressLint("ParcelCreator")
