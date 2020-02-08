@@ -9,10 +9,12 @@ import com.nextrot.troter.data.Item
 import com.nextrot.troter.data.SearchResult
 import com.nextrot.troter.data.VideoRepository
 import kotlinx.coroutines.launch
+import okhttp3.internal.notify
 import java.util.*
 
 class SearchViewModel(private val repo: VideoRepository): ViewModel() {
     val searchResult = MutableLiveData<List<Item>>(Collections.emptyList())
+
 
     fun search(query: String) {
         viewModelScope.launch {
@@ -23,5 +25,9 @@ class SearchViewModel(private val repo: VideoRepository): ViewModel() {
                 Log.e("Troter", "Something went wrong : $e")
             }
         }
+    }
+    fun toggleSelect(item: Item){
+        item.selected = !item.selected
+        println(item.selected)
     }
 }

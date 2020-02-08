@@ -17,27 +17,51 @@
         android:fitsSystemWindows="true"
         android:background="@color/colorPrimary"
         app:elevation="0dp">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleGravity="bottom"
-            app:layout_scrollFlags="scroll"
-            app:expandedSubtitleTextAppearance="@style/app_slogan"
-            app:expandedTitleTextAppearance="@style/app_title">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll">
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/banner_view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:title=""
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat" />
+                android:layout_height="match_parent"/>
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginBottom="19dp"
+                app:ci_width="6dp"
+                app:ci_height="6dp"
+                app:ci_margin="6dp"
+                app:ci_drawable_unselected="@drawable/white_radius"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat"
+                    app:title="" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
@@ -57,8 +81,16 @@
                 android:id="@+id/tabs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@android:color/transparent"
                 android:layout_marginStart="24dp"
+                app:backgroundTint="@android:color/transparent"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@android:color/black"
+                app:tabTextColor="@color/colorDisable"
+                app:tabTextAppearance="@style/tab_text"
+                app:tabIndicatorHeight="3.5dp"
+                app:tabMinWidth="50dp"
+                android:clipToPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="최근재생"
+                android:text="최근 재생"
                 android:textSize="16sp"
                 android:letterSpacing="-0.04"
                 android:textColor="@color/colorPrimary"
