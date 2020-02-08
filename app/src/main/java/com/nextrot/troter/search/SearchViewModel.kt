@@ -11,6 +11,7 @@ import java.util.*
 
 class SearchViewModel(private val repo: VideoRepository): ViewModel() {
     val searchResult = MutableLiveData<List<Item>>(Collections.emptyList())
+    val selectedItems = MutableLiveData<ArrayList<Item>>(arrayListOf())
 
     fun search(query: String) {
         viewModelScope.launch {
@@ -22,4 +23,32 @@ class SearchViewModel(private val repo: VideoRepository): ViewModel() {
             }
         }
     }
+
+    fun clearSelectedItem() {
+        selectedItems.value = arrayListOf()
+    }
+
+    private fun addSelectedItem(item: Item) {
+        val nextItems = selectedItems.value!!.apply {
+            add(item)
+        }
+        selectedItems.value = ArrayList(nextItems)
+    }
+
+    private fun removeSelectedItem(item: Item) {
+        val nextItems = selectedItems.value!!.apply {
+            remove(item)
+        }
+        selectedItems.value = ArrayList(nextItems)
+    }
+
+    fun toggleSelectedItem(item: Item) {
+        if (selectedItems.value!!.contains(item)) {
+            removeSelectedItem(item)
+        } else {
+            addSelectedItem(item)
+        }
+    }
+
+    fun isSelected(item: Item): Boolean = selectedItems.value!!.contains(item)
 }

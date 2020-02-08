@@ -1,129 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/colorPrimary"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="activity"
+            type="com.nextrot.troter.MainActivity" />
+
+        <variable
+            name="viewmodel"
+            type="com.nextrot.troter.search.SearchViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:background="@color/colorPrimary"
-        app:elevation="0dp">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        tools:context=".MainActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/banner_view_pager"
+            android:fitsSystemWindows="true"
+            android:background="@color/colorPrimary"
+            app:elevation="0dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-            <me.relex.circleindicator.CircleIndicator
-                android:id="@+id/indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="12dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginBottom="19dp"
-                app:ci_width="6dp"
-                app:ci_height="6dp"
-                app:ci_margin="6dp"
-                app:ci_drawable_unselected="@drawable/white_radius"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleGravity="bottom"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll">
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/banner_view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat"
-                    app:title="" />
+                    android:layout_height="match_parent"/>
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginBottom="19dp"
+                    app:ci_width="6dp"
+                    app:ci_height="6dp"
+                    app:ci_margin="6dp"
+                    app:ci_drawable_unselected="@drawable/white_radius"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsing_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:expandedTitleGravity="bottom"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat"
+                        app:title="" />
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/list_section"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/arc_top"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/list_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/arc_top">
-
-            <com.google.android.material.tabs.TabLayout
-                android:paddingTop="25dp"
-                android:id="@+id/tabs"
-                android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/arc_top"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                app:backgroundTint="@android:color/transparent"
-                app:tabIndicatorFullWidth="false"
-                app:tabIndicatorColor="@color/colorPrimary"
-                app:tabSelectedTextColor="@android:color/black"
-                app:tabTextColor="@color/colorDisable"
-                app:tabTextAppearance="@style/tab_text"
-                app:tabIndicatorHeight="3.5dp"
-                app:tabMinWidth="50dp"
-                android:clipToPadding="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="@drawable/arc_top">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="최근 재생"
-                android:textSize="16sp"
-                android:letterSpacing="-0.04"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.tabs.TabLayout
+                    android:paddingTop="25dp"
+                    android:id="@+id/tabs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    app:backgroundTint="@android:color/transparent"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabSelectedTextColor="@android:color/black"
+                    app:tabTextColor="@color/colorDisable"
+                    app:tabTextAppearance="@style/tab_text"
+                    app:tabIndicatorHeight="3.5dp"
+                    app:tabMinWidth="50dp"
+                    android:clipToPadding="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최근 재생"
+                    android:textSize="16sp"
+                    android:letterSpacing="-0.04"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginEnd="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.viewpager.widget.ViewPager>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/ad_view_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="bottom"/>
 
-        </androidx.viewpager.widget.ViewPager>
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/ad_view_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="bottom"/>
-
-
-<!--    <include layout="@layout/bottom_sheet_dialog" />-->
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <FrameLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal | bottom"
+            android:translationY="82dp"
+            android:focusable="true">
+            <include
+                layout="@layout/bottom_sheet_dialog"
+                app:itemsSize="@{viewmodel.selectedItems.size()}"
+                app:activity="@{activity}"/>
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -8,13 +8,17 @@ import com.nextrot.troter.data.Item
 import com.nextrot.troter.databinding.PlayerActivityBinding
 import com.nextrot.troter.player.list.PlaylistFragment
 import com.nextrot.troter.player.lyrics.LyricsFragment
+import com.nextrot.troter.search.SearchViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
+import org.koin.android.ext.android.inject
+import java.util.ArrayList
 
 class PlayerActivity : AppCompatActivity() {
+    private val searchViewModel: SearchViewModel by inject()
     private lateinit var playerActivityBinding: PlayerActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,14 +27,14 @@ class PlayerActivity : AppCompatActivity() {
         playerActivityBinding = DataBindingUtil.setContentView(this, R.layout.player_activity)
         playerActivityBinding.lifecycleOwner = this
         lifecycle.addObserver(playerActivityBinding.playerView)
-        val items = intent?.getParcelableArrayListExtra<Item>(BUNDLE_PLAYER_ITEM) ?: arrayListOf()
+        val items = searchViewModel.selectedItems.value
         playerActivityBinding.items = items
 
-        val sectionsPagerAdapter = PlayerSectionsPagerAdapter(this, supportFragmentManager, arrayListOf(PlaylistFragment(items), LyricsFragment(items[0])))
+        val sectionsPagerAdapter = PlayerSectionsPagerAdapter(this, supportFragmentManager, arrayListOf(PlaylistFragment(items!!), LyricsFragment(items[0])))
         playerActivityBinding.viewPager.adapter = sectionsPagerAdapter
         playerActivityBinding.listOrLyrics.setupWithViewPager(playerActivityBinding.viewPager)
 
-        loadPlayer(items)
+        loadPlayer(items!!)
     }
 
     // TODO: "object: ~~~" 이렇게 쓰는거 구림
@@ -64,10 +68,5 @@ class PlayerActivity : AppCompatActivity() {
                 youTubePlayer.loadOrCueVideo(lifecycle, item.id.videoId, 0f)
             }
         }
-    }
-
-
-    companion object {
-        const val BUNDLE_PLAYER_ITEM = "bundle_player_item"
     }
 }

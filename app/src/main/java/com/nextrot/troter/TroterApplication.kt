@@ -6,8 +6,8 @@ import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
-import com.nextrot.troter.data.VideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
+import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.search.SearchFragment
 import com.nextrot.troter.search.SearchViewModel
 import okhttp3.OkHttpClient
@@ -37,7 +37,6 @@ val appModule = module {
             .build()
     }
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
-//    single<VideoRepository> { RemoteVideoRepository(get()) }
     single {
         if (BuildConfig.DEBUG) {
             FakeVideoRepository(get())
@@ -45,8 +44,9 @@ val appModule = module {
             RemoteVideoRepository(get())
         }
     }
-    factory { SearchViewModel(get()) }
+    single { SearchViewModel(get()) }
     factory { MainActivity() }
+    factory { PlayerActivity() }
     factory<ArrayList<Fragment>> {
         arrayListOf(
             SearchFragment(0),
