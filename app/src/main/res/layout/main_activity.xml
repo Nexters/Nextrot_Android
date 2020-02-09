@@ -141,7 +141,7 @@
             android:id="@+id/bottom_sheet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal | bottom"
+            android:layout_gravity="center_horizontal|bottom"
             android:translationY="82dp"
             android:focusable="true">
             <include

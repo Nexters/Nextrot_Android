@@ -57,12 +57,12 @@ class MainActivity : AppCompatActivity() {
             if (it.isEmpty()) {
                 mainActivityBinding.bottomSheet
                     .animate()
-                    .translationY(CommonUtil.toDP(82, resources.displayMetrics))
+                    .translationY(CommonUtil.toDP(87, resources.displayMetrics))
                     .start()
             } else {
                 mainActivityBinding.bottomSheet
                     .animate()
-                    .translationY(CommonUtil.toDP(-82, resources.displayMetrics))
+                    .translationY(CommonUtil.toDP(-24, resources.displayMetrics))
                     .start()
             }
         })
