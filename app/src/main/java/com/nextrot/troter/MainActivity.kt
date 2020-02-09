@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,7 +16,6 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.appbar.AppBarLayout
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
-import com.nextrot.troter.search.SearchViewModel
 import com.nextrot.troter.search.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
@@ -26,7 +24,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private val fragments: ArrayList<Fragment> by inject()
-    private val searchViewModel: SearchViewModel by viewModel()
+    private val troterViewModel: TroterViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -34,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mainActivityBinding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         mainActivityBinding.lifecycleOwner = this
-        mainActivityBinding.viewmodel = searchViewModel
+        mainActivityBinding.viewmodel = troterViewModel
         mainActivityBinding.activity = this
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -53,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val tabs = mainActivityBinding.tabs
         tabs.setupWithViewPager(viewPager)
 
-        searchViewModel.selectedItems.observe(this, Observer {
+        troterViewModel.selectedItems.observe(this, Observer {
             if (it.isEmpty()) {
                 mainActivityBinding.bottomSheet
                     .animate()
@@ -84,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickCancel() {
-        searchViewModel.clearSelectedItem()
+        troterViewModel.clearSelectedItem()
     }
 
     /**

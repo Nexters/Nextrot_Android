@@ -8,9 +8,7 @@ import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
 import com.nextrot.troter.search.SearchFragment
-import com.nextrot.troter.search.SearchViewModel
 import com.nextrot.troter.singer.SingerFragment
-import com.nextrot.troter.singer.SingerViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -46,8 +44,7 @@ val appModule = module {
             RemoteVideoRepository(get())
         }
     }
-    single { SingerViewModel(get()) }
-    single { SearchViewModel(get()) }
+    single { TroterViewModel(get()) }
     factory { MainActivity() }
     factory<ArrayList<Fragment>> {
         arrayListOf(

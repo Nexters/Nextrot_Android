@@ -8,7 +8,7 @@ import com.nextrot.troter.data.Item
 import com.nextrot.troter.databinding.PlayerActivityBinding
 import com.nextrot.troter.player.list.PlaylistFragment
 import com.nextrot.troter.player.lyrics.LyricsFragment
-import com.nextrot.troter.search.SearchViewModel
+import com.nextrot.troter.TroterViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
@@ -18,7 +18,7 @@ import org.koin.android.ext.android.inject
 import java.util.ArrayList
 
 class PlayerActivity : AppCompatActivity() {
-    private val searchViewModel: SearchViewModel by inject()
+    private val troterViewModel: TroterViewModel by inject()
     private lateinit var playerActivityBinding: PlayerActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class PlayerActivity : AppCompatActivity() {
         playerActivityBinding = DataBindingUtil.setContentView(this, R.layout.player_activity)
         playerActivityBinding.lifecycleOwner = this
         lifecycle.addObserver(playerActivityBinding.playerView)
-        val items = searchViewModel.selectedItems.value
+        val items = troterViewModel.selectedItems.value
         playerActivityBinding.items = items
 
         val sectionsPagerAdapter = PlayerSectionsPagerAdapter(this, supportFragmentManager, arrayListOf(PlaylistFragment(items!!), LyricsFragment(items[0])))
