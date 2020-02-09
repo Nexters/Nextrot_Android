@@ -11,14 +11,26 @@ import java.util.*
 
 
 class TroterViewModel(private val repo: VideoRepository): ViewModel() {
-    val searchResult = MutableLiveData<List<Item>>(Collections.emptyList())
+    val searchResult = MutableLiveData<ArrayList<Item>>(arrayListOf())
     val selectedItems = MutableLiveData<ArrayList<Item>>(arrayListOf())
+    val singers = MutableLiveData<ArrayList<String>>(arrayListOf())
 
     fun search(query: String) {
         viewModelScope.launch {
             try {
                 val result = repo.search(query)
-                searchResult.value = result?.items ?: Collections.emptyList()
+                searchResult.value = ArrayList(result?.items ?: arrayListOf())
+            } catch (e: Exception) {
+                Log.e("Troter", "Something went wrong : $e")
+            }
+        }
+    }
+
+    fun getSingers() {
+        viewModelScope.launch {
+            try {
+                val result = repo.singers()
+                singers.value = ArrayList(result)
             } catch (e: Exception) {
                 Log.e("Troter", "Something went wrong : $e")
             }

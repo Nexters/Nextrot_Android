@@ -16,14 +16,17 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.appbar.AppBarLayout
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
+import com.nextrot.troter.search.SearchFragment
 import com.nextrot.troter.search.SectionsPagerAdapter
+import com.nextrot.troter.singers.SingersFragment
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity() {
-    private val fragments: ArrayList<Fragment> by inject()
+    private val searchFragment: SearchFragment by inject()
+    private val singersFragment: SingersFragment by inject()
     private val troterViewModel: TroterViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
 
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, fragments)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, arrayListOf(searchFragment, singersFragment))
         val viewPager = mainActivityBinding.viewPager
         viewPager.adapter = sectionsPagerAdapter
         val tabs = mainActivityBinding.tabs

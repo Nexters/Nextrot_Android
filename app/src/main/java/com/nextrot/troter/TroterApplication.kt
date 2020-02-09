@@ -1,14 +1,14 @@
 package com.nextrot.troter
 
-import androidx.fragment.app.Fragment
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
+import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.search.SearchFragment
-import com.nextrot.troter.singer.SingerFragment
+import com.nextrot.troter.singers.SingersFragment
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -46,12 +46,9 @@ val appModule = module {
     }
     single { TroterViewModel(get()) }
     factory { MainActivity() }
-    factory<ArrayList<Fragment>> {
-        arrayListOf(
-            SearchFragment(0),
-            SingerFragment(1)
-        )
-    }
+    factory { PlayerActivity() }
+    factory { SearchFragment(0) }
+    factory { SingersFragment() }
 }
 
 
