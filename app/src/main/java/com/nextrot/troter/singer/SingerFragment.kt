@@ -18,10 +18,7 @@ internal class SingerFragment (private val index: Int) :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = baseViewModel
-        binding.list.apply{
-            onCreate(savedInstanceState)
-            baseViewModel.getAll("")
-        }
+        baseViewModel.getAll("")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
