@@ -11,7 +11,10 @@ import com.nextrot.troter.databinding.SearchItemBinding
 import com.nextrot.troter.search.SearchFragment
 import com.nextrot.troter.search.SearchViewModel
 
-class SearchListAdapter(private val viewmodel: SearchViewModel, private val fragment: SearchFragment): ListAdapter<Item, SearchListAdapter.ViewHolder>(TaskDiffCallback()) {
+internal class SearchListAdapter(
+    private val viewmodel: SearchViewModel,
+    private val fragment: SearchFragment
+): ListAdapter<Item, SearchListAdapter.ViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

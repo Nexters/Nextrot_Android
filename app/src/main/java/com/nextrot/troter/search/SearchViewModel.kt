@@ -9,7 +9,7 @@ import com.nextrot.troter.data.VideoRepository
 import kotlinx.coroutines.launch
 import java.util.*
 
-class SearchViewModel(private val repo: VideoRepository): ViewModel() {
+internal class SearchViewModel(private val repo: VideoRepository): ViewModel() {
     val searchResult = MutableLiveData<List<Item>>(Collections.emptyList())
     val selectedItems = MutableLiveData<ArrayList<Item>>(arrayListOf())
 
