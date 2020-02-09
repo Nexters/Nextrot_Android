@@ -69,7 +69,7 @@ class PlayerActivity : AppCompatActivity() {
         })
 
         if (items.isNotEmpty()) {
-            for (item in items) {
+            for (item in items.reversed()) {
                 youTubePlayer.loadOrCueVideo(lifecycle, item.id.videoId, 0f)
             }
         }
