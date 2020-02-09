@@ -6,7 +6,6 @@ import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
-import com.nextrot.troter.data.VideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
 import com.nextrot.troter.search.SearchFragment
 import com.nextrot.troter.search.SearchViewModel
@@ -47,8 +46,8 @@ val appModule = module {
             RemoteVideoRepository(get())
         }
     }
-    factory { SingerViewModel(get()) }
-    factory { SearchViewModel(get()) }
+    single { SingerViewModel(get()) }
+    single { SearchViewModel(get()) }
     factory { MainActivity() }
     factory<ArrayList<Fragment>> {
         arrayListOf(

@@ -25,7 +25,7 @@ internal abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fra
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
     }
 
     @CallSuper
