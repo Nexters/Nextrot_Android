@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nextrot.troter.data.Item
-import com.nextrot.troter.databinding.SearchItemBinding
-import com.nextrot.troter.songs.SongsFragment
+import com.nextrot.troter.base.SongsFragment
 import com.nextrot.troter.TroterViewModel
+import com.nextrot.troter.databinding.SongItemBinding
 
 class SongsListAdapter(private val viewmodel: TroterViewModel, private val fragment: SongsFragment): ListAdapter<Item, SongsListAdapter.ViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = SearchItemBinding.inflate(layoutInflater, parent, false)
+        val binding = SongItemBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -24,7 +24,7 @@ class SongsListAdapter(private val viewmodel: TroterViewModel, private val fragm
         holder.bind(viewmodel, fragment, item, position+1)
     }
 
-    class ViewHolder constructor(private val binding: SearchItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder constructor(private val binding: SongItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(viewmodel: TroterViewModel, fragment: SongsFragment, item: Item, position: Int) {
             binding.viewmodel = viewmodel
             binding.item = item

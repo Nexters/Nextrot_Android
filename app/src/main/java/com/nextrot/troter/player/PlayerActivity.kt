@@ -34,7 +34,12 @@ class PlayerActivity : AppCompatActivity() {
         playerActivityBinding.viewPager.adapter = sectionsPagerAdapter
         playerActivityBinding.listOrLyrics.setupWithViewPager(playerActivityBinding.viewPager)
 
-        loadPlayer(items!!)
+        loadPlayer(items)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.troterViewModel.clearSelectedItem()
     }
 
     // TODO: "object: ~~~" 이렇게 쓰는거 구림

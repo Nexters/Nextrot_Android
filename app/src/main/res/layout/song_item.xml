@@ -14,7 +14,7 @@
 
         <variable
             name="fragment"
-            type="com.nextrot.troter.songs.SongsFragment" />
+            type="com.nextrot.troter.base.SongsFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

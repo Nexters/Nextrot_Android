@@ -7,7 +7,7 @@
     <data>
         <variable
             name="activity"
-            type="com.nextrot.troter.MainActivity" />
+            type="com.nextrot.troter.base.BottomSheetActivity" />
 
         <variable
             name="itemsSize"

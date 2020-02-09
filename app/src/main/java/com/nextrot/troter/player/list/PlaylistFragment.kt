@@ -37,7 +37,9 @@ class PlaylistFragment(private val list: ArrayList<Item>) : Fragment() {
 
     private fun setupListView() {
         playlistFragmentBinding.listView.apply {
-            adapter = PlaylistAdapter(this@PlaylistFragment)
+            adapter = PlaylistAdapter(this@PlaylistFragment).apply {
+                submitList(list)
+            }
             addItemDecoration(object: RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(
                     outRect: Rect,

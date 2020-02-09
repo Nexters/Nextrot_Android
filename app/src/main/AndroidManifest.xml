@@ -19,8 +19,15 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APPLICATION_ID"/>
 
-        <activity android:name=".player.PlayerActivity"/>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".player.PlayerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".songs.SongsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

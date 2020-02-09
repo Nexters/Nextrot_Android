@@ -7,8 +7,8 @@ import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
 import com.nextrot.troter.player.PlayerActivity
-import com.nextrot.troter.songs.SongsFragment
 import com.nextrot.troter.singers.SingersFragment
+import com.nextrot.troter.songs.SongsActivity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -47,7 +47,7 @@ val appModule = module {
     single { TroterViewModel(get()) }
     factory { MainActivity() }
     factory { PlayerActivity() }
-    factory { SongsFragment(0) }
+    factory { SongsActivity() }
     factory { SingersFragment() }
 }
 

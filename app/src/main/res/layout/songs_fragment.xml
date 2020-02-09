@@ -7,7 +7,7 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="viewmodel"
+            name="viemodel"
             type="com.nextrot.troter.TroterViewModel" />
     </data>
 
@@ -20,8 +20,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:singers="@{viewmodel.singers}">
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
         </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
 </layout>

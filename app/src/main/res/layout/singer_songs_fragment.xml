@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".songs.SongsFragment">
+    tools:context=".base.SongsFragment">
     <data>
         <import type="android.view.View"/>
         <variable
-            name="viewmodel"
+            name="viemodel"
             type="com.nextrot.troter.TroterViewModel" />
     </data>
 
@@ -20,8 +20,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:items="@{viewmodel.searchResult}">
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
         </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
 </layout>

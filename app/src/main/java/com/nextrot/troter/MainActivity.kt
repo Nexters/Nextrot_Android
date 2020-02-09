@@ -13,18 +13,19 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.appbar.AppBarLayout
+import com.nextrot.troter.base.BottomSheetActivity
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
-import com.nextrot.troter.songs.SongsFragment
 import com.nextrot.troter.songs.SectionsPagerAdapter
 import com.nextrot.troter.singers.SingersFragment
+import com.nextrot.troter.songs.PopularSongsFragment
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
-    private val songsFragment: SongsFragment by inject()
+class MainActivity : AppCompatActivity(), BottomSheetActivity {
+    private val songsFragment: PopularSongsFragment = PopularSongsFragment()
     private val singersFragment: SingersFragment by inject()
     private val troterViewModel: TroterViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mainActivityBinding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         mainActivityBinding.lifecycleOwner = this
         mainActivityBinding.viewmodel = troterViewModel
@@ -46,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 list_section.background = getDrawable(R.drawable.arc_top)
             }
         })
-
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, arrayListOf(songsFragment, singersFragment))
         val viewPager = mainActivityBinding.viewPager
         viewPager.adapter = sectionsPagerAdapter
@@ -79,11 +80,11 @@ class MainActivity : AppCompatActivity() {
      2. 가능하다면 selectedItems 는 SearchFragment 가 들고 있는 것이 낫지 않을까?
      3. SearchFragment 안에서 CoordinatorLayout 을 사용하게 되면 main activity 의 CoordinatorLayout 의 동작과 충돌하여 정상 동작하지 않는 듯 함
      */
-    fun onClickPlay() {
+    override fun onClickPlay() {
         startActivity(Intent(this, PlayerActivity::class.java))
     }
 
-    fun onClickCancel() {
+    override fun onClickCancel() {
         troterViewModel.clearSelectedItem()
     }
 
