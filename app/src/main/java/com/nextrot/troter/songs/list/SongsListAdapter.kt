@@ -1,4 +1,4 @@
-package com.nextrot.troter.search.list
+package com.nextrot.troter.songs.list
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nextrot.troter.data.Item
 import com.nextrot.troter.databinding.SearchItemBinding
-import com.nextrot.troter.search.SearchFragment
+import com.nextrot.troter.songs.SongsFragment
 import com.nextrot.troter.TroterViewModel
 
-class SearchListAdapter(private val viewmodel: TroterViewModel, private val fragment: SearchFragment): ListAdapter<Item, SearchListAdapter.ViewHolder>(TaskDiffCallback()) {
+class SongsListAdapter(private val viewmodel: TroterViewModel, private val fragment: SongsFragment): ListAdapter<Item, SongsListAdapter.ViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -25,7 +25,7 @@ class SearchListAdapter(private val viewmodel: TroterViewModel, private val frag
     }
 
     class ViewHolder constructor(private val binding: SearchItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewmodel: TroterViewModel, fragment: SearchFragment, item: Item, position: Int) {
+        fun bind(viewmodel: TroterViewModel, fragment: SongsFragment, item: Item, position: Int) {
             binding.viewmodel = viewmodel
             binding.item = item
             binding.itemRank.text = position.toString()

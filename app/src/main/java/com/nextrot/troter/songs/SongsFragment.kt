@@ -1,4 +1,4 @@
-package com.nextrot.troter.search
+package com.nextrot.troter.songs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.lifecycle.Observer
 import com.nextrot.troter.TroterViewModel
 import com.nextrot.troter.data.Item
 import com.nextrot.troter.databinding.SearchFragmentBinding
-import com.nextrot.troter.search.list.SearchListAdapter
+import com.nextrot.troter.songs.list.SongsListAdapter
 import org.koin.android.ext.android.inject
 
-class SearchFragment(private val index: Int) : Fragment() {
+class SongsFragment(private val index: Int) : Fragment() {
     private val troterViewModel: TroterViewModel by inject()
     private lateinit var searchFragmentBinding: SearchFragmentBinding
 
@@ -45,7 +45,7 @@ class SearchFragment(private val index: Int) : Fragment() {
     private fun setupListView() {
         val viewmodel = searchFragmentBinding.viewmodel
         if (viewmodel != null) {
-            searchFragmentBinding.list.adapter = SearchListAdapter(viewmodel, this)
+            searchFragmentBinding.list.adapter = SongsListAdapter(viewmodel, this)
         }
     }
 

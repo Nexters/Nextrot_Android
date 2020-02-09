@@ -7,7 +7,7 @@ import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
 import com.nextrot.troter.player.PlayerActivity
-import com.nextrot.troter.search.SearchFragment
+import com.nextrot.troter.songs.SongsFragment
 import com.nextrot.troter.singers.SingersFragment
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -47,7 +47,7 @@ val appModule = module {
     single { TroterViewModel(get()) }
     factory { MainActivity() }
     factory { PlayerActivity() }
-    factory { SearchFragment(0) }
+    factory { SongsFragment(0) }
     factory { SingersFragment() }
 }
 

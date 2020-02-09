@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nextrot.troter.data.Item
 import com.nextrot.troter.databinding.PlaylistItemBinding
-import com.nextrot.troter.search.list.TaskDiffCallback
+import com.nextrot.troter.songs.list.TaskDiffCallback
 
 class PlaylistAdapter(private val fragment: PlaylistFragment) : ListAdapter<Item, PlaylistAdapter.ViewHolder>(TaskDiffCallback()){
 
