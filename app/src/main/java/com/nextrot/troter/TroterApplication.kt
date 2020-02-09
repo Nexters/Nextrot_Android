@@ -7,9 +7,10 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.nextrot.troter.data.FakeVideoRepository
 import com.nextrot.troter.data.RemoteVideoRepository
 import com.nextrot.troter.data.remote.RemoteClient
-import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.search.SearchFragment
 import com.nextrot.troter.search.SearchViewModel
+import com.nextrot.troter.singer.SingerFragment
+import com.nextrot.troter.singer.SingerViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -37,6 +38,7 @@ val appModule = module {
             .build()
     }
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
+//    single<VideoRepository> { RemoteVideoRepository(get()) }
     single {
         if (BuildConfig.DEBUG) {
             FakeVideoRepository(get())
@@ -44,13 +46,13 @@ val appModule = module {
             RemoteVideoRepository(get())
         }
     }
+    single { SingerViewModel(get()) }
     single { SearchViewModel(get()) }
     factory { MainActivity() }
-    factory { PlayerActivity() }
     factory<ArrayList<Fragment>> {
         arrayListOf(
             SearchFragment(0),
-            SearchFragment(1)
+            SingerFragment(1)
         )
     }
 }
