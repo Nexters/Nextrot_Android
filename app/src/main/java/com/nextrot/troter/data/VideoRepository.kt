@@ -9,6 +9,7 @@ interface VideoRepository {
     suspend fun popular(): List<Song>
     suspend fun singers(): List<Singer>
     suspend fun songsOfSinger(singerId: String): List<Song>
+    suspend fun recentPlaylist(): List<Song>
 }
 
 class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepository {
@@ -30,6 +31,10 @@ class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepos
             return remoteClient.getSongsOfSinger(singerId).data
         }
         return listOf()
+    }
+
+    override suspend fun recentPlaylist(): List<Song> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
 
@@ -101,6 +106,44 @@ class FakeVideoRepository: VideoRepository {
                                 "id": "36483ebb-ec5b-442f-9487-1c785370b56d",
                                 "singerId": "5e328f15b7e4937f52c67679",
                                 "name": "Music2",
+                                "lyrics": "Musice2Lyrics",
+                                "like": 0,
+                                "view": 0,
+                                "video": null,
+                                "createdAt": 1580385157216,
+                                "updatedAt": 1580385339058
+                            }
+                        ]
+                    }
+                """, Songs::class.java)
+            return sampleJson.data
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    override suspend fun recentPlaylist(): List<Song> {
+        try {
+            val sampleJson = Gson().fromJson<Songs>("""
+                    {
+                        "statusCode": 200,
+                        "statusMsg": "success",
+                        "data": [
+                            {
+                                "id": "32f3156c-ed37-40dc-af96-dcbf53a84a58",
+                                "singerId": "5e328f15b7e4937f52c67679",
+                                "name": "최근 재생 1",
+                                "lyrics": "testLyrics",
+                                "like": 0,
+                                "view": 0,
+                                "video": null,
+                                "createdAt": 1580371733877,
+                                "updatedAt": 1580385272894
+                            },
+                            {
+                                "id": "36483ebb-ec5b-442f-9487-1c785370b56d",
+                                "singerId": "5e328f15b7e4937f52c67679",
+                                "name": "최근 재생 2",
                                 "lyrics": "Musice2Lyrics",
                                 "like": 0,
                                 "view": 0,

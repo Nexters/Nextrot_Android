@@ -60,7 +60,7 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
 
     private fun initSongsFragment() {
         if (title == resources.getString(R.string.recently_played)) {
-//            songs = troterViewModel.getRecentPlaylist()
+            songsFragment = RecentPlaylistFragment()
         } else {
             songsFragment = SongsOfSingerFragment(singerId)
         }
