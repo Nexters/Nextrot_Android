@@ -9,7 +9,9 @@ import com.nextrot.troter.data.remote.RemoteClient
 import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.singers.SingersFragment
 import com.nextrot.troter.songs.SongsActivity
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -26,6 +28,15 @@ val appModule = module {
                 setLevel(HttpLoggingInterceptor.Level.BASIC)
             })
             .addNetworkInterceptor(StethoInterceptor())
+            .addNetworkInterceptor(object: Interceptor {
+                override fun intercept(chain: Interceptor.Chain): Response {
+                    val request = chain.request().newBuilder()
+                        .addHeader("Authorization", "Bearer " + BuildConfig.AUTH_TOKEN)
+                        .build()
+                    return chain.proceed(request)
+                }
+
+            })
             .build()
 
         Retrofit
@@ -36,10 +47,9 @@ val appModule = module {
             .build()
     }
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
-//    single<VideoRepository> { RemoteVideoRepository(get()) }
     single {
         if (BuildConfig.DEBUG) {
-            FakeVideoRepository(get())
+            FakeVideoRepository()
         } else {
             RemoteVideoRepository(get())
         }

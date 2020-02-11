@@ -12,18 +12,18 @@ import com.nextrot.troter.R
 import com.nextrot.troter.TroterViewModel
 import com.nextrot.troter.base.BottomSheetActivity
 import com.nextrot.troter.base.SongsFragment
-import com.nextrot.troter.data.Item
+import com.nextrot.troter.data.Singer
 import com.nextrot.troter.databinding.SongsActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.ArrayList
 
 class SongsActivity: AppCompatActivity(), BottomSheetActivity {
     private lateinit var songsFragment: SongsFragment
     private val troterViewModel: TroterViewModel by viewModel()
     private lateinit var songsActivityBinding: SongsActivityBinding
     private lateinit var title: String
+    private lateinit var singerId: String
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +33,11 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
         songsActivityBinding.viewmodel = troterViewModel
         songsActivityBinding.activity = this
 
-        title = intent.getStringExtra(BUNDLE_SONGS_TITLE) ?: resources.getString(R.string.recently_played)
+        singerId = intent.getStringExtra(BUNDLE_SINGER_ID)
+        title = intent.getStringExtra(BUNDLE_SONGS_TITLE)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         songsActivityBinding.collapsingToolbar.title = title
 
         troterViewModel.selectedItems.observe(this, Observer {
@@ -60,7 +62,7 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
         if (title == resources.getString(R.string.recently_played)) {
 //            songs = troterViewModel.getRecentPlaylist()
         } else {
-            songsFragment = SongsOfSingerFragment(title)
+            songsFragment = SongsOfSingerFragment(singerId)
         }
         supportFragmentManager
             .beginTransaction()
@@ -90,5 +92,6 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
 
     companion object {
         const val BUNDLE_SONGS_TITLE = "BUNDLE_SONGS_TITLE"
+        const val BUNDLE_SINGER_ID = "BUNDLE_SINGER_ID"
     }
 }

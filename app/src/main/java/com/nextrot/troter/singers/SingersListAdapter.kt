@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nextrot.troter.TroterViewModel
+import com.nextrot.troter.data.Singer
 import com.nextrot.troter.databinding.SingerItemBinding
 
-class SingersListAdapter(private val viewmodel: TroterViewModel, private val fragment: SingersFragment): ListAdapter<String, SingersListAdapter.ViewHolder>(TaskDiffCallback()) {
+class SingersListAdapter(private val viewmodel: TroterViewModel, private val fragment: SingersFragment): ListAdapter<Singer, SingersListAdapter.ViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,7 +23,7 @@ class SingersListAdapter(private val viewmodel: TroterViewModel, private val fra
     }
 
     class ViewHolder constructor(private val binding: SingerItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewmodel: TroterViewModel, fragment: SingersFragment, item: String) {
+        fun bind(viewmodel: TroterViewModel, fragment: SingersFragment, item: Singer) {
             binding.viewmodel = viewmodel
             binding.fragment = fragment
             binding.singer = item
@@ -31,12 +32,12 @@ class SingersListAdapter(private val viewmodel: TroterViewModel, private val fra
     }
 }
 
-class TaskDiffCallback : DiffUtil.ItemCallback<String>() {
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem.equals(newItem)
+class TaskDiffCallback : DiffUtil.ItemCallback<Singer>() {
+    override fun areItemsTheSame(oldItem: Singer, newItem: Singer): Boolean {
+        return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem.equals(newItem)
+    override fun areContentsTheSame(oldItem: Singer, newItem: Singer): Boolean {
+        return oldItem.name == newItem.name
     }
 }

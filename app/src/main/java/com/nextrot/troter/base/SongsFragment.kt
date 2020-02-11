@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.nextrot.troter.TroterViewModel
-import com.nextrot.troter.data.Item
+import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.SongsFragmentBinding
 import com.nextrot.troter.songs.list.SongsListAdapter
 import org.koin.android.ext.android.inject
@@ -37,7 +36,7 @@ abstract class SongsFragment : Fragment() {
         binding.list.adapter = SongsListAdapter(troterViewModel, this)
     }
 
-    fun onClickItem(item: Item) {
+    fun onClickItem(item: Song) {
         troterViewModel.toggleSelectedItem(item)
     }
 }

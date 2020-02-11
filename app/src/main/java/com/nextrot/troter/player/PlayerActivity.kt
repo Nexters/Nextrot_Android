@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.nextrot.troter.R
-import com.nextrot.troter.data.Item
 import com.nextrot.troter.databinding.PlayerActivityBinding
 import com.nextrot.troter.player.list.PlaylistFragment
 import com.nextrot.troter.player.lyrics.LyricsFragment
 import com.nextrot.troter.TroterViewModel
+import com.nextrot.troter.data.Song
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
@@ -43,7 +43,7 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     // TODO: "object: ~~~" 이렇게 쓰는거 구림
-    private fun loadPlayer(items: ArrayList<Item>) {
+    private fun loadPlayer(items: ArrayList<Song>) {
         playerActivityBinding.playerView.getYouTubePlayerWhenReady(object: YouTubePlayerCallback {
             override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
                 onLoadPlayer(youTubePlayer, items)
@@ -51,7 +51,7 @@ class PlayerActivity : AppCompatActivity() {
         })
    }
 
-    private fun onLoadPlayer(youTubePlayer: YouTubePlayer, items: ArrayList<Item>) {
+    private fun onLoadPlayer(youTubePlayer: YouTubePlayer, items: ArrayList<Song>) {
         youTubePlayer.addListener(object: YouTubePlayerListener {
             override fun onApiChange(youTubePlayer: YouTubePlayer) { }
             override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) { }
@@ -64,13 +64,13 @@ class PlayerActivity : AppCompatActivity() {
             override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) { }
 
             override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
-                playerActivityBinding.currentItem = items.find { item -> item.id.videoId == videoId }
+                playerActivityBinding.currentItem = items.find { item -> item.video == videoId }
             }
         })
 
         if (items.isNotEmpty()) {
             for (item in items.reversed()) {
-                youTubePlayer.loadOrCueVideo(lifecycle, item.id.videoId, 0f)
+                youTubePlayer.loadOrCueVideo(lifecycle, item.video, 0f)
             }
         }
     }

@@ -4,28 +4,19 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nextrot.troter.data.Item
+import com.nextrot.troter.data.Singer
+import com.nextrot.troter.data.Song
 import com.nextrot.troter.data.VideoRepository
 import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class TroterViewModel(private val repo: VideoRepository): ViewModel() {
-    val popular = MutableLiveData<ArrayList<Item>>(arrayListOf())
-    val selectedItems = MutableLiveData<ArrayList<Item>>(arrayListOf())
-    val singers = MutableLiveData<ArrayList<String>>(arrayListOf())
-    val songsOfSinger = MutableLiveData<ArrayList<Item>>(arrayListOf())
+    val selectedItems = MutableLiveData<ArrayList<Song>>(arrayListOf())
+    val singers = MutableLiveData<ArrayList<Singer>>(arrayListOf())
+    val songsOfSinger = MutableLiveData<ArrayList<Song>>(arrayListOf())
 
-    fun getPopular() {
-        viewModelScope.launch {
-            try {
-                val result = repo.popular()
-                popular.value = result
-            } catch (e: Exception) {
-                Log.e("Troter", "Something went wrong : $e")
-            }
-        }
-    }
 
     fun getSingers() {
         viewModelScope.launch {
@@ -38,11 +29,11 @@ class TroterViewModel(private val repo: VideoRepository): ViewModel() {
         }
     }
 
-    fun getSongsOfSinger(singer: String) {
+    fun getSongsOfSinger(singerId: String) {
         viewModelScope.launch {
             try {
-                val result = repo.songsOfSinger(singer)
-                songsOfSinger.value = result
+                val result = repo.songsOfSinger(singerId)
+                songsOfSinger.value = ArrayList(result)
             } catch (e: Exception) {
                 Log.e("Troter", "Something went wrong : $e")
             }
@@ -53,21 +44,21 @@ class TroterViewModel(private val repo: VideoRepository): ViewModel() {
         selectedItems.value = arrayListOf()
     }
 
-    private fun addSelectedItem(item: Item) {
+    private fun addSelectedItem(item: Song) {
         val nextItems = selectedItems.value!!.apply {
             add(item)
         }
         selectedItems.value = ArrayList(nextItems)
     }
 
-    private fun removeSelectedItem(item: Item) {
+    private fun removeSelectedItem(item: Song) {
         val nextItems = selectedItems.value!!.apply {
             remove(item)
         }
         selectedItems.value = ArrayList(nextItems)
     }
 
-    fun toggleSelectedItem(item: Item) {
+    fun toggleSelectedItem(item: Song) {
         if (selectedItems.value!!.contains(item)) {
             removeSelectedItem(item)
         } else {
@@ -75,5 +66,5 @@ class TroterViewModel(private val repo: VideoRepository): ViewModel() {
         }
     }
 
-    fun isSelected(item: Item): Boolean = selectedItems.value!!.contains(item)
+    fun isSelected(item: Song): Boolean = selectedItems.value!!.contains(item)
 }

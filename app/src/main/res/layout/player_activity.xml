@@ -12,7 +12,7 @@
 
         <variable
             name="currentItem"
-            type="com.nextrot.troter.data.Item" />
+            type="com.nextrot.troter.data.Song" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

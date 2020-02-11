@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nextrot.troter.data.Item
+import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.PlaylistItemBinding
 import com.nextrot.troter.songs.list.TaskDiffCallback
 
-class PlaylistAdapter(private val fragment: PlaylistFragment) : ListAdapter<Item, PlaylistAdapter.ViewHolder>(TaskDiffCallback()){
+class PlaylistAdapter(private val fragment: PlaylistFragment) : ListAdapter<Song, PlaylistAdapter.ViewHolder>(TaskDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,7 +22,7 @@ class PlaylistAdapter(private val fragment: PlaylistFragment) : ListAdapter<Item
     }
 
     class ViewHolder constructor(private val binding: PlaylistItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(fragment: PlaylistFragment, item: Item) {
+        fun bind(fragment: PlaylistFragment, item: Song) {
             binding.item = item
             binding.fragment = fragment
             binding.executePendingBindings()

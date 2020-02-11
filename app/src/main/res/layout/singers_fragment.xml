@@ -23,5 +23,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:singers="@{viewmodel.singers}">
         </androidx.recyclerview.widget.RecyclerView>
+
     </FrameLayout>
 </layout>

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.nextrot.troter.data.Item" />
+            type="com.nextrot.troter.data.Song" />
 
         <variable
             name="fragment"
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/title"
-            android:text="사랑의 재개발"
+            android:text="@{item.name}"
             android:textSize="18sp"
             android:textColor="@color/colorPlayerText2"
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/singer"
-            android:text="유산슬"
+            android:text="@{item.singerId}"
             android:textSize="16sp"
             android:layout_marginStart="10dp"
             android:textColor="@color/colorPlayerText2"

@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.nextrot.troter.data.Item
+import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.LyricsFragmentBinding
 
-class LyricsFragment(private var item: Item) : Fragment() {
+class LyricsFragment(private var item: Song) : Fragment() {
     private lateinit var lyricsFragmentBinding: LyricsFragmentBinding
 
     override fun onCreateView(

@@ -7,10 +7,10 @@
 
     <data>
         <import type="androidx.databinding.ObservableArrayList" />
-        <import type="com.nextrot.troter.data.Item" />
+        <import type="com.nextrot.troter.data.Song" />
         <variable
             name="list"
-            type="ObservableArrayList&lt;Item&gt;" />
+            type="ObservableArrayList&lt;Song&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

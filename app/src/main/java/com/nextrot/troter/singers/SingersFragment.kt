@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nextrot.troter.TroterViewModel
+import com.nextrot.troter.data.Singer
 import com.nextrot.troter.databinding.SingersFragmentBinding
 import com.nextrot.troter.songs.SongsActivity
 import org.koin.android.ext.android.inject
@@ -40,9 +41,10 @@ class SingersFragment : Fragment() {
         }
     }
 
-    fun onClickItem(singer: String) {
+    fun onClickItem(singer: Singer) {
         val intent = Intent(context, SongsActivity::class.java).apply {
-            putExtra(SongsActivity.BUNDLE_SONGS_TITLE, singer)
+            putExtra(SongsActivity.BUNDLE_SONGS_TITLE, singer.name)
+            putExtra(SongsActivity.BUNDLE_SINGER_ID, singer.id)
         }
         startActivity(intent)
     }

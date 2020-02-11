@@ -3,7 +3,7 @@
     <data>
         <variable
             name="item"
-            type="com.nextrot.troter.data.Item" />
+            type="com.nextrot.troter.data.Song" />
     </data>
 
     <LinearLayout

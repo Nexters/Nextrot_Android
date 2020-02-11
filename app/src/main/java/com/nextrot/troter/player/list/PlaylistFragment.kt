@@ -9,11 +9,11 @@ import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.nextrot.troter.CommonUtil
-import com.nextrot.troter.data.Item
+import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.PlaylistFragmentBinding
 import java.util.ArrayList
 
-class PlaylistFragment(private val list: ArrayList<Item>) : Fragment() {
+class PlaylistFragment(private val list: ArrayList<Song>) : Fragment() {
     private lateinit var playlistFragmentBinding: PlaylistFragmentBinding
 
     override fun onCreateView(
@@ -22,7 +22,7 @@ class PlaylistFragment(private val list: ArrayList<Item>) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         playlistFragmentBinding = PlaylistFragmentBinding.inflate(inflater, container, false).apply {
-            list = ObservableArrayList<Item>().apply {
+            list = ObservableArrayList<Song>().apply {
                 addAll(this@PlaylistFragment.list)
             }
         }
@@ -53,7 +53,7 @@ class PlaylistFragment(private val list: ArrayList<Item>) : Fragment() {
         }
     }
 
-    fun onClickItem(item: Item) {
+    fun onClickItem(item: Song) {
         // TODO: 클릭 시 재생 처리
     }
 }
