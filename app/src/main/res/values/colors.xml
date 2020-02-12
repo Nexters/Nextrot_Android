@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#1884ff</color>
-    <color name="colorSelectItem">#e2f0ff</color>
     <color name="colorDisable">#afbac2</color>
-    <color name="colorPrimaryDark">#191b35</color>
-    <color name="colorButtonDark">#59434343</color>
-    <color name="colorAccent">#e2f0ff</color>
     <color name="colorBackground">#f8f8f8</color>
+    <color name="colorSelectItem">#e2f0ff</color>
+    <color name="colorAccent">#e2f0ff</color>
+
+
+    <color name="colorButtonDark">#59434343</color>
+
+    <color name="colorPlayerText1">#f5f5ff</color>
+    <color name="colorPlayerText2">#f4f5ff</color>
+    <color name="colorPlayerText3">#e5e5ff</color>
+
+    <color name="colorPrimaryDark">#191b35</color>
+    <color name="colorPlayingSong">#272a4c</color>
+    <color name="colorPlayerBackground2">#2c3056</color>
+    <color name="colorPlayerBackground3">#1e203d</color>
 </resources>

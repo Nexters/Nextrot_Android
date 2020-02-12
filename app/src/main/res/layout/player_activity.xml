@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#191b35">
+        android:background="@color/colorPrimaryDark">
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/player_view"
@@ -34,7 +34,7 @@
             android:id="@+id/player_controller"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#1e203d"
+            android:background="@color/colorPlayerBackground3"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             app:layout_constraintTop_toBottomOf="@id/player_view"
@@ -48,7 +48,10 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:textColor="#f5f5ff"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/colorPlayerText1"
                 android:textSize="18sp"
                 android:text="@string/now_playing">
             </TextView>
@@ -60,9 +63,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/now_playing_text"
-                android:textColor="#f5f5ff"
+                android:textColor="@color/colorPlayerText1"
                 android:textSize="18sp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="@{Integer.toString(items.indexOf(currentItem) + 1) +  `/`+ Integer.toString(items.size())}"
                 tools:text="1/14">
             </TextView>
@@ -70,6 +75,11 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/player_tab_background"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent">
@@ -78,13 +88,14 @@
                     android:id="@+id/list_or_lyrics"
                     android:layout_width="129dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/player_tab_background"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     app:tabTextAppearance="@style/play_tab_text"
                     app:tabGravity="fill"
                     app:tabMode="fixed"
-                    app:tabSelectedTextColor="#ffffff"
-                    app:tabTextColor="#e5e5ff"
-                    app:tabIndicatorColor="#1884ff"
+                    app:tabSelectedTextColor="@android:color/white"
+                    app:tabTextColor="@color/colorPlayerText1"
+                    app:tabIndicatorColor="@color/colorPrimary"
                     app:tabIndicator="@drawable/player_tab_indicator"
                     app:tabRippleColor="@null"
                     app:tabIndicatorGravity="center"
@@ -99,6 +110,7 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
             app:layout_constraintTop_toBottomOf="@id/player_controller"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
