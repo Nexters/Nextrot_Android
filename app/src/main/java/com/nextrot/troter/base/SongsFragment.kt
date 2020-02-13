@@ -1,5 +1,6 @@
 package com.nextrot.troter.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.nextrot.troter.TroterViewModel
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.SongsFragmentBinding
+import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.songs.list.SongsListAdapter
 
 abstract class SongsFragment(private val troterViewModel: TroterViewModel) : Fragment() {
@@ -36,5 +38,14 @@ abstract class SongsFragment(private val troterViewModel: TroterViewModel) : Fra
 
     fun onClickItem(item: Song) {
         troterViewModel.toggleSelectedItem(item)
+    }
+
+    fun onClickPlay(item: Song) {
+        troterViewModel.clearSelectedItem()
+        val intent = Intent(context, PlayerActivity::class.java).apply {
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, arrayListOf(item))
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+        startActivity(intent)
     }
 }

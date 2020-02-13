@@ -8,15 +8,25 @@ import com.nextrot.troter.data.Singer
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.data.VideoRepository
 import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class TroterViewModel(private val repo: VideoRepository): ViewModel() {
-    val selectedItems = MutableLiveData<ArrayList<Song>>(arrayListOf())
-    val singers = MutableLiveData<ArrayList<Singer>>(arrayListOf())
-    val songsOfSinger = MutableLiveData<ArrayList<Song>>(arrayListOf())
-    val recentPlaylist = MutableLiveData<ArrayList<Song>>(arrayListOf())
+    val populars = MutableLiveData<ArrayList<Song>>(ArrayList())
+    val selectedItems = MutableLiveData<ArrayList<Song>>(ArrayList())
+    val singers = MutableLiveData<ArrayList<Singer>>(ArrayList())
+    val songsOfSinger = MutableLiveData<ArrayList<Song>>(ArrayList())
+    val recentPlaylist = MutableLiveData<ArrayList<Song>>(ArrayList())
+
+    fun getPopular() {
+        viewModelScope.launch {
+            try {
+                val result = repo.popular()
+                populars.value = ArrayList(result)
+            } catch (e: Exception) {
+                Log.e("Troter", "Something went wrong : $e")
+            }
+        }
+    }
 
     fun getSingers() {
         viewModelScope.launch {

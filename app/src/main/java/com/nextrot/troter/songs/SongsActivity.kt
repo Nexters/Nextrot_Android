@@ -7,21 +7,16 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.google.gson.Gson
 import com.nextrot.troter.CommonUtil
 import com.nextrot.troter.R
 import com.nextrot.troter.TroterViewModel
 import com.nextrot.troter.base.BottomSheetActivity
-import com.nextrot.troter.base.SongsFragment
-import com.nextrot.troter.data.Singer
-import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.SongsActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SongsActivity: AppCompatActivity(), BottomSheetActivity {
-    private lateinit var songsFragment: SongsFragment
     private val troterViewModel: TroterViewModel by viewModel()
     private lateinit var songsActivityBinding: SongsActivityBinding
     private lateinit var title: String
@@ -61,11 +56,12 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
     }
 
     private fun initSongsFragment() {
-        if (title == resources.getString(R.string.recently_played)) {
-            songsFragment = RecentPlaylistFragment(troterViewModel)
+        val songsFragment = if (title == resources.getString(R.string.recently_played)) {
+            RecentPlaylistFragment(troterViewModel)
         } else {
-            songsFragment = SongsOfSingerFragment(troterViewModel, singerId)
+            SongsOfSingerFragment(troterViewModel, singerId)
         }
+
         supportFragmentManager
             .beginTransaction()
             .add(R.id.list_section, songsFragment)
@@ -86,10 +82,11 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
      */
     override fun onClickPlay() {
         val intent = Intent(this, PlayerActivity::class.java).apply {
-            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, troterViewModel.selectedItems.value!!)
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, troterViewModel.selectedItems.value)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
+        troterViewModel.clearSelectedItem()
     }
 
     override fun onClickCancel() {

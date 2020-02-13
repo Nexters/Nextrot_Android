@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextrot.troter.CommonUtil
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.PlaylistFragmentBinding
+import com.nextrot.troter.player.PlayerActivity
 import java.util.ArrayList
 
 class PlaylistFragment(private val list: ArrayList<Song>) : Fragment() {
@@ -37,7 +38,7 @@ class PlaylistFragment(private val list: ArrayList<Song>) : Fragment() {
 
     private fun setupListView() {
         playlistFragmentBinding.listView.apply {
-            adapter = PlaylistAdapter(this@PlaylistFragment).apply {
+            adapter = PlaylistAdapter(context as PlayerActivity).apply {
                 submitList(list)
             }
             addItemDecoration(object: RecyclerView.ItemDecoration() {
@@ -53,7 +54,7 @@ class PlaylistFragment(private val list: ArrayList<Song>) : Fragment() {
         }
     }
 
-    fun onClickItem(item: Song) {
-        // TODO: 클릭 시 재생 처리
+    fun setCurrentPlayingSong(song: Song) {
+        playlistFragmentBinding.listView.adapter?.notifyDataSetChanged()
     }
 }

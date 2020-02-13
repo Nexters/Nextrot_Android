@@ -9,9 +9,9 @@ import com.nextrot.troter.songs.list.SongsListAdapter
 class PopularSongsFragment(private val troterViewModel: TroterViewModel): SongsFragment(troterViewModel) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        troterViewModel.getPopular()
-//        troterViewModel.popular.observe(this.viewLifecycleOwner, Observer {
-//            (binding.list.adapter as SongsListAdapter).submitList(it)
-//        })
+        troterViewModel.getPopular()
+        troterViewModel.populars.observe(this.viewLifecycleOwner, Observer {
+            (binding.list.adapter as SongsListAdapter).submitList(it)
+        })
     }
 }

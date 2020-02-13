@@ -81,7 +81,52 @@ class FakeVideoRepository: VideoRepository {
     }
 
     override suspend fun popular(): List<Song> {
-        return listOf()
+        try {
+            val sampleJson = Gson().fromJson<Songs>("""
+                    {
+                        "statusCode": 200,
+                        "statusMsg": "success",
+                        "data": [
+                            {
+                                "id": "32f3156c-ed37-40dc-af96-1431",
+                                "singerId": "5e328f15b7e4937f52c67679",
+                                "name": "testName",
+                                "lyrics": "testLyrics",
+                                "like": 0,
+                                "view": 0,
+                                "video": hrXG7ZbHsTI,
+                                "createdAt": 1580371733877,
+                                "updatedAt": 1580385272894
+                            },
+                            {
+                                "id": "36483ebb-ec5b-442f-9487-11",
+                                "singerId": "5e328f15b7e4937f52c67679",
+                                "name": "name2",
+                                "lyrics": "Musice2Lyrics",
+                                "like": 0,
+                                "view": 0,
+                                "video": cCRH7wqV6Rw,
+                                "createdAt": 1580385157216,
+                                "updatedAt": 1580385339058
+                            },
+                            {
+                                "id": "36483ebb-ec5b-442f-345t-1c785370b56d",
+                                "singerId": "5e328f15b7e4937f52c67679",
+                                "name": "hello",
+                                "lyrics": "Musice2Lyrics",
+                                "like": 0,
+                                "view": 0,
+                                "video": fqSkgFClhVE,
+                                "createdAt": 1580385157216,
+                                "updatedAt": 1580385339058
+                            }
+                        ]
+                    }
+                """, Songs::class.java)
+            return sampleJson.data
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     override suspend fun songsOfSinger(singerId: String): List<Song> {
@@ -92,24 +137,35 @@ class FakeVideoRepository: VideoRepository {
                         "statusMsg": "success",
                         "data": [
                             {
-                                "id": "32f3156c-ed37-40dc-af96-dcbf53a84a58",
+                                "id": "32f3156c-ed37-40dc-af96-1431",
                                 "singerId": "5e328f15b7e4937f52c67679",
                                 "name": "testName",
                                 "lyrics": "testLyrics",
                                 "like": 0,
                                 "view": 0,
-                                "video": null,
+                                "video": hrXG7ZbHsTI,
                                 "createdAt": 1580371733877,
                                 "updatedAt": 1580385272894
                             },
                             {
-                                "id": "36483ebb-ec5b-442f-9487-1c785370b56d",
+                                "id": "36483ebb-ec5b-442f-9487-11",
                                 "singerId": "5e328f15b7e4937f52c67679",
-                                "name": "Music2",
+                                "name": "name2",
                                 "lyrics": "Musice2Lyrics",
                                 "like": 0,
                                 "view": 0,
-                                "video": null,
+                                "video": cCRH7wqV6Rw,
+                                "createdAt": 1580385157216,
+                                "updatedAt": 1580385339058
+                            },
+                            {
+                                "id": "36483ebb-ec5b-442f-345t-1c785370b56d",
+                                "singerId": "5e328f15b7e4937f52c67679",
+                                "name": "hello",
+                                "lyrics": "Musice2Lyrics",
+                                "like": 0,
+                                "view": 0,
+                                "video": fqSkgFClhVE,
                                 "createdAt": 1580385157216,
                                 "updatedAt": 1580385339058
                             }
@@ -130,24 +186,35 @@ class FakeVideoRepository: VideoRepository {
                         "statusMsg": "success",
                         "data": [
                             {
-                                "id": "32f3156c-ed37-40dc-af96-dcbf53a84a58",
+                                "id": "32f3156c-ed37-40dc-af96-1431",
                                 "singerId": "5e328f15b7e4937f52c67679",
                                 "name": "최근 재생 1",
                                 "lyrics": "testLyrics",
                                 "like": 0,
                                 "view": 0,
-                                "video": null,
+                                "video": hrXG7ZbHsTI,
                                 "createdAt": 1580371733877,
                                 "updatedAt": 1580385272894
                             },
                             {
-                                "id": "36483ebb-ec5b-442f-9487-1c785370b56d",
+                                "id": "36483ebb-ec5b-442f-9487-11",
                                 "singerId": "5e328f15b7e4937f52c67679",
                                 "name": "최근 재생 2",
                                 "lyrics": "Musice2Lyrics",
                                 "like": 0,
                                 "view": 0,
-                                "video": null,
+                                "video": cCRH7wqV6Rw,
+                                "createdAt": 1580385157216,
+                                "updatedAt": 1580385339058
+                            },
+                            {
+                                "id": "36483ebb-ec5b-442f-345t-1c785370b56d",
+                                "singerId": "5e328f15b7e4937f52c67679",
+                                "name": "최근 재생 3",
+                                "lyrics": "Musice2Lyrics",
+                                "like": 0,
+                                "view": 0,
+                                "video": fqSkgFClhVE,
                                 "createdAt": 1580385157216,
                                 "updatedAt": 1580385339058
                             }

@@ -14,12 +14,11 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.appbar.AppBarLayout
 import com.nextrot.troter.base.BottomSheetActivity
-import com.nextrot.troter.data.Songs
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
-import com.nextrot.troter.songs.SectionsPagerAdapter
 import com.nextrot.troter.singers.SingersFragment
 import com.nextrot.troter.songs.PopularSongsFragment
+import com.nextrot.troter.songs.SectionsPagerAdapter
 import com.nextrot.troter.songs.SongsActivity
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
@@ -85,10 +84,11 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
      */
     override fun onClickPlay() {
         val intent = Intent(this, PlayerActivity::class.java).apply {
-            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, ArrayList(troterViewModel.selectedItems.value!!))
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, troterViewModel.selectedItems.value)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
+        troterViewModel.clearSelectedItem()
     }
 
     override fun onClickCancel() {

@@ -3,6 +3,7 @@ package com.nextrot.troter.data
 import android.annotation.SuppressLint
 import com.google.gson.annotations.SerializedName
 
+// TODO: 이것들 interceptor 에서 body 만 빼낼 수 있는지 고민 필요
 @SuppressLint("ParcelCreator")
 abstract class TroterResponse {
     @SerializedName("statusCode")
