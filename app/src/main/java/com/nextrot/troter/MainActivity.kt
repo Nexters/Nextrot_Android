@@ -27,7 +27,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity(), BottomSheetActivity {
-    private val songsFragment: PopularSongsFragment = PopularSongsFragment()
+    private lateinit var songsFragment: PopularSongsFragment
     private val singersFragment: SingersFragment by inject()
     private val troterViewModel: TroterViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
                 list_section.background = getDrawable(R.drawable.arc_top)
             }
         })
+        songsFragment = PopularSongsFragment(troterViewModel)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, arrayListOf(songsFragment, singersFragment))
         val viewPager = mainActivityBinding.viewPager
         viewPager.adapter = sectionsPagerAdapter
@@ -83,7 +84,11 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
      3. SearchFragment 안에서 CoordinatorLayout 을 사용하게 되면 main activity 의 CoordinatorLayout 의 동작과 충돌하여 정상 동작하지 않는 듯 함
      */
     override fun onClickPlay() {
-        startActivity(Intent(this, PlayerActivity::class.java))
+        val intent = Intent(this, PlayerActivity::class.java).apply {
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, ArrayList(troterViewModel.selectedItems.value!!))
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+        startActivity(intent)
     }
 
     override fun onClickCancel() {

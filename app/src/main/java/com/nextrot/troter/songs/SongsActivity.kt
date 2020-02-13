@@ -7,12 +7,14 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.gson.Gson
 import com.nextrot.troter.CommonUtil
 import com.nextrot.troter.R
 import com.nextrot.troter.TroterViewModel
 import com.nextrot.troter.base.BottomSheetActivity
 import com.nextrot.troter.base.SongsFragment
 import com.nextrot.troter.data.Singer
+import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.SongsActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import kotlinx.android.synthetic.main.main_activity.*
@@ -60,9 +62,9 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
 
     private fun initSongsFragment() {
         if (title == resources.getString(R.string.recently_played)) {
-            songsFragment = RecentPlaylistFragment()
+            songsFragment = RecentPlaylistFragment(troterViewModel)
         } else {
-            songsFragment = SongsOfSingerFragment(singerId)
+            songsFragment = SongsOfSingerFragment(troterViewModel, singerId)
         }
         supportFragmentManager
             .beginTransaction()
@@ -83,7 +85,11 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
     3. SearchFragment 안에서 CoordinatorLayout 을 사용하게 되면 main activity 의 CoordinatorLayout 의 동작과 충돌하여 정상 동작하지 않는 듯 함
      */
     override fun onClickPlay() {
-        startActivity(Intent(this, PlayerActivity::class.java))
+        val intent = Intent(this, PlayerActivity::class.java).apply {
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, troterViewModel.selectedItems.value!!)
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+        startActivity(intent)
     }
 
     override fun onClickCancel() {

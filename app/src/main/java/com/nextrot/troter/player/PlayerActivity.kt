@@ -3,6 +3,7 @@ package com.nextrot.troter.player
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.google.gson.Gson
 import com.nextrot.troter.R
 import com.nextrot.troter.databinding.PlayerActivityBinding
 import com.nextrot.troter.player.list.PlaylistFragment
@@ -15,10 +16,11 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.ArrayList
 
 class PlayerActivity : AppCompatActivity() {
-    private val troterViewModel: TroterViewModel by inject()
+    private lateinit var songs: ArrayList<Song>
     private lateinit var playerActivityBinding: PlayerActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,19 +29,14 @@ class PlayerActivity : AppCompatActivity() {
         playerActivityBinding = DataBindingUtil.setContentView(this, R.layout.player_activity)
         playerActivityBinding.lifecycleOwner = this
         lifecycle.addObserver(playerActivityBinding.playerView)
-        val items = troterViewModel.selectedItems.value
-        playerActivityBinding.items = items
+        songs = intent.getParcelableArrayListExtra<Song>(BUNDLE_SONGS)
+        playerActivityBinding.items = songs
 
-        val sectionsPagerAdapter = PlayerSectionsPagerAdapter(this, supportFragmentManager, arrayListOf(PlaylistFragment(items!!), LyricsFragment(items[0])))
+        val sectionsPagerAdapter = PlayerSectionsPagerAdapter(this, supportFragmentManager, arrayListOf(PlaylistFragment(songs), LyricsFragment(songs[0])))
         playerActivityBinding.viewPager.adapter = sectionsPagerAdapter
         playerActivityBinding.listOrLyrics.setupWithViewPager(playerActivityBinding.viewPager)
 
-        loadPlayer(items)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        this.troterViewModel.clearSelectedItem()
+        loadPlayer(songs)
     }
 
     // TODO: "object: ~~~" 이렇게 쓰는거 구림
@@ -73,5 +70,9 @@ class PlayerActivity : AppCompatActivity() {
                 youTubePlayer.loadOrCueVideo(lifecycle, item.video, 0f)
             }
         }
+    }
+
+    companion object {
+        const val BUNDLE_SONGS = "BUNDLE_SONGS"
     }
 }

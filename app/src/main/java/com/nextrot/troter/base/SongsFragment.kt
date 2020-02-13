@@ -10,10 +10,8 @@ import com.nextrot.troter.TroterViewModel
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.SongsFragmentBinding
 import com.nextrot.troter.songs.list.SongsListAdapter
-import org.koin.android.ext.android.inject
 
-abstract class SongsFragment : Fragment() {
-    protected val troterViewModel: TroterViewModel by inject()
+abstract class SongsFragment(private val troterViewModel: TroterViewModel) : Fragment() {
     protected lateinit var binding: SongsFragmentBinding
 
     override fun onCreateView(
