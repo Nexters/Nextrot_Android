@@ -3,8 +3,11 @@ package com.nextrot.troter
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.google.gson.Gson
 import com.nextrot.troter.data.FakeVideoRepository
+import com.nextrot.troter.data.RESPONSE_SUCCESS
 import com.nextrot.troter.data.RemoteVideoRepository
+import com.nextrot.troter.data.TroterResponse
 import com.nextrot.troter.data.remote.RemoteClient
 import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.singers.SingersFragment
@@ -20,6 +23,7 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.ResponseBody.Companion.toResponseBody
 
 val appModule = module {
     single<Retrofit> {
@@ -30,11 +34,30 @@ val appModule = module {
             })
             .addNetworkInterceptor(StethoInterceptor())
             .addNetworkInterceptor(object: Interceptor {
+                // Auth token header
                 override fun intercept(chain: Interceptor.Chain): Response {
                     val request = chain.request().newBuilder()
                         .addHeader("Authorization", "Bearer " + BuildConfig.AUTH_TOKEN)
                         .build()
                     return chain.proceed(request)
+                }
+
+            })
+            .addInterceptor(object: Interceptor {
+                // response body extractor
+                override fun intercept(chain: Interceptor.Chain): Response {
+                    val response = chain.proceed(chain.request())
+                    val parsed = Gson().fromJson(response.body?.string(), TroterResponse::class.java)
+                    return if (parsed.statusCode == RESPONSE_SUCCESS) {
+                        val extractedBody = Gson()
+                            .toJson(parsed.data)
+                            .toString()
+                            .toResponseBody(response.body?.contentType())
+                        response.newBuilder().body(extractedBody).build()
+                    } else {
+                        // TODO : global error handle
+                        response
+                    }
                 }
 
             })
