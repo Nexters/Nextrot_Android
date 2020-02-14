@@ -15,7 +15,7 @@ class TroterViewModel(private val repo: VideoRepository): ViewModel() {
     val selectedItems = MutableLiveData<ArrayList<Song>>(ArrayList())
     val singers = MutableLiveData<ArrayList<Singer>>(ArrayList())
     val songsOfSinger = MutableLiveData<ArrayList<Song>>(ArrayList())
-    val recentPlaylist = MutableLiveData<ArrayList<Song>>(ArrayList())
+    val savedPlaylist = MutableLiveData<ArrayList<Song>>(ArrayList())
 
     fun getPopular() {
         viewModelScope.launch {
@@ -50,17 +50,6 @@ class TroterViewModel(private val repo: VideoRepository): ViewModel() {
         }
     }
 
-    fun getRecentPlaylist() {
-        viewModelScope.launch {
-            try {
-                val result = repo.recentPlaylist()
-                recentPlaylist.value = ArrayList(result)
-            } catch (e: Exception) {
-                Log.e("Troter", "Something went wrong : $e")
-            }
-        }
-    }
-
     fun clearSelectedItem() {
         selectedItems.value = arrayListOf()
     }
@@ -88,4 +77,25 @@ class TroterViewModel(private val repo: VideoRepository): ViewModel() {
     }
 
     fun isSelected(item: Song): Boolean = selectedItems.value!!.contains(item)
+
+    fun savePlaylist(songs: ArrayList<Song>) {
+        viewModelScope.launch {
+            try {
+                repo.savePlaylist(songs)
+            } catch (e: Exception) {
+                Log.e("Troter", "Something went wrong : $e")
+            }
+        }
+    }
+
+    fun getSavedPlaylist() {
+        viewModelScope.launch {
+            try {
+                val playlist = repo.getSavedPlaylist()
+                savedPlaylist.value = ArrayList(playlist)
+            } catch (e: Exception) {
+                Log.e("Troter", "Something went wrong : $e")
+            }
+        }
+    }
 }

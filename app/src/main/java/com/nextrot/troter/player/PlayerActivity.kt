@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.nextrot.troter.R
+import com.nextrot.troter.TROTER_PREF
+import com.nextrot.troter.TroterViewModel
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.PlayerActivityBinding
 import com.nextrot.troter.player.list.PlaylistFragment
@@ -13,6 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 class PlayerActivity : AppCompatActivity() {
@@ -21,6 +24,7 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var player: YouTubePlayer
     private lateinit var playlistFragment: PlaylistFragment
     private lateinit var lyricsFragment: LyricsFragment
+    private val troterViewModel: TroterViewModel by viewModel()
     private var currentItem: Song? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +34,12 @@ class PlayerActivity : AppCompatActivity() {
         playerActivityBinding.lifecycleOwner = this
         lifecycle.addObserver(playerActivityBinding.playerView)
         songs = intent.getParcelableArrayListExtra<Song>(BUNDLE_SONGS)
-        playerActivityBinding.items = songs
 
+        if (songs.isEmpty()) {
+            return
+        }
+        troterViewModel.savePlaylist(songs)
+        playerActivityBinding.items = songs
         playlistFragment = PlaylistFragment(songs)
         lyricsFragment = LyricsFragment(songs[0])
         val sectionsPagerAdapter = PlayerSectionsPagerAdapter(this, supportFragmentManager, arrayListOf(playlistFragment, lyricsFragment))

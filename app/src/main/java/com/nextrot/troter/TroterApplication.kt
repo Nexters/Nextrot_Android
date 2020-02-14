@@ -1,5 +1,8 @@
 package com.nextrot.troter
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
@@ -15,7 +18,9 @@ import com.nextrot.troter.songs.SongsActivity
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -23,7 +28,9 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import okhttp3.ResponseBody.Companion.toResponseBody
+
+const val TROTER_PREF = "TROTER_PREF"
+const val PREF_SAVED_SONGS = "PREF_SAVED_SONGS"
 
 val appModule = module {
     single<Retrofit> {
@@ -73,7 +80,7 @@ val appModule = module {
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
     single {
         if (BuildConfig.DEBUG) {
-            FakeVideoRepository()
+            FakeVideoRepository(get())
         } else {
             RemoteVideoRepository(get())
         }
@@ -83,8 +90,8 @@ val appModule = module {
     factory { PlayerActivity() }
     factory { SongsActivity() }
     factory { SingersFragment() }
+    single { androidApplication().getSharedPreferences(TROTER_PREF, Context.MODE_PRIVATE) }
 }
-
 
 // TODO: Nexus 4 API 19 emulator 에서 앱 크래시 현상 확인 필요
 @Suppress("unused")
