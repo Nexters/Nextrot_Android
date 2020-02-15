@@ -12,6 +12,7 @@
     <color name="colorPlayerText1">#f5f5ff</color>
     <color name="colorPlayerText2">#f4f5ff</color>
     <color name="colorPlayerText3">#e5e5ff</color>
+    <color name="colorPlayerTextDisable">#6E72A3</color>
 
     <color name="colorPrimaryDark">#191b35</color>
     <color name="colorPlayingSong">#272a4c</color>

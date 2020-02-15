@@ -90,7 +90,7 @@
                     app:tabGravity="fill"
                     app:tabMode="fixed"
                     app:tabSelectedTextColor="@android:color/white"
-                    app:tabTextColor="@color/colorPlayerText1"
+                    app:tabTextColor="@color/colorPlayerTextDisable"
                     app:tabIndicatorColor="@color/colorPrimary"
                     app:tabIndicator="@drawable/player_tab_indicator"
                     app:tabRippleColor="@null"

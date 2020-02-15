@@ -82,7 +82,7 @@
             android:layout_height="56dp"
             android:background="@drawable/rounded_button_primary"
             android:paddingStart="10dp"
-            android:drawableStart="@drawable/ic_play_white"
+            android:drawableStart="@drawable/ic_play_cyan"
             android:layout_marginEnd="15dp"
             android:letterSpacing="-0.04"
             android:textColor="#ffffff"
@@ -96,7 +96,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_play_white"
+                android:background="@drawable/ic_play_cyan"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="6dp"
                 app:layout_constraintEnd_toStartOf="@+id/textView3"

@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@android:sans-serif"
             android:textStyle="normal"
             android:textColor="#cc000000"
             android:layout_marginStart="13dp"
