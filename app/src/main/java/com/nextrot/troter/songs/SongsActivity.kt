@@ -34,7 +34,7 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
         title = intent.getStringExtra(BUNDLE_SONGS_TITLE)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+//        supportActionBar?.setDisplayShowTitleEnabled(false)
         songsActivityBinding.collapsingToolbar.title = title
 
         troterViewModel.selectedItems.observe(this, Observer {

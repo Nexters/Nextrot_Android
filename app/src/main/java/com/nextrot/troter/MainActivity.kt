@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset<20) {
-                list_section.background = getDrawable(R.drawable.white)
+                list_section.background = getDrawable(R.drawable.background_default)
             }else {
                 list_section.background = getDrawable(R.drawable.arc_top)
             }

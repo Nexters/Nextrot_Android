@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:background="@android:color/white"
+        android:background="@color/colorBackground"
         tools:context=".MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -38,7 +38,6 @@
                 android:fitsSystemWindows="true"
                 app:collapsedTitleGravity="center|center_vertical|center_horizontal"
                 app:collapsedTitleTextAppearance="@style/collapsing_toolbar_text"
-                app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleGravity="center|center_horizontal|center_vertical"
                 app:expandedTitleTextAppearance="@style/expanded_toolbar_text"
                 app:layout_constraintEnd_toEndOf="parent"
