@@ -95,14 +95,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/arc_top">
+                android:background="@drawable/arc_top"
+                android:paddingTop="25dp">
 
                 <com.google.android.material.tabs.TabLayout
-                    android:paddingTop="25dp"
                     android:id="@+id/tabs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="10dp"
                     app:backgroundTint="@android:color/transparent"
                     app:tabIndicatorFullWidth="false"
                     app:tabIndicatorColor="@color/colorPrimary"
