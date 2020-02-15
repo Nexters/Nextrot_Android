@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:background="@{viewmodel.isSelected(item) ? @drawable/rounded_square_white_selected : @drawable/rounded_square_white}"
+        android:background="@{viewmodel.isSelected(item) ? @drawable/ripple_rounded_square_white_selected : @drawable/ripple_rounded_square_white}"
         android:onClick="@{() -> fragment.onClickItem(item)}"
         tools:ignore="UseCompoundDrawables"
         android:paddingTop="10dp"
