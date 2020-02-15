@@ -28,42 +28,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
+            android:textAlignment="center"
             app:elevation="0dp">
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll">
-
-                <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/collapsing_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:fitsSystemWindows="true"
-                    app:contentScrim="?attr/colorPrimary"
-                    app:expandedTitleGravity="bottom"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
+                android:layout_height="200dp"
+                android:fitsSystemWindows="true"
+                app:collapsedTitleGravity="center|center_vertical|center_horizontal"
+                app:collapsedTitleTextAppearance="@style/collapsing_toolbar_text"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="center|center_horizontal|center_vertical"
+                app:expandedTitleTextAppearance="@style/expanded_toolbar_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="center"
                         app:layout_collapseMode="pin"
                         app:popupTheme="@style/ThemeOverlay.AppCompat"
                         app:title="" />
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:id="@+id/list_section"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </LinearLayout>

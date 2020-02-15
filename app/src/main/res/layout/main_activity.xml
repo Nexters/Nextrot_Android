@@ -109,17 +109,20 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/recent_playlist"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="최근 재생"
-                    android:textSize="16sp"
                     android:letterSpacing="-0.04"
+                    android:textSize="16sp"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginEnd="24dp"
                     android:onClick="@{() -> activity.onClickRecentPlaylist()}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
