@@ -11,7 +11,7 @@ import java.util.*
 @Parcelize
 data class Song(
     @SerializedName("createdAt")
-    val createdAt: Long,
+    val createdAt: String,
     @SerializedName("id")
     val id: String,
     @SerializedName("like")
@@ -23,7 +23,7 @@ data class Song(
     @SerializedName("singerId")
     val singerId: String,
     @SerializedName("updatedAt")
-    val updatedAt: Long,
+    val updatedAt: String,
     @SerializedName("video")
     val video: String,
     @SerializedName("view")

@@ -7,12 +7,8 @@
 
     <data>
         <variable
-            name="items"
-            type="java.util.ArrayList" />
-
-        <variable
-            name="currentItem"
-            type="com.nextrot.troter.data.Song" />
+            name="viewmdoel"
+            type="com.nextrot.troter.songs.PlayerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +64,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="@{Integer.toString(items.indexOf(currentItem) + 1) +  `/`+ Integer.toString(items.size())}"
+                android:text="@{viewmdoel.currentlyPlayingIndex + `/` + viewmdoel.songsCount}"
                 tools:text="1/14">
             </TextView>
 

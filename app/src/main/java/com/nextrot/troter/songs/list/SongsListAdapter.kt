@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nextrot.troter.base.SongsFragment
-import com.nextrot.troter.TroterViewModel
+import com.nextrot.troter.songs.SongsViewModel
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.SongItemBinding
 
-class SongsListAdapter(private val viewmodel: TroterViewModel, private val fragment: SongsFragment): ListAdapter<Song, SongsListAdapter.ViewHolder>(TaskDiffCallback()) {
+class SongsListAdapter(private val viewmodel: SongsViewModel, private val fragment: SongsFragment): ListAdapter<Song, SongsListAdapter.ViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -25,7 +25,7 @@ class SongsListAdapter(private val viewmodel: TroterViewModel, private val fragm
     }
 
     class ViewHolder constructor(private val binding: SongItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewmodel: TroterViewModel, fragment: SongsFragment, item: Song, position: Int) {
+        fun bind(viewmodel: SongsViewModel, fragment: SongsFragment, item: Song, position: Int) {
             binding.viewmodel = viewmodel
             binding.item = item
             binding.itemRank.text = position.toString()

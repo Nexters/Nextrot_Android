@@ -6,11 +6,13 @@
     tools:context=".player.list.PlaylistFragment">
 
     <data>
-        <import type="androidx.databinding.ObservableArrayList" />
-        <import type="com.nextrot.troter.data.Song" />
         <variable
-            name="list"
-            type="ObservableArrayList&lt;Song&gt;" />
+            name="fragment"
+            type="com.nextrot.troter.player.list.PlaylistFragment" />
+
+        <variable
+            name="viewmodel"
+            type="com.nextrot.troter.songs.PlayerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,26 +30,32 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/repeat_button"
                 android:layout_width="158dp"
                 android:layout_height="46dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/play_button"
+                android:drawableStart="@{viewmodel.isRepeat() ? @drawable/icon_repeat_active : @drawable/icon_repeat_inactive}"
+                android:paddingStart="20dp"
                 android:text="반복재생"
                 android:textSize="16sp"
                 android:textColor="@color/colorPlayerText3"
+                android:onClick="@{() -> fragment.onClickRepeat()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/random_button"
                 android:layout_width="158dp"
                 android:layout_height="46dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/play_button"
+                android:drawableStart="@{viewmodel.isRandom() ? @drawable/icon_random_active : @drawable/icon_random_inactive}"
+                android:paddingStart="20dp"
                 android:text="랜덤재생"
                 android:textSize="16sp"
                 android:textColor="@color/colorPlayerText3"
+                android:onClick="@{() -> fragment.onClickRandom()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

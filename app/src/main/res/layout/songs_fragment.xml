@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="viemodel"
-            type="com.nextrot.troter.TroterViewModel" />
+            type="com.nextrot.troter.songs.SongsViewModel" />
     </data>
 
     <FrameLayout

@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.PlaylistItemBinding
 import com.nextrot.troter.player.PlayerActivity
+import com.nextrot.troter.songs.PlayerViewModel
 import com.nextrot.troter.songs.list.TaskDiffCallback
 
-class PlaylistAdapter(private val activity: PlayerActivity) : ListAdapter<Song, PlaylistAdapter.ViewHolder>(TaskDiffCallback()){
+class PlaylistAdapter(private val fragment: PlaylistFragment, private val playerViewModel: PlayerViewModel) : ListAdapter<Song, PlaylistAdapter.ViewHolder>(TaskDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -19,13 +20,14 @@ class PlaylistAdapter(private val activity: PlayerActivity) : ListAdapter<Song, 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(activity, item)
+        holder.bind(fragment, playerViewModel, item)
     }
 
     class ViewHolder constructor(private val binding: PlaylistItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(activity: PlayerActivity, item: Song) {
+        fun bind(fragment: PlaylistFragment, playerViewModel: PlayerViewModel, item: Song) {
             binding.item = item
-            binding.activity = activity
+            binding.fragment = fragment
+            binding.viewmodel = playerViewModel
             binding.executePendingBindings()
         }
     }

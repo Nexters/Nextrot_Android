@@ -20,6 +20,7 @@ import com.nextrot.troter.singers.SingersFragment
 import com.nextrot.troter.songs.PopularSongsFragment
 import com.nextrot.troter.songs.SectionsPagerAdapter
 import com.nextrot.troter.songs.SongsActivity
+import com.nextrot.troter.songs.SongsViewModel
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -28,7 +29,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity(), BottomSheetActivity {
     private lateinit var songsFragment: PopularSongsFragment
     private val singersFragment: SingersFragment by inject()
-    private val troterViewModel: TroterViewModel by viewModel()
+    private val songsViewModel: SongsViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
 
         mainActivityBinding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         mainActivityBinding.lifecycleOwner = this
-        mainActivityBinding.viewmodel = troterViewModel
+        mainActivityBinding.viewmodel = songsViewModel
         mainActivityBinding.activity = this
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -49,14 +50,14 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
                 list_section.background = getDrawable(R.drawable.arc_top)
             }
         })
-        songsFragment = PopularSongsFragment(troterViewModel)
+        songsFragment = PopularSongsFragment(songsViewModel)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, arrayListOf(songsFragment, singersFragment))
         val viewPager = mainActivityBinding.viewPager
         viewPager.adapter = sectionsPagerAdapter
         val tabs = mainActivityBinding.tabs
         tabs.setupWithViewPager(viewPager)
 
-        troterViewModel.selectedItems.observe(this, Observer {
+        songsViewModel.selectedItems.observe(this, Observer {
             if (it.isEmpty()) {
                 mainActivityBinding.bottomSheet
                     .animate()
@@ -84,15 +85,15 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
      */
     override fun onClickPlay() {
         val intent = Intent(this, PlayerActivity::class.java).apply {
-            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, troterViewModel.selectedItems.value)
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, songsViewModel.selectedItems.value)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
-        troterViewModel.clearSelectedItem()
+        songsViewModel.clearSelectedItem()
     }
 
     override fun onClickCancel() {
-        troterViewModel.clearSelectedItem()
+        songsViewModel.clearSelectedItem()
     }
 
     fun onClickRecentPlaylist() {

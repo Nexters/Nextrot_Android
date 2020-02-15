@@ -15,7 +15,7 @@ interface VideoRepository {
 
 class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepository {
     override suspend fun popular(): List<Song> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return listOf()
     }
 
     override suspend fun singers(): List<Singer> {
@@ -36,12 +36,55 @@ class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepos
 }
 
 // TODO: 캐싱 정책 정해지면 구현 필요
-class LocalVideoRepository(private val sharedPreferences: SharedPreferences) {
+class LocalVideoRepository(private val sharedPreferences: SharedPreferences): VideoRepository {
+    override suspend fun popular(): List<Song> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    override suspend fun singers(): List<Singer> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun songsOfSinger(singerId: String): List<Song> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun savePlaylist(songs: List<Song>) {
+        val jsonSongs = Gson().toJson(songs)
+        sharedPreferences
+            .edit()
+            .putString(PREF_SAVED_SONGS, jsonSongs)
+            .apply()
+    }
+
+    override suspend fun getSavedPlaylist(): List<Song> {
+        val jsonSongs = sharedPreferences.getString(PREF_SAVED_SONGS, "[]")
+        return Gson().fromJson(jsonSongs, Array<Song>::class.java).toList()
+    }
 }
 
 
-class TroterVideoRepository(private val remote: RemoteVideoRepository, private val local: LocalVideoRepository) {
+class TroterVideoRepository(private val remote: RemoteVideoRepository, private val local: LocalVideoRepository) : VideoRepository {
+    override suspend fun popular(): List<Song> {
+        return this.remote.popular()
+    }
+
+    override suspend fun singers(): List<Singer> {
+        return this.remote.singers()
+    }
+
+    override suspend fun songsOfSinger(singerId: String): List<Song> {
+        return this.remote.songsOfSinger(singerId)
+    }
+
+    override suspend fun savePlaylist(songs: List<Song>) {
+        this.local.savePlaylist(songs)
+    }
+
+    override suspend fun getSavedPlaylist(): List<Song> {
+        return this.local.getSavedPlaylist()
+    }
+
 
 }
 

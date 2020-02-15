@@ -1,20 +1,17 @@
 package com.nextrot.troter
 
-import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
-import com.nextrot.troter.data.FakeVideoRepository
-import com.nextrot.troter.data.RESPONSE_SUCCESS
-import com.nextrot.troter.data.RemoteVideoRepository
-import com.nextrot.troter.data.TroterResponse
+import com.nextrot.troter.data.*
 import com.nextrot.troter.data.remote.RemoteClient
 import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.singers.SingersFragment
+import com.nextrot.troter.songs.PlayerViewModel
 import com.nextrot.troter.songs.SongsActivity
+import com.nextrot.troter.songs.SongsViewModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -82,10 +79,13 @@ val appModule = module {
         if (BuildConfig.DEBUG) {
             FakeVideoRepository(get())
         } else {
-            RemoteVideoRepository(get())
+            TroterVideoRepository(get(), get())
         }
     }
-    viewModel { TroterViewModel(get()) }
+    single { LocalVideoRepository(get()) }
+    single { RemoteVideoRepository(get()) }
+    viewModel { SongsViewModel(get()) }
+    viewModel { PlayerViewModel(get()) }
     factory { MainActivity() }
     factory { PlayerActivity() }
     factory { SongsActivity() }

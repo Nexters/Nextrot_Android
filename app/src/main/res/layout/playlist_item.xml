@@ -9,8 +9,12 @@
             type="com.nextrot.troter.data.Song" />
 
         <variable
-            name="activity"
-            type="com.nextrot.troter.player.PlayerActivity" />
+            name="fragment"
+            type="com.nextrot.troter.player.list.PlaylistFragment" />
+
+        <variable
+            name="viewmodel"
+            type="com.nextrot.troter.songs.PlayerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,9 +23,9 @@
         android:layout_height="76dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> activity.onClickItem(item)}"
+        android:onClick="@{() -> fragment.onClickItem(item)}"
         tools:ignore="UseCompoundDrawables"
-        android:background="@{activity.isPlaying(item) ? @drawable/rounded_square_dark_selected : @drawable/rounded_square}"
+        android:background="@{viewmodel.isPlaying(item) ? @drawable/rounded_square_dark_selected : @drawable/rounded_square}"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp">

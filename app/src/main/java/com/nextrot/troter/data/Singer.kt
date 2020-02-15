@@ -11,7 +11,7 @@ import java.util.*
 @Parcelize
 data class Singer(
     @SerializedName("createdAt")
-    val createdAt: Long,
+    val createdAt: String,
     @SerializedName("id")
     val id: String,
     @SerializedName("like")
@@ -21,5 +21,5 @@ data class Singer(
     @SerializedName("songs")
     val songs: List<Song>,
     @SerializedName("updatedAt")
-    val updatedAt: Long
+    val updatedAt: String
 ) : Parcelable

@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nextrot.troter.TroterViewModel
+import com.nextrot.troter.songs.SongsViewModel
 import com.nextrot.troter.data.Singer
 import com.nextrot.troter.databinding.SingerItemBinding
 
-class SingersListAdapter(private val viewmodel: TroterViewModel, private val fragment: SingersFragment): ListAdapter<Singer, SingersListAdapter.ViewHolder>(TaskDiffCallback()) {
+class SingersListAdapter(private val viewmodel: SongsViewModel, private val fragment: SingersFragment): ListAdapter<Singer, SingersListAdapter.ViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -23,7 +23,7 @@ class SingersListAdapter(private val viewmodel: TroterViewModel, private val fra
     }
 
     class ViewHolder constructor(private val binding: SingerItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewmodel: TroterViewModel, fragment: SingersFragment, item: Singer) {
+        fun bind(viewmodel: SongsViewModel, fragment: SingersFragment, item: Singer) {
             binding.viewmodel = viewmodel
             binding.fragment = fragment
             binding.singer = item

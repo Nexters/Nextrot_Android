@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.nextrot.troter.TroterViewModel" />
+            type="com.nextrot.troter.songs.SongsViewModel" />
 
         <variable
             name="item"

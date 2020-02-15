@@ -13,7 +13,7 @@
 
         <variable
             name="viewmodel"
-            type="com.nextrot.troter.TroterViewModel" />
+            type="com.nextrot.troter.songs.SongsViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

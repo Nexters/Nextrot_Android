@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.nextrot.troter.CommonUtil
 import com.nextrot.troter.R
-import com.nextrot.troter.TroterViewModel
 import com.nextrot.troter.base.BottomSheetActivity
 import com.nextrot.troter.databinding.SongsActivityBinding
 import com.nextrot.troter.player.PlayerActivity
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SongsActivity: AppCompatActivity(), BottomSheetActivity {
-    private val troterViewModel: TroterViewModel by viewModel()
+    private val songsViewModel: SongsViewModel by viewModel()
     private lateinit var songsActivityBinding: SongsActivityBinding
     private lateinit var title: String
     private lateinit var singerId: String
@@ -27,7 +26,7 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
         super.onCreate(savedInstanceState)
         songsActivityBinding = DataBindingUtil.setContentView(this, R.layout.songs_activity)
         songsActivityBinding.lifecycleOwner = this
-        songsActivityBinding.viewmodel = troterViewModel
+        songsActivityBinding.viewmodel = songsViewModel
         songsActivityBinding.activity = this
 
         singerId = intent.getStringExtra(BUNDLE_SINGER_ID)
@@ -37,7 +36,7 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
 //        supportActionBar?.setDisplayShowTitleEnabled(false)
         songsActivityBinding.collapsingToolbar.title = title
 
-        troterViewModel.selectedItems.observe(this, Observer {
+        songsViewModel.selectedItems.observe(this, Observer {
             if (it.isEmpty()) {
                 songsActivityBinding.bottomSheet
                     .animate()
@@ -57,9 +56,9 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
 
     private fun initSongsFragment() {
         val songsFragment = if (title == resources.getString(R.string.recently_played)) {
-            RecentPlaylistFragment(troterViewModel)
+            RecentPlaylistFragment(songsViewModel)
         } else {
-            SongsOfSingerFragment(troterViewModel, singerId)
+            SongsOfSingerFragment(songsViewModel, singerId)
         }
         supportFragmentManager
             .beginTransaction()
@@ -69,7 +68,7 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
 
     override fun onDestroy() {
         super.onDestroy()
-        troterViewModel.clearSelectedItem()
+        songsViewModel.clearSelectedItem()
     }
 
     /**
@@ -81,15 +80,15 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
      */
     override fun onClickPlay() {
         val intent = Intent(this, PlayerActivity::class.java).apply {
-            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, troterViewModel.selectedItems.value)
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, songsViewModel.selectedItems.value)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
-        troterViewModel.clearSelectedItem()
+        songsViewModel.clearSelectedItem()
     }
 
     override fun onClickCancel() {
-        troterViewModel.clearSelectedItem()
+        songsViewModel.clearSelectedItem()
     }
 
     companion object {

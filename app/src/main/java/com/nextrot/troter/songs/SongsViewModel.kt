@@ -1,4 +1,4 @@
-package com.nextrot.troter
+package com.nextrot.troter.songs
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import com.nextrot.troter.data.VideoRepository
 import kotlinx.coroutines.launch
 
 
-class TroterViewModel(private val repo: VideoRepository): ViewModel() {
+class SongsViewModel(private val repo: VideoRepository): ViewModel() {
     val populars = MutableLiveData<ArrayList<Song>>(ArrayList())
     val selectedItems = MutableLiveData<ArrayList<Song>>(ArrayList())
     val singers = MutableLiveData<ArrayList<Singer>>(ArrayList())
@@ -77,16 +77,6 @@ class TroterViewModel(private val repo: VideoRepository): ViewModel() {
     }
 
     fun isSelected(item: Song): Boolean = selectedItems.value!!.contains(item)
-
-    fun savePlaylist(songs: ArrayList<Song>) {
-        viewModelScope.launch {
-            try {
-                repo.savePlaylist(songs)
-            } catch (e: Exception) {
-                Log.e("Troter", "Something went wrong : $e")
-            }
-        }
-    }
 
     fun getSavedPlaylist() {
         viewModelScope.launch {
