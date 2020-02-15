@@ -17,4 +17,6 @@
     <string name="play">재생</string>
     <string name="selected_songs">%s곡 선택</string>
     <string name="recently_played">최근 재생 목록</string>
+    <string name="no_recent_songs">최근 재생한 곡이 없습니다.\n지금 가장 인기있는기 트로트를 들어보세요.</string>
+    <string name="go_to_popular"><u>인기곡 보러가</u></string>
 </resources>

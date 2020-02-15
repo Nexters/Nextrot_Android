@@ -1,10 +1,12 @@
 package com.nextrot.troter.base
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.nextrot.troter.songs.SongsViewModel
@@ -21,7 +23,9 @@ abstract class SongsFragment(private val songsViewModel: SongsViewModel) : Fragm
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = SongsFragmentBinding.inflate(layoutInflater, container, false)
+        binding = SongsFragmentBinding.inflate(layoutInflater, container, false).apply {
+            fragment = this@SongsFragment
+        }
         return binding.root
     }
 
@@ -47,5 +51,12 @@ abstract class SongsFragment(private val songsViewModel: SongsViewModel) : Fragm
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
+    }
+
+    fun onClickGoToPopular() {
+        (context as AppCompatActivity).run {
+            setResult(Activity.RESULT_OK)
+            finish()
+        }
     }
 }

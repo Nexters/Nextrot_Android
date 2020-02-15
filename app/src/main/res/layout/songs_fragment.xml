@@ -6,9 +6,10 @@
     tools:context=".base.SongsFragment">
     <data>
         <import type="android.view.View"/>
+
         <variable
-            name="viemodel"
-            type="com.nextrot.troter.songs.SongsViewModel" />
+            name="fragment"
+            type="com.nextrot.troter.base.SongsFragment" />
     </data>
 
     <FrameLayout
@@ -24,5 +25,39 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/no_recent_song_layout"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/no_recent_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:textColor="#80000000"
+                android:text="@string/no_recent_songs"
+                android:letterSpacing="-0.04"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#1884ff"
+                android:layout_gravity="center"
+                android:layout_marginTop="36dp"
+                android:textStyle=""
+                android:text="@string/go_to_popular"
+                android:onClick="@{() -> fragment.onClickGoToPopular()}"
+                android:letterSpacing="-0.04"/>
+        </LinearLayout>
     </FrameLayout>
 </layout>

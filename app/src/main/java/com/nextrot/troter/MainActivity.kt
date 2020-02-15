@@ -1,5 +1,6 @@
 package com.nextrot.troter
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -101,7 +102,22 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
             putExtra(SongsActivity.BUNDLE_SONGS_TITLE, resources.getString(R.string.recently_played))
             putExtra(SongsActivity.BUNDLE_SINGER_ID, "")
         }
-        startActivity(intent)
+        startActivityForResult(intent, MAIN_ACTIVITY_REQUEST_CODE)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == MAIN_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                // 인기곡 탭이 무조건 0번 탭이라는 굳은 믿음
+                mainActivityBinding.tabs.getTabAt(0)?.select()
+            }
+        }
+    }
+
+    companion object {
+        const val MAIN_ACTIVITY_REQUEST_CODE = 0
     }
 
     /**
