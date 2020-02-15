@@ -14,7 +14,10 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.appbar.AppBarLayout
+import com.nextrot.troter.banners.BannerFragment
+import com.nextrot.troter.banners.BannersPagerAdapter
 import com.nextrot.troter.base.BottomSheetActivity
+import com.nextrot.troter.data.Banner
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.singers.SingersFragment
@@ -72,9 +75,26 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
             }
         })
 
-        indicator.createIndicators(3,0)
-        indicator.setViewPager(banner_view_pager)
+        initBanners()
         initAdView()
+    }
+
+    private fun initBanners() {
+        songsViewModel.getBanners()
+        songsViewModel.banners.observe(this, Observer {
+            val fragments = createBannerFragments(it)
+            mainActivityBinding.bannerViewPager.adapter = BannersPagerAdapter(this, supportFragmentManager, fragments).apply {
+                notifyDataSetChanged()
+            }
+            indicator.createIndicators(it.size, 0)
+            indicator.setViewPager(banner_view_pager)
+        })
+    }
+
+    private fun createBannerFragments(banners: ArrayList<Banner>): ArrayList<BannerFragment> {
+        val fragments = arrayListOf<BannerFragment>()
+        banners.forEach { banner -> fragments.add(BannerFragment(banner)) }
+        return fragments
     }
 
     /**
