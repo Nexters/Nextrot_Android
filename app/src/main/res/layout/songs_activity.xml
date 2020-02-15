@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:fitsSystemWindows="true"
+                android:background="@color/colorBackground"
                 app:collapsedTitleGravity="center|center_vertical|center_horizontal"
                 app:collapsedTitleTextAppearance="@style/collapsing_toolbar_text"
                 app:expandedTitleGravity="center|center_horizontal|center_vertical"
