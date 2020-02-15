@@ -1,5 +1,7 @@
 package com.nextrot.troter.data.remote
 
+import com.nextrot.troter.data.Banner
+import com.nextrot.troter.data.BannerDetail
 import com.nextrot.troter.data.Singer
 import com.nextrot.troter.data.Song
 import retrofit2.http.GET
@@ -29,4 +31,10 @@ interface RemoteClient {
     suspend fun getVideosOfSong(
         @Query("songId"
     ) songId: String): List<String>
+
+    @GET("api/v1/banner/list")
+    suspend fun getBanners(): List<Banner>
+
+    @GET("/api/v1/banner/data")
+    suspend fun getBannerDetail(@Query("bannerId") bannerId: String): BannerDetail
 }

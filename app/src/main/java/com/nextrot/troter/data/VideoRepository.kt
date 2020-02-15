@@ -12,6 +12,8 @@ interface VideoRepository {
     suspend fun savePlaylist(songs: List<Song>)
     suspend fun getSavedPlaylist(): List<Song>
     suspend fun getVideosOfSong(songId: String): List<String>
+    suspend fun getBanners(): List<Banner>
+    suspend fun getBannerDetail(bannerId: String): BannerDetail
 }
 
 class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepository {
@@ -37,6 +39,14 @@ class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepos
 
     override suspend fun getVideosOfSong(songId: String): List<String> {
         return remoteClient.getVideosOfSong(songId)
+    }
+
+    override suspend fun getBanners(): List<Banner> {
+        return remoteClient.getBanners()
+    }
+
+    override suspend fun getBannerDetail(bannerId: String): BannerDetail {
+        return remoteClient.getBannerDetail(bannerId)
     }
 }
 
@@ -70,32 +80,48 @@ class LocalVideoRepository(private val sharedPreferences: SharedPreferences): Vi
     override suspend fun getVideosOfSong(songId: String): List<String> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override suspend fun getBanners(): List<Banner> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getBannerDetail(bannerId: String): BannerDetail {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
 
 
 class TroterVideoRepository(private val remote: RemoteVideoRepository, private val local: LocalVideoRepository) : VideoRepository {
     override suspend fun popular(): List<Song> {
-        return this.remote.popular()
+        return remote.popular()
     }
 
     override suspend fun singers(): List<Singer> {
-        return this.remote.singers()
+        return remote.singers()
     }
 
     override suspend fun songsOfSinger(singerId: String): List<Song> {
-        return this.remote.songsOfSinger(singerId)
+        return remote.songsOfSinger(singerId)
     }
 
     override suspend fun savePlaylist(songs: List<Song>) {
-        this.local.savePlaylist(songs)
+        local.savePlaylist(songs)
     }
 
     override suspend fun getSavedPlaylist(): List<Song> {
-        return this.local.getSavedPlaylist()
+        return local.getSavedPlaylist()
     }
 
     override suspend fun getVideosOfSong(songId: String): List<String> {
-        return this.remote.getVideosOfSong(songId)
+        return remote.getVideosOfSong(songId)
+    }
+
+    override suspend fun getBanners(): List<Banner> {
+        return remote.getBanners()
+    }
+
+    override suspend fun getBannerDetail(bannerId: String): BannerDetail {
+        return remote.getBannerDetail(bannerId)
     }
 }
 
@@ -319,5 +345,65 @@ class FakeVideoRepository(private val sharedPreferences: SharedPreferences): Vid
 
     override suspend fun getVideosOfSong(songId: String): List<String> {
         return listOf("fqSkgFClhVE")
+    }
+
+    override suspend fun getBanners(): List<Banner> {
+        try {
+            val sampleJson = Gson().fromJson<Array<Banner>>("""
+                    [
+                        {
+                            "id": "5e47d19ae76841c34af7d616",
+                            "imageUrl": "https://dailyissue.s3.ap-northeast-2.amazonaws.com/Banner_0215(1).png",
+                            "state": "C",
+                            "actionType": 0,
+                            "data": null,
+                            "createdAt": "2020-01-30T08:11:06.934+0000",
+                            "updatedAt": "2020-01-30T08:11:06.934+0000"
+                        },
+                        {
+                            "id": "5e47d1c2e76841c34af7d617",
+                            "imageUrl": "https://dailyissue.s3.ap-northeast-2.amazonaws.com/Banner_0215(2).png",
+                            "state": "C",
+                            "actionType": 0,
+                            "data": null,
+                            "createdAt": "2020-01-30T08:11:06.934+0000",
+                            "updatedAt": "2020-01-30T08:11:06.934+0000"
+                        }
+                    ]
+                """, Array<Banner>::class.java)
+            return sampleJson.toList()
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    override suspend fun getBannerDetail(bannerId: String): BannerDetail {
+        try {
+            val sampleJson = Gson().fromJson<BannerDetail>("""
+                    [
+                        {
+                            "id": "42125c77b-f3f6-466a-bd1a-0124555e5592",
+                            "songId": null,
+                            "key": "cuAg_tK2-C8",
+                            "like": 12,
+                            "view": 0,
+                            "createdAt": "2020-01-30T08:11:06.934+0000",
+                            "updatedAt": "2020-01-30T08:11:06.934+0000"
+                        },
+                        {
+                            "id": "1238a433a-e120-459f-8bf1-1f55081dbf82",
+                            "songId": null,
+                            "key": "GRH2CMPIRoY",
+                            "like": 123,
+                            "view": 0,
+                            "createdAt": "2020-01-30T11:54:32.761+0000",
+                            "updatedAt": "2020-01-30T11:54:32.761+0000"
+                        }
+                    ]
+                """, BannerDetail::class.java)
+            return sampleJson
+        } catch (e: Exception) {
+            throw e
+        }
     }
 }

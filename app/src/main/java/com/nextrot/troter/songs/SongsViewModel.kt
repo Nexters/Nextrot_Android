@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextrot.troter.data.Banner
 import com.nextrot.troter.data.Singer
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.data.VideoRepository
@@ -14,6 +15,18 @@ class SongsViewModel(private val repo: VideoRepository): ViewModel() {
     val selectedItems = MutableLiveData<ArrayList<Song>>(ArrayList())
     val singers = MutableLiveData<ArrayList<Singer>>(ArrayList())
     val currentList = MutableLiveData<ArrayList<Song>>(ArrayList())
+    val banners = MutableLiveData<ArrayList<Banner>>(ArrayList())
+
+    fun getBanners() {
+        viewModelScope.launch {
+            try {
+                val result = repo.getBanners()
+                banners.value = ArrayList(result)
+            } catch (e: Exception) {
+                Log.e("Troter", "Something went wrong : $e")
+            }
+        }
+    }
 
     fun getPopular() {
         viewModelScope.launch {

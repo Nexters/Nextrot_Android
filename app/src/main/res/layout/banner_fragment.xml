@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="fragment"
+            type="com.nextrot.troter.banners.BannerFragment" />
+
+        <variable
+            name="banner"
+            type="com.nextrot.troter.data.Banner" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:src="@{banner}"
+            android:onClick="@{() -> fragment.onClickBanner(banner)}"/>
+    </FrameLayout>
+</layout>
