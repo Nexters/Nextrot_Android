@@ -10,7 +10,7 @@ class RecentPlaylistFragment(private val songsViewModel: SongsViewModel): SongsF
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         songsViewModel.getSavedPlaylist()
-        songsViewModel.savedPlaylist.observe(this.viewLifecycleOwner, Observer {
+        songsViewModel.currentList.observe(this.viewLifecycleOwner, Observer {
             if (it.isEmpty()) {
                 binding.noRecentSongLayout.visibility = View.VISIBLE
             } else {

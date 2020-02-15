@@ -9,7 +9,7 @@ class SongsOfSingerFragment(private val songsViewModel: SongsViewModel, private 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         songsViewModel.getSongsOfSinger(singerId)
-        songsViewModel.songsOfSinger.observe(this.viewLifecycleOwner, Observer {
+        songsViewModel.currentList.observe(this.viewLifecycleOwner, Observer {
             (binding.list.adapter as SongsListAdapter).submitList(it)
         })
     }

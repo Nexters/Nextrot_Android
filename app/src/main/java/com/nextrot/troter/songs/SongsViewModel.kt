@@ -11,17 +11,15 @@ import kotlinx.coroutines.launch
 
 
 class SongsViewModel(private val repo: VideoRepository): ViewModel() {
-    val populars = MutableLiveData<ArrayList<Song>>(ArrayList())
     val selectedItems = MutableLiveData<ArrayList<Song>>(ArrayList())
     val singers = MutableLiveData<ArrayList<Singer>>(ArrayList())
-    val songsOfSinger = MutableLiveData<ArrayList<Song>>(ArrayList())
-    val savedPlaylist = MutableLiveData<ArrayList<Song>>(ArrayList())
+    val currentList = MutableLiveData<ArrayList<Song>>(ArrayList())
 
     fun getPopular() {
         viewModelScope.launch {
             try {
                 val result = repo.popular()
-                populars.value = ArrayList(result)
+                currentList.value = ArrayList(result)
             } catch (e: Exception) {
                 Log.e("Troter", "Something went wrong : $e")
             }
@@ -43,7 +41,7 @@ class SongsViewModel(private val repo: VideoRepository): ViewModel() {
         viewModelScope.launch {
             try {
                 val result = repo.songsOfSinger(singerId)
-                songsOfSinger.value = ArrayList(result)
+                currentList.value = ArrayList(result)
             } catch (e: Exception) {
                 Log.e("Troter", "Something went wrong : $e")
             }
@@ -51,7 +49,28 @@ class SongsViewModel(private val repo: VideoRepository): ViewModel() {
     }
 
     fun clearSelectedItem() {
+        if (selectedItems.value.isNullOrEmpty()) {
+            return
+        }
+
         selectedItems.value = arrayListOf()
+    }
+
+    fun selectAll() {
+        if (isAllSelected()) {
+            return
+        }
+
+        clearSelectedItem()
+        selectedItems.value = ArrayList(currentList.value ?: arrayListOf())
+    }
+
+    fun isAllSelected(): Boolean {
+        if (currentList.value.isNullOrEmpty()) {
+            return false
+        }
+
+        return selectedItems.value?.size == currentList.value?.size
     }
 
     private fun addSelectedItem(item: Song) {
@@ -82,7 +101,7 @@ class SongsViewModel(private val repo: VideoRepository): ViewModel() {
         viewModelScope.launch {
             try {
                 val playlist = repo.getSavedPlaylist()
-                savedPlaylist.value = ArrayList(playlist)
+                currentList.value = ArrayList(playlist)
             } catch (e: Exception) {
                 Log.e("Troter", "Something went wrong : $e")
             }

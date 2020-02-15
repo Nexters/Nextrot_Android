@@ -9,7 +9,7 @@ class PopularSongsFragment(private val songsViewModel: SongsViewModel): SongsFra
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         songsViewModel.getPopular()
-        songsViewModel.populars.observe(this.viewLifecycleOwner, Observer {
+        songsViewModel.currentList.observe(this.viewLifecycleOwner, Observer {
             (binding.list.adapter as SongsListAdapter).submitList(it)
         })
     }

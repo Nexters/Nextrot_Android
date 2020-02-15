@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -35,6 +36,7 @@ abstract class SongsFragment(private val songsViewModel: SongsViewModel) : Fragm
         songsViewModel.selectedItems.observe(this.viewLifecycleOwner, Observer {
             // 옵저빙 해서 notify 함으로써 얻는 성능 저하는 감수해야함... 편할려고 ㅠ
             binding.list.adapter?.notifyDataSetChanged()
+            binding.selectAllCheckbox.setChecked(songsViewModel.isAllSelected())
         })
 
         binding.list.adapter = SongsListAdapter(songsViewModel, this)
@@ -58,5 +60,14 @@ abstract class SongsFragment(private val songsViewModel: SongsViewModel) : Fragm
             setResult(Activity.RESULT_OK)
             finish()
         }
+    }
+
+    fun onClickSelectAll() {
+        if (!songsViewModel.isAllSelected()) {
+            songsViewModel.selectAll()
+        } else {
+            songsViewModel.clearSelectedItem()
+        }
+        binding.selectAllCheckbox.setChecked(songsViewModel.isAllSelected())
     }
 }
