@@ -20,15 +20,17 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APPLICATION_ID"/>
-
         <activity
             android:name=".player.PlayerActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".songs.SongsActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
