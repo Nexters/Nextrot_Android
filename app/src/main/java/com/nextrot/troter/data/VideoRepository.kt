@@ -11,19 +11,20 @@ interface VideoRepository {
     suspend fun songsOfSinger(singerId: String): List<Song>
     suspend fun savePlaylist(songs: List<Song>)
     suspend fun getSavedPlaylist(): List<Song>
+    suspend fun getVideosOfSong(songId: String): List<String>
 }
 
 class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepository {
     override suspend fun popular(): List<Song> {
-        return listOf()
+        return remoteClient.getPopular("view", 30)
     }
 
     override suspend fun singers(): List<Singer> {
-        return remoteClient.getSingers()
+        return remoteClient.getSingers(0, 20)
     }
 
     override suspend fun songsOfSinger(singerId: String): List<Song> {
-        return remoteClient.getSongsOfSinger(singerId)
+        return remoteClient.getSongsOfSinger(singerId, 0, 30)
     }
 
     override suspend fun savePlaylist(songs: List<Song>) {
@@ -32,6 +33,10 @@ class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepos
 
     override suspend fun getSavedPlaylist(): List<Song> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getVideosOfSong(songId: String): List<String> {
+        return remoteClient.getVideosOfSong(songId)
     }
 }
 
@@ -61,6 +66,10 @@ class LocalVideoRepository(private val sharedPreferences: SharedPreferences): Vi
         val jsonSongs = sharedPreferences.getString(PREF_SAVED_SONGS, "[]")
         return Gson().fromJson(jsonSongs, Array<Song>::class.java).toList()
     }
+
+    override suspend fun getVideosOfSong(songId: String): List<String> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
 
 
@@ -85,7 +94,9 @@ class TroterVideoRepository(private val remote: RemoteVideoRepository, private v
         return this.local.getSavedPlaylist()
     }
 
-
+    override suspend fun getVideosOfSong(songId: String): List<String> {
+        return this.remote.getVideosOfSong(songId)
+    }
 }
 
 class FakeVideoRepository(private val sharedPreferences: SharedPreferences): VideoRepository {
@@ -162,6 +173,83 @@ class FakeVideoRepository(private val sharedPreferences: SharedPreferences): Vid
                             "video": fqSkgFClhVE,
                             "createdAt": 1580385157216,
                             "updatedAt": 1580385339058
+                        },
+                        {
+                            "id": "32f31111156c-ed37-40dc-af96-1431",
+                            "singerId": "5e328f15b7e4937f52c67679",
+                            "name": "testName",
+                            "lyrics": "testLyrics",
+                            "like": 0,
+                            "view": 0,
+                            "video": hrXG7ZbHsTI,
+                            "createdAt": 1580371733877,
+                            "updatedAt": 1580385272894
+                        },
+                        {
+                            "id": "36483ebb-ec5b-442f-94144487-11",
+                            "singerId": "5e328f15b7e4937f52c67679",
+                            "name": "name2",
+                            "lyrics": "Musice2Lyrics",
+                            "like": 0,
+                            "view": 0,
+                            "video": cCRH7wqV6Rw,
+                            "createdAt": 1580385157216,
+                            "updatedAt": 1580385339058
+                        },
+                        {
+                            "id": "36483ebb-ec5b-442f55-345t-1c785370b56d",
+                            "singerId": "5e328f15b7e4937f52c67679",
+                            "name": "hello",
+                            "lyrics": "Musice2Lyrics",
+                            "like": 0,
+                            "view": 0,
+                            "video": fqSkgFClhVE,
+                            "createdAt": 1580385157216,
+                            "updatedAt": 1580385339058
+                        },
+                        {
+                            "id": "36111483ebb-ec5b-442f55-345t-1c785gdb370b56d",
+                            "singerId": "5e328f15b7e4937f52c67679",
+                            "name": "hello",
+                            "lyrics": "Musice2Lyrics",
+                            "like": 0,
+                            "view": 0,
+                            "video": fqSkgFClhVE,
+                            "createdAt": 1580385157216,
+                            "updatedAt": 1580385339058
+                        },
+                        {
+                            "id": "361114sas83ebb-ec5b-442f55-345t-1c785gdb370b56d",
+                            "singerId": "5e328f15b7e4937f52c67679",
+                            "name": "hello",
+                            "lyrics": "Musice2Lyrics",
+                            "like": 0,
+                            "view": 0,
+                            "video": fqSkgFClhVE,
+                            "createdAt": 1580385157216,
+                            "updatedAt": 1580385339058
+                        },
+                        {
+                            "id": "36111dfbfd483ebb-ec5b-442f55-345t-1c785gdb370b56d",
+                            "singerId": "5e328f15b7e4937f52c67679",
+                            "name": "hello",
+                            "lyrics": "Musice2Lyrics",
+                            "like": 0,
+                            "view": 0,
+                            "video": fqSkgFClhVE,
+                            "createdAt": 1580385157216,
+                            "updatedAt": 1580385339058
+                        },
+                        {
+                            "id": "361114qw3r83ebb-ec5b-442f55-345t-1c785gdb370b56d",
+                            "singerId": "5e328f15b7e4937f52c67679",
+                            "name": "hello",
+                            "lyrics": "Musice2Lyrics",
+                            "like": 0,
+                            "view": 0,
+                            "video": fqSkgFClhVE,
+                            "createdAt": 1580385157216,
+                            "updatedAt": 1580385339058
                         }
                     ]
                 """, Array<Song>::class.java)
@@ -227,5 +315,9 @@ class FakeVideoRepository(private val sharedPreferences: SharedPreferences): Vid
     override suspend fun getSavedPlaylist(): List<Song> {
         val jsonSongs = sharedPreferences.getString(PREF_SAVED_SONGS, "[]")
         return Gson().fromJson(jsonSongs, Array<Song>::class.java).toList()
+    }
+
+    override suspend fun getVideosOfSong(songId: String): List<String> {
+        return listOf("fqSkgFClhVE")
     }
 }
