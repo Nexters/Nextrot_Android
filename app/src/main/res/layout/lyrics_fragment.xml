@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="item"
-            type="com.nextrot.troter.data.Song" />
+            name="viewmodel"
+            type="com.nextrot.troter.songs.PlayerViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.nextrot.troter.player.lyrics.LyricsFragment" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         android:background="@android:color/transparent">
 
+        <Button
+            android:id="@+id/scale_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|end"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="22dp"
+            android:background="@drawable/white_circle"
+            android:text="@{viewmodel.lyricsViewScale + `배`}"
+            tools:text="1배"
+            android:onClick="@{() -> fragment.onClickScaleButton()}"/>
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="여기는 가사">
+            android:id="@+id/lyrics_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="28sp"
+            android:textColor="#f5f5ff"
+            tools:text="싹 다 갈아 엎어주세요"
+            android:text="@{viewmodel.lyricsOfCurrentSong}">
         </TextView>
-    </LinearLayout>
+    </FrameLayout>
 </layout>

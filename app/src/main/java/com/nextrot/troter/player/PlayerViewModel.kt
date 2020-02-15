@@ -8,13 +8,14 @@ import com.nextrot.troter.data.Song
 import com.nextrot.troter.data.VideoRepository
 import kotlinx.coroutines.launch
 
-
 class PlayerViewModel(private val repo: VideoRepository): ViewModel() {
     val isRandom = MutableLiveData(false)
     val isRepeat = MutableLiveData(false)
     val currentlyPlayingSong = MutableLiveData<Song>()
     val currentlyPlayingIndex = MutableLiveData(0)
     val songsCount = MutableLiveData(0)
+    val lyricsOfCurrentSong = MutableLiveData("")
+    val lyricsViewScale = MutableLiveData(1)
     lateinit var songs: ArrayList<Song>
 
     fun savePlaylist(songs: ArrayList<Song>) {
@@ -41,10 +42,23 @@ class PlayerViewModel(private val repo: VideoRepository): ViewModel() {
         val currentSong = this.songs.find { song -> song.video == videoId }
         currentlyPlayingSong.value = currentSong
         currentlyPlayingIndex.value = songs.indexOf(currentSong) + 1
+        lyricsOfCurrentSong.value = currentSong!!.lyrics
     }
 
     fun isPlaying(item: Song): Boolean {
         return currentlyPlayingSong.value?.video == item.video
+    }
+
+    fun changeLyricsViewScale() {
+        val nextScale = if (lyricsViewScale.value == 1) {
+            2
+        } else if (lyricsViewScale.value == 2) {
+            4
+        } else {
+            1
+        }
+
+        lyricsViewScale.value = nextScale
     }
 
 }

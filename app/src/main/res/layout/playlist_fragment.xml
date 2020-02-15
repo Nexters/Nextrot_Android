@@ -25,15 +25,16 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/repeat_button"
-                android:layout_width="158dp"
+                android:layout_width="0dp"
                 android:layout_height="46dp"
-                android:layout_marginStart="16dp"
                 android:background="@drawable/play_button"
                 android:drawableStart="@{viewmodel.isRepeat() ? @drawable/icon_repeat_active : @drawable/icon_repeat_inactive}"
                 android:paddingStart="20dp"
@@ -42,13 +43,13 @@
                 android:textColor="@color/colorPlayerText3"
                 android:onClick="@{() -> fragment.onClickRepeat()}"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/random_button"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/random_button"
-                android:layout_width="158dp"
+                android:layout_width="0dp"
                 android:layout_height="46dp"
-                android:layout_marginEnd="16dp"
                 android:background="@drawable/play_button"
                 android:drawableStart="@{viewmodel.isRandom() ? @drawable/icon_random_active : @drawable/icon_random_inactive}"
                 android:paddingStart="20dp"
@@ -56,6 +57,8 @@
                 android:textSize="16sp"
                 android:textColor="@color/colorPlayerText3"
                 android:onClick="@{() -> fragment.onClickRandom()}"
+                android:layout_marginLeft="12dp"
+                app:layout_constraintStart_toEndOf="@id/repeat_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
