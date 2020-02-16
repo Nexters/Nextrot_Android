@@ -2,21 +2,21 @@ package com.nextrot.troter
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.appbar.AppBarLayout
-import com.nextrot.troter.banners.BannerFragment
-import com.nextrot.troter.banners.BannersPagerAdapter
+import com.nextrot.troter.banners.BannerIndicatorDecoration
+import com.nextrot.troter.banners.BannersListAdapter
 import com.nextrot.troter.base.BottomSheetActivity
 import com.nextrot.troter.base.SongsFragment
 import com.nextrot.troter.data.Banner
@@ -44,16 +44,45 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
         mainActivityBinding.lifecycleOwner = this
         mainActivityBinding.viewmodel = songsViewModel
         mainActivityBinding.activity = this
+
+        initActionBar()
+        initBanners()
+        initContents()
+        initAdView()
+    }
+
+    private fun initActionBar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (appBarLayout.totalScrollRange + verticalOffset<20) {
+            if (appBarLayout.totalScrollRange + verticalOffset < 20) {
                 list_section.background = ContextCompat.getDrawable(this, R.drawable.background_default)
-            }else {
+            } else {
                 list_section.background = ContextCompat.getDrawable(this, R.drawable.arc_top)
             }
         })
+    }
+
+    private fun initBanners() {
+        songsViewModel.getBanners()
+
+        mainActivityBinding.bannerList.run {
+            adapter = BannersListAdapter()
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(BannerIndicatorDecoration())
+        }
+
+        PagerSnapHelper().run {
+            attachToRecyclerView(mainActivityBinding.bannerList)
+        }
+
+        songsViewModel.banners.observe(this, Observer {
+            (mainActivityBinding.bannerList.adapter as BannersListAdapter).submitList(it)
+        })
+    }
+
+    private fun initContents() {
         songsViewModel.getPopular()
         songsFragment = SongsFragment(songsViewModel)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, arrayListOf(songsFragment, singersFragment))
@@ -66,36 +95,19 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
             if (it.isEmpty()) {
                 mainActivityBinding.bottomSheet
                     .animate()
-                    .translationY(CommonUtil.toDP(87, resources.displayMetrics))
+                    .translationY(CommonUtil.toDP(87))
                     .start()
             } else {
                 mainActivityBinding.bottomSheet
                     .animate()
-                    .translationY(CommonUtil.toDP(-24, resources.displayMetrics))
+                    .translationY(CommonUtil.toDP(-24))
                     .start()
             }
         })
-
-        initBanners()
-        initAdView()
     }
 
-    private fun initBanners() {
-        songsViewModel.getBanners()
-        songsViewModel.banners.observe(this, Observer {
-            val fragments = createBannerFragments(it)
-            mainActivityBinding.bannerViewPager.adapter = BannersPagerAdapter(this, supportFragmentManager, fragments).apply {
-                notifyDataSetChanged()
-            }
-            indicator.createIndicators(it.size, 0)
-            indicator.setViewPager(banner_view_pager)
-        })
-    }
-
-    private fun createBannerFragments(banners: ArrayList<Banner>): ArrayList<BannerFragment> {
-        val fragments = arrayListOf<BannerFragment>()
-        banners.forEach { banner -> fragments.add(BannerFragment(banner)) }
-        return fragments
+    fun onClickBanner(banner: Banner) {
+        // TODO: 배너 클릭 구현
     }
 
     /**
@@ -116,10 +128,6 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
 
     override fun onClickCancel() {
         songsViewModel.clearSelectedItem()
-    }
-
-    fun onClickBanner(banner: Banner) {
-
     }
 
     fun onClickRecentPlaylist() {

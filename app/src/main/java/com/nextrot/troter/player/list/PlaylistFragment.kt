@@ -104,7 +104,7 @@ class PlaylistFragment(private val playerViewModel: PlayerViewModel, private val
                     parent: RecyclerView
                 ) {
                     super.getItemOffsets(outRect, itemPosition, parent)
-                    outRect.top += CommonUtil.toDP(8, resources.displayMetrics).toInt()
+                    outRect.top += CommonUtil.toDP(8).toInt()
                 }
             })
         }

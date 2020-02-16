@@ -41,12 +41,12 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
             if (it.isEmpty()) {
                 songsActivityBinding.bottomSheet
                     .animate()
-                    .translationY(CommonUtil.toDP(87, resources.displayMetrics))
+                    .translationY(CommonUtil.toDP(87))
                     .start()
             } else {
                 songsActivityBinding.bottomSheet
                     .animate()
-                    .translationY(CommonUtil.toDP(-24, resources.displayMetrics))
+                    .translationY(CommonUtil.toDP(-24))
                     .start()
             }
         })

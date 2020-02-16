@@ -103,7 +103,4 @@ dependencies {
 
     // YouTube Player View
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
-
-    // Circle indicator
-    implementation 'me.relex:circleindicator:2.1.4'
 }
