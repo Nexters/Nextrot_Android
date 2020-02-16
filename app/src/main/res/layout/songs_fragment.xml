@@ -36,13 +36,12 @@
                 android:paddingBottom="18dp"
                 android:onClick="@{() -> fragment.onClickSelectAll()}">
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <ImageView
                     android:id="@+id/select_all_checkbox"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:button="@null"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/select_all_checkbox"
+                    android:src="@drawable/checkbox_unchecked"
                     android:onClick="@{() -> fragment.onClickSelectAll()}"/>
 
                 <TextView

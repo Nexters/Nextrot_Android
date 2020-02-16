@@ -6,15 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import android.widget.ListAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.nextrot.troter.songs.SongsViewModel
+import com.nextrot.troter.R
 import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.SongsFragmentBinding
 import com.nextrot.troter.player.PlayerActivity
+import com.nextrot.troter.songs.SongsViewModel
 import com.nextrot.troter.songs.list.SongsListAdapter
 
 class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
@@ -35,10 +35,12 @@ class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+
         songsViewModel.selectedItems.observe(this.viewLifecycleOwner, Observer {
             // 옵저빙 해서 notify 함으로써 얻는 성능 저하는 감수해야함... 편할려고 ㅠ
             binding.list.adapter?.notifyDataSetChanged()
-            binding.selectAllCheckbox.setChecked(songsViewModel.isAllSelected())
+            changeCheckboxView()
         })
 
         songsViewModel.currentList.observe(this.viewLifecycleOwner, Observer {
@@ -74,6 +76,13 @@ class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
         } else {
             songsViewModel.clearSelectedItem()
         }
-        binding.selectAllCheckbox.setChecked(songsViewModel.isAllSelected())
+    }
+
+    private fun changeCheckboxView() {
+        if (songsViewModel.isAllSelected()) {
+            binding.selectAllCheckbox.setImageResource(R.drawable.checkbox_checked)
+        } else {
+            binding.selectAllCheckbox.setImageResource(R.drawable.checkbox_unchecked)
+        }
     }
 }
