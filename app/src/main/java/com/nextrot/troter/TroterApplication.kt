@@ -77,7 +77,7 @@ val appModule = module {
     single<RemoteClient> { (get(Retrofit::class.java) as Retrofit).create(RemoteClient::class.java) }
     single {
         if (BuildConfig.DEBUG) {
-            FakeVideoRepository(get())
+            FakeVideoRepository(get(), androidApplication())
         } else {
             TroterVideoRepository(get(), get())
         }

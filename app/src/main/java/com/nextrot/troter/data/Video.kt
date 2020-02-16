@@ -2,22 +2,17 @@ package com.nextrot.troter.data
 
 
 import android.annotation.SuppressLint
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import javax.annotation.Nullable
+import android.os.Parcelable
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Singer(
-    @SerializedName("createdAt")
+data class Video(
     val createdAt: String,
-    @SerializedName("id")
     val id: String,
-    @SerializedName("like")
+    val key: String,
     val like: Int,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("updatedAt")
-    val updatedAt: String
+    val updatedAt: String,
+    val view: Int
 ) : Parcelable

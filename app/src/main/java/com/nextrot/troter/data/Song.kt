@@ -20,12 +20,12 @@ data class Song(
     val lyrics: String,
     @SerializedName("name")
     val name: String,
-    @SerializedName("singerId")
-    val singerId: String,
+//    @SerializedName("singerId")
+//    val singerId: String = "",
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("video")
-    val video: String,
+    val video: List<Video> = listOf(),
     @SerializedName("view")
     val view: Int
 ) : Parcelable

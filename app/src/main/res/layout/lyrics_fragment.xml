@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <variable
             name="viewmodel"
@@ -39,8 +41,9 @@
             android:layout_height="match_parent"
             android:textSize="28sp"
             android:textColor="#f5f5ff"
-            tools:text="싹 다 갈아 엎어주세요"
-            android:text="@{viewmodel.lyricsOfCurrentSong}">
+            android:scrollbars="vertical"
+            app:htmlText="@{viewmodel.lyricsOfCurrentSong}"
+            tools:text="싹 다 갈아 엎어주세요">
         </TextView>
     </FrameLayout>
 </layout>

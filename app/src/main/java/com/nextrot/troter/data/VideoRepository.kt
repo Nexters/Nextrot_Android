@@ -1,9 +1,18 @@
 package com.nextrot.troter.data
 
+import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import com.nextrot.troter.PREF_SAVED_SONGS
 import com.nextrot.troter.data.remote.RemoteClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.io.IOException
+import java.io.InputStream
 
 interface VideoRepository {
     suspend fun popular(): List<Song>
@@ -125,161 +134,35 @@ class TroterVideoRepository(private val remote: RemoteVideoRepository, private v
     }
 }
 
-class FakeVideoRepository(private val sharedPreferences: SharedPreferences): VideoRepository {
+class FakeVideoRepository(private val sharedPreferences: SharedPreferences, private val application: Application): VideoRepository {
+    @Throws(IOException::class)
+    private fun Context.readJsonFromFile(path: String): String {
+        val inputStream = assets.open(path)
+        val buffer = ByteArray(inputStream.available())
+        inputStream.read(buffer)
+        inputStream.close()
+        return String(buffer, Charsets.UTF_8)
+    }
+
     override suspend fun singers(): List<Singer> {
         try {
-            val sampleJson = Gson().fromJson<Array<Singer>>("""
-                    [
-                        {
-                            "id": "5e328f15b7e4937f52c67679",
-                            "name": "Gray",
-                            "songs": null,
-                            "like": 0,
-                            "createdAt": 1580371733877,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "5e328f15b7e4937f52c67679",
-                            "name": "HoYoung",
-                            "songs": null,
-                            "like": 0,
-                            "createdAt": 1580371733877,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "5e32c8cc50823b60f80758e5",
-                            "name": "SangHo",
-                            "songs": null,
-                            "like": 0,
-                            "createdAt": 1580386507954,
-                            "updatedAt": 1580389220910
-                        }
-                    ]
-                """, Array<Singer>::class.java)
-            return sampleJson.toList()
+            val jsonString = GlobalScope.async(Dispatchers.IO)  {
+                application.readJsonFromFile("singers.json")
+            }.await()
+            val singers = Gson().fromJson<Array<Singer>>(jsonString, Array<Singer>::class.java)
+            return singers.toList()
         } catch (e: Exception) {
             throw e
         }
-
     }
 
     override suspend fun popular(): List<Song> {
         try {
-            val sampleJson = Gson().fromJson<Array<Song>>("""
-                    [
-                        {
-                            "id": "32f3156c-ed37-40dc-af96-1431",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "testName",
-                            "lyrics": "testLyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": hrXG7ZbHsTI,
-                            "createdAt": 1580371733877,
-                            "updatedAt": 1580385272894
-                        },
-                        {
-                            "id": "36483ebb-ec5b-442f-9487-11",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "name2",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": cCRH7wqV6Rw,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "36483ebb-ec5b-442f-345t-1c785370b56d",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "hello",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": fqSkgFClhVE,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "32f31111156c-ed37-40dc-af96-1431",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "testName",
-                            "lyrics": "testLyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": hrXG7ZbHsTI,
-                            "createdAt": 1580371733877,
-                            "updatedAt": 1580385272894
-                        },
-                        {
-                            "id": "36483ebb-ec5b-442f-94144487-11",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "name2",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": cCRH7wqV6Rw,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "36483ebb-ec5b-442f55-345t-1c785370b56d",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "hello",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": fqSkgFClhVE,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "36111483ebb-ec5b-442f55-345t-1c785gdb370b56d",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "hello",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": fqSkgFClhVE,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "361114sas83ebb-ec5b-442f55-345t-1c785gdb370b56d",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "hello",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": fqSkgFClhVE,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "36111dfbfd483ebb-ec5b-442f55-345t-1c785gdb370b56d",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "hello",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": fqSkgFClhVE,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "361114qw3r83ebb-ec5b-442f55-345t-1c785gdb370b56d",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "hello",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": fqSkgFClhVE,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        }
-                    ]
-                """, Array<Song>::class.java)
-            return sampleJson.toList()
+            val jsonString = GlobalScope.async(Dispatchers.IO)  {
+                application.readJsonFromFile("popular.json")
+            }.await()
+            val singers = Gson().fromJson<Array<Song>>(jsonString, Array<Song>::class.java)
+            return singers.toList()
         } catch (e: Exception) {
             throw e
         }
@@ -287,44 +170,11 @@ class FakeVideoRepository(private val sharedPreferences: SharedPreferences): Vid
 
     override suspend fun songsOfSinger(singerId: String): List<Song> {
         try {
-            val sampleJson = Gson().fromJson<Array<Song>>("""
-                    [
-                        {
-                            "id": "32f3156c-ed37-40dc-af96-1431",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "testName",
-                            "lyrics": "testLyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": hrXG7ZbHsTI,
-                            "createdAt": 1580371733877,
-                            "updatedAt": 1580385272894
-                        },
-                        {
-                            "id": "36483ebb-ec5b-442f-9487-11",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "name2",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": cCRH7wqV6Rw,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        },
-                        {
-                            "id": "36483ebb-ec5b-442f-345t-1c785370b56d",
-                            "singerId": "5e328f15b7e4937f52c67679",
-                            "name": "hello",
-                            "lyrics": "Musice2Lyrics",
-                            "like": 0,
-                            "view": 0,
-                            "video": fqSkgFClhVE,
-                            "createdAt": 1580385157216,
-                            "updatedAt": 1580385339058
-                        }
-                    ]
-                """, Array<Song>::class.java)
-            return sampleJson.toList()
+            val jsonString = GlobalScope.async(Dispatchers.IO)  {
+                application.readJsonFromFile("${singerId}.json")
+            }.await()
+            val singers = Gson().fromJson<Array<Song>>(jsonString, Array<Song>::class.java)
+            return singers.toList()
         } catch (e: Exception) {
             throw e
         }
