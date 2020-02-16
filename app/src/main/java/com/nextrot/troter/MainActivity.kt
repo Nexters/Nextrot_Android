@@ -17,11 +17,11 @@ import com.google.android.material.appbar.AppBarLayout
 import com.nextrot.troter.banners.BannerFragment
 import com.nextrot.troter.banners.BannersPagerAdapter
 import com.nextrot.troter.base.BottomSheetActivity
+import com.nextrot.troter.base.SongsFragment
 import com.nextrot.troter.data.Banner
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.singers.SingersFragment
-import com.nextrot.troter.songs.PopularSongsFragment
 import com.nextrot.troter.songs.SectionsPagerAdapter
 import com.nextrot.troter.songs.SongsActivity
 import com.nextrot.troter.songs.SongsViewModel
@@ -31,7 +31,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity(), BottomSheetActivity {
-    private lateinit var songsFragment: PopularSongsFragment
+    private lateinit var songsFragment: SongsFragment
     private val singersFragment: SingersFragment by inject()
     private val songsViewModel: SongsViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
@@ -54,7 +54,8 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
                 list_section.background = getDrawable(R.drawable.arc_top)
             }
         })
-        songsFragment = PopularSongsFragment(songsViewModel)
+        songsViewModel.getPopular()
+        songsFragment = SongsFragment(songsViewModel)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, arrayListOf(songsFragment, singersFragment))
         val viewPager = mainActivityBinding.viewPager
         viewPager.adapter = sectionsPagerAdapter

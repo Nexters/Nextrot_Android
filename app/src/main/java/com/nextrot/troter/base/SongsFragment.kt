@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import android.widget.ListAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,8 +17,8 @@ import com.nextrot.troter.databinding.SongsFragmentBinding
 import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.songs.list.SongsListAdapter
 
-abstract class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
-    protected lateinit var binding: SongsFragmentBinding
+class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
+    private lateinit var binding: SongsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +39,10 @@ abstract class SongsFragment(private val songsViewModel: SongsViewModel) : Fragm
             // 옵저빙 해서 notify 함으로써 얻는 성능 저하는 감수해야함... 편할려고 ㅠ
             binding.list.adapter?.notifyDataSetChanged()
             binding.selectAllCheckbox.setChecked(songsViewModel.isAllSelected())
+        })
+
+        songsViewModel.currentList.observe(this.viewLifecycleOwner, Observer {
+            (binding.list.adapter as SongsListAdapter).submitList(it)
         })
 
         binding.list.adapter = SongsListAdapter(songsViewModel, this)

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.nextrot.troter.CommonUtil
 import com.nextrot.troter.R
 import com.nextrot.troter.base.BottomSheetActivity
+import com.nextrot.troter.base.SongsFragment
 import com.nextrot.troter.databinding.SongsActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import kotlinx.android.synthetic.main.main_activity.*
@@ -55,15 +56,15 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
     }
 
     private fun initSongsFragment() {
-        val songsFragment = if (title == resources.getString(R.string.recently_played)) {
-            RecentPlaylistFragment(songsViewModel)
+        if (title == resources.getString(R.string.recently_played)) {
+            songsViewModel.getSavedPlaylist()
         } else {
-            SongsOfSingerFragment(songsViewModel, singerId)
+            songsViewModel.getSongsOfSinger(singerId)
         }
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.list_section, songsFragment)
+            .add(R.id.list_section, SongsFragment(songsViewModel))
             .commit()
     }
 
