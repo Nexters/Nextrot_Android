@@ -93,7 +93,6 @@ val appModule = module {
     single { androidApplication().getSharedPreferences(TROTER_PREF, Context.MODE_PRIVATE) }
 }
 
-// TODO: Nexus 4 API 19 emulator 에서 앱 크래시 현상 확인 필요
 @Suppress("unused")
 class TroterApplication : MultiDexApplication() {
     override fun onCreate() {

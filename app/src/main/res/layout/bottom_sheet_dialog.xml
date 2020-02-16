@@ -58,7 +58,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_cancel"
+                app:srcCompat="@drawable/ic_cancel"
                 android:layout_marginEnd="6dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView2"
@@ -96,7 +96,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_play_cyan"
+                app:srcCompat="@drawable/ic_play_cyan"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="6dp"
                 app:layout_constraintEnd_toStartOf="@+id/textView3"

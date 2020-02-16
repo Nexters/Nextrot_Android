@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.gms.ads.AdRequest
@@ -36,7 +37,6 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
     private val songsViewModel: SongsViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset<20) {
-                list_section.background = getDrawable(R.drawable.background_default)
+                list_section.background = ContextCompat.getDrawable(this, R.drawable.background_default)
             }else {
-                list_section.background = getDrawable(R.drawable.arc_top)
+                list_section.background = ContextCompat.getDrawable(this, R.drawable.arc_top)
             }
         })
         songsViewModel.getPopular()
@@ -116,6 +116,10 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
 
     override fun onClickCancel() {
         songsViewModel.clearSelectedItem()
+    }
+
+    fun onClickBanner(banner: Banner) {
+
     }
 
     fun onClickRecentPlaylist() {
