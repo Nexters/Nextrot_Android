@@ -59,7 +59,7 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
         if (title == resources.getString(R.string.recently_played)) {
             songsViewModel.getSavedPlaylist()
         } else {
-            songsViewModel.getSongsOfSinger(singerId)
+            songsViewModel.getSongsOfSinger(title)
         }
 
         supportFragmentManager

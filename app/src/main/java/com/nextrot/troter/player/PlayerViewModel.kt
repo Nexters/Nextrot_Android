@@ -39,14 +39,18 @@ class PlayerViewModel(private val repo: VideoRepository): ViewModel() {
     }
 
     fun setCurrentlyPlayingSong(videoId: String) {
-        val currentSong = this.songs.find { song -> song.video == videoId }
+        val currentSong = this.songs.find { song -> song.video[0].key == videoId }
         currentlyPlayingSong.value = currentSong
         currentlyPlayingIndex.value = songs.indexOf(currentSong) + 1
         lyricsOfCurrentSong.value = currentSong!!.lyrics
     }
 
     fun isPlaying(item: Song): Boolean {
-        return currentlyPlayingSong.value?.video == item.video
+        if (currentlyPlayingSong.value?.video.isNullOrEmpty()) {
+            return false
+        }
+
+        return currentlyPlayingSong.value?.video!![0].key == item.video[0].key
     }
 
     fun changeLyricsViewScale() {

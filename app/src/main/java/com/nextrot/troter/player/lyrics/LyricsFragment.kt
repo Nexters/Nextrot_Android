@@ -2,6 +2,7 @@ package com.nextrot.troter.player.lyrics
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ class LyricsFragment(private val playerViewModel: PlayerViewModel) : Fragment() 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         lyricsFragmentBinding.lifecycleOwner = viewLifecycleOwner
+        lyricsFragmentBinding.lyricsText.movementMethod = ScrollingMovementMethod()
     }
 
     fun onClickScaleButton() {

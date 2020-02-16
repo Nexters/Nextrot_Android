@@ -55,7 +55,7 @@ class PlaylistFragment(private val playerViewModel: PlayerViewModel, private val
                 if (state === PlayerConstants.PlayerState.ENDED) {
                     val nextIdx = getProperNextIndex()
                     if (0 <= nextIdx && nextIdx < playerViewModel.songsCount.value!!) {
-                        youTubePlayer.loadVideo(playerViewModel.songs[nextIdx].video, 0f)
+                        youTubePlayer.loadVideo(playerViewModel.songs[nextIdx].video[0].key, 0f)
                     }
                 }
             }
@@ -68,9 +68,9 @@ class PlaylistFragment(private val playerViewModel: PlayerViewModel, private val
 
         if (playerViewModel.songs.isNotEmpty()) {
             for (item in playerViewModel.songs.reversed()) {
-                player.loadOrCueVideo(lifecycle, item.video, 0f)
+                player.loadOrCueVideo(lifecycle, item.video[0].key, 0f)
             }
-            player.loadVideo(playerViewModel.songs[0].video, 0f)
+            player.loadVideo(playerViewModel.songs[0].video[0].key, 0f)
         }
     }
 
@@ -111,7 +111,7 @@ class PlaylistFragment(private val playerViewModel: PlayerViewModel, private val
     }
 
     fun onClickItem(item: Song) {
-        player.loadVideo(item.video, 0f)
+        player.loadVideo(item.video[0].key, 0f)
     }
 
     // 이 이벤트들 자체를 PlaylistFragment 로 옮기는 게 됐으면 좋겠긴 하다.
