@@ -18,4 +18,5 @@
     <color name="colorPlayingSong">#272a4c</color>
     <color name="colorPlayerBackground2">#2c3056</color>
     <color name="colorPlayerBackground3">#1e203d</color>
+    <color name="black_opa_70">#b3000000</color>
 </resources>
