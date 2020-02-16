@@ -26,6 +26,7 @@ abstract class SongsFragment(private val songsViewModel: SongsViewModel) : Fragm
     ): View? {
         binding = SongsFragmentBinding.inflate(layoutInflater, container, false).apply {
             fragment = this@SongsFragment
+            viewmodel = songsViewModel
         }
         return binding.root
     }

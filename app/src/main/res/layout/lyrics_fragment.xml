@@ -29,7 +29,7 @@
             android:layout_marginTop="22dp"
             android:layout_marginEnd="22dp"
             android:background="@drawable/white_circle"
-            android:text="@{viewmodel.lyricsViewScale + `배`}"
+            android:text="@{@string/scale(viewmodel.lyricsViewScale)}"
             tools:text="1배"
             android:onClick="@{() -> fragment.onClickScaleButton()}"/>
 

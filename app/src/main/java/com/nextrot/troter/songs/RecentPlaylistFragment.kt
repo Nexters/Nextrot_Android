@@ -11,12 +11,7 @@ class RecentPlaylistFragment(private val songsViewModel: SongsViewModel): SongsF
         super.onActivityCreated(savedInstanceState)
         songsViewModel.getSavedPlaylist()
         songsViewModel.currentList.observe(this.viewLifecycleOwner, Observer {
-            if (it.isEmpty()) {
-                binding.noRecentSongLayout.visibility = View.VISIBLE
-            } else {
-                binding.noRecentSongLayout.visibility = View.GONE
-                (binding.list.adapter as SongsListAdapter).submitList(it)
-            }
+            (binding.list.adapter as SongsListAdapter).submitList(it)
         })
     }
 }

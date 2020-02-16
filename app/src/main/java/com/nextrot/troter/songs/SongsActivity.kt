@@ -60,6 +60,7 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
         } else {
             SongsOfSingerFragment(songsViewModel, singerId)
         }
+
         supportFragmentManager
             .beginTransaction()
             .add(R.id.list_section, songsFragment)
