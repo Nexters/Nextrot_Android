@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="activity"
+            type="com.nextrot.troter.OnBoardingActivity" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_animation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true" />
     <TextView
         android:id="@+id/skip_button"
         android:layout_width="wrap_content"
@@ -26,43 +42,58 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:letterSpacing="-0.02"
-        android:text="트로트 듣기"
         android:fontFamily="@font/noto_sans"
-        android:textStyle="bold"
+        android:letterSpacing="-0.02"
+        android:text="제목"
         android:textSize="36sp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="108dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/subtitle"
         android:layout_width="237dp"
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
         android:breakStrategy="balanced"
-        android:text="듣고 싶은 노래를 선택해서 재생할 수 있어유~ 쉽쥬?"
         android:gravity="start"
+        android:textAlignment="center"
+        android:text="자막"
         android:textColor="@color/black_opa_70"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-
-    <Button
+        android:layout_marginBottom="23dp"
+        app:srcCompat="@drawable/ic_paging_1"
+        android:contentDescription="indicator" />
+    <TextView
         android:id="@+id/next_button"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
-        android:background="@drawable/select_bottom_sheet"
+        android:layout_height="68dp"
+        android:background="@drawable/rounded_button_primary"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="33dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="36dp"
+        android:onClick="@{() -> activity.onClickNext()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@android:color/white"
+        android:elevation="0dp"
+        android:textAlignment="center"
+        android:gravity="center"
         android:textSize="18sp"
-        android:text="다음"/>
+        android:text="@string/next"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

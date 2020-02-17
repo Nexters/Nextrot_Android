@@ -103,4 +103,7 @@ dependencies {
 
     // YouTube Player View
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+    // lottie
+    implementation 'com.airbnb.android:lottie:3.3.1'
 }
