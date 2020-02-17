@@ -21,6 +21,16 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APPLICATION_ID"/>
         <activity
+            android:name=".OnBoardingActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".player.PlayerActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
@@ -32,11 +42,7 @@
             android:name=".MainActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
