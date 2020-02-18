@@ -96,7 +96,7 @@
             android:layout_width="135dp"
             android:layout_height="24dp"
             android:layout_marginStart="10dp"
-            android:text="@{item.name}"
+            android:text="@{item.singerName}"
             android:textSize="16sp"
             android:textColor="#b3000000"
             android:letterSpacing="-0.04"

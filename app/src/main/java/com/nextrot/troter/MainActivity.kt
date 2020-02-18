@@ -107,7 +107,15 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
     }
 
     fun onClickBanner(banner: Banner) {
-        // TODO: 배너 클릭 구현
+        // TODO: ActionType enum 으로 만들 것
+        if (banner.actionType == 0) {
+            val intent = Intent(this, SongsActivity::class.java).apply {
+                putExtra(SongsActivity.BUNDLE_FROM_BANNER, banner)
+                putExtra(SongsActivity.BUNDLE_SINGER_ID, "")
+                putExtra(SongsActivity.BUNDLE_SONGS_TITLE, banner.title)
+            }
+            startActivityForResult(intent, MAIN_ACTIVITY_REQUEST_CODE)
+        }
     }
 
     /**

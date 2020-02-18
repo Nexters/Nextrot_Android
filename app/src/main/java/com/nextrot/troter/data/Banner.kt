@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
-import javax.annotation.Nullable
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -14,9 +13,11 @@ data class Banner(
     val actionType: Int,
     @SerializedName("createdAt")
     val createdAt: String,
-    @SerializedName("data")
-    @Nullable
-    val `data`: BannerDetail?,
+    @SerializedName("title")
+    val title: String,
+//    @SerializedName("data")
+//    @Nullable
+//    val `data`: Any?,
     @SerializedName("id")
     val id: String,
     @SerializedName("imageUrl")

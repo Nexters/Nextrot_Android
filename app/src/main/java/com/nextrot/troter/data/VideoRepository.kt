@@ -3,26 +3,24 @@ package com.nextrot.troter.data
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import com.google.gson.Gson
 import com.nextrot.troter.PREF_SAVED_SONGS
 import com.nextrot.troter.data.remote.RemoteClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import java.io.IOException
-import java.io.InputStream
 
 interface VideoRepository {
     suspend fun popular(): List<Song>
     suspend fun singers(): List<Singer>
     suspend fun songsOfSinger(singerId: String): List<Song>
+    suspend fun songsOfSingerByName(singerName: String): List<Song>
     suspend fun savePlaylist(songs: List<Song>)
     suspend fun getSavedPlaylist(): List<Song>
     suspend fun getVideosOfSong(songId: String): List<String>
     suspend fun getBanners(): List<Banner>
-    suspend fun getBannerDetail(bannerId: String): BannerDetail
+    suspend fun getBannerDetail(bannerId: String): List<Song>
 }
 
 class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepository {
@@ -36,6 +34,10 @@ class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepos
 
     override suspend fun songsOfSinger(singerId: String): List<Song> {
         return remoteClient.getSongsOfSinger(singerId, 0, 30)
+    }
+
+    override suspend fun songsOfSingerByName(singerName: String): List<Song> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun savePlaylist(songs: List<Song>) {
@@ -54,7 +56,7 @@ class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepos
         return remoteClient.getBanners()
     }
 
-    override suspend fun getBannerDetail(bannerId: String): BannerDetail {
+    override suspend fun getBannerDetail(bannerId: String): List<Song> {
         return remoteClient.getBannerDetail(bannerId)
     }
 }
@@ -70,6 +72,10 @@ class LocalVideoRepository(private val sharedPreferences: SharedPreferences): Vi
     }
 
     override suspend fun songsOfSinger(singerId: String): List<Song> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun songsOfSingerByName(singerName: String): List<Song> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -94,7 +100,7 @@ class LocalVideoRepository(private val sharedPreferences: SharedPreferences): Vi
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getBannerDetail(bannerId: String): BannerDetail {
+    override suspend fun getBannerDetail(bannerId: String): List<Song> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
@@ -113,6 +119,10 @@ class TroterVideoRepository(private val remote: RemoteVideoRepository, private v
         return remote.songsOfSinger(singerId)
     }
 
+    override suspend fun songsOfSingerByName(singerName: String): List<Song> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun savePlaylist(songs: List<Song>) {
         local.savePlaylist(songs)
     }
@@ -129,7 +139,7 @@ class TroterVideoRepository(private val remote: RemoteVideoRepository, private v
         return remote.getBanners()
     }
 
-    override suspend fun getBannerDetail(bannerId: String): BannerDetail {
+    override suspend fun getBannerDetail(bannerId: String): List<Song> {
         return remote.getBannerDetail(bannerId)
     }
 }
@@ -180,6 +190,18 @@ class FakeVideoRepository(private val sharedPreferences: SharedPreferences, priv
         }
     }
 
+    override suspend fun songsOfSingerByName(singerName: String): List<Song> {
+        try {
+            val jsonString = GlobalScope.async(Dispatchers.IO)  {
+                application.readJsonFromFile("${singerName}.json")
+            }.await()
+            val singers = Gson().fromJson<Array<Song>>(jsonString, Array<Song>::class.java)
+            return singers.toList()
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
     override suspend fun savePlaylist(songs: List<Song>) {
         val jsonSongs = Gson().toJson(songs)
         sharedPreferences
@@ -199,59 +221,23 @@ class FakeVideoRepository(private val sharedPreferences: SharedPreferences, priv
 
     override suspend fun getBanners(): List<Banner> {
         try {
-            val sampleJson = Gson().fromJson<Array<Banner>>("""
-                    [
-                        {
-                            "id": "5e47d19ae76841c34af7d616",
-                            "imageUrl": "https://dailyissue.s3.ap-northeast-2.amazonaws.com/Banner_0215(1).png",
-                            "state": "C",
-                            "actionType": 0,
-                            "data": null,
-                            "createdAt": "2020-01-30T08:11:06.934+0000",
-                            "updatedAt": "2020-01-30T08:11:06.934+0000"
-                        },
-                        {
-                            "id": "5e47d1c2e76841c34af7d617",
-                            "imageUrl": "https://dailyissue.s3.ap-northeast-2.amazonaws.com/Banner_0215(2).png",
-                            "state": "C",
-                            "actionType": 0,
-                            "data": null,
-                            "createdAt": "2020-01-30T08:11:06.934+0000",
-                            "updatedAt": "2020-01-30T08:11:06.934+0000"
-                        }
-                    ]
-                """, Array<Banner>::class.java)
-            return sampleJson.toList()
+            val jsonString = GlobalScope.async(Dispatchers.IO)  {
+                application.readJsonFromFile("banners.json")
+            }.await()
+            val singers = Gson().fromJson<Array<Banner>>(jsonString, Array<Banner>::class.java)
+            return singers.toList()
         } catch (e: Exception) {
             throw e
         }
     }
 
-    override suspend fun getBannerDetail(bannerId: String): BannerDetail {
+    override suspend fun getBannerDetail(bannerId: String): List<Song> {
         try {
-            val sampleJson = Gson().fromJson<BannerDetail>("""
-                    [
-                        {
-                            "id": "42125c77b-f3f6-466a-bd1a-0124555e5592",
-                            "songId": null,
-                            "key": "cuAg_tK2-C8",
-                            "like": 12,
-                            "view": 0,
-                            "createdAt": "2020-01-30T08:11:06.934+0000",
-                            "updatedAt": "2020-01-30T08:11:06.934+0000"
-                        },
-                        {
-                            "id": "1238a433a-e120-459f-8bf1-1f55081dbf82",
-                            "songId": null,
-                            "key": "GRH2CMPIRoY",
-                            "like": 123,
-                            "view": 0,
-                            "createdAt": "2020-01-30T11:54:32.761+0000",
-                            "updatedAt": "2020-01-30T11:54:32.761+0000"
-                        }
-                    ]
-                """, BannerDetail::class.java)
-            return sampleJson
+            val jsonString = GlobalScope.async(Dispatchers.IO)  {
+                application.readJsonFromFile("banner_${bannerId}.json")
+            }.await()
+            val singers = Gson().fromJson<Array<Song>>(jsonString, Array<Song>::class.java)
+            return singers.toList()
         } catch (e: Exception) {
             throw e
         }

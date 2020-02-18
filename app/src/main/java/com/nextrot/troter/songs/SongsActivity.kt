@@ -11,6 +11,7 @@ import com.nextrot.troter.CommonUtil
 import com.nextrot.troter.R
 import com.nextrot.troter.base.BottomSheetActivity
 import com.nextrot.troter.base.SongsFragment
+import com.nextrot.troter.data.Banner
 import com.nextrot.troter.databinding.SongsActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import kotlinx.android.synthetic.main.main_activity.*
@@ -20,7 +21,6 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
     private val songsViewModel: SongsViewModel by viewModel()
     private lateinit var songsActivityBinding: SongsActivityBinding
     private lateinit var title: String
-    private lateinit var singerId: String
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +30,9 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
         songsActivityBinding.viewmodel = songsViewModel
         songsActivityBinding.activity = this
 
-        singerId = intent.getStringExtra(BUNDLE_SINGER_ID)
         title = intent.getStringExtra(BUNDLE_SONGS_TITLE)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
-//        supportActionBar?.setDisplayShowTitleEnabled(false)
         songsActivityBinding.collapsingToolbar.title = title
 
         songsViewModel.selectedItems.observe(this, Observer {
@@ -56,10 +54,17 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
     }
 
     private fun initSongsFragment() {
-        if (title == resources.getString(R.string.recently_played)) {
+        val banner = intent.getParcelableExtra<Banner>(BUNDLE_FROM_BANNER)
+        val singerId = intent.getStringExtra(BUNDLE_SINGER_ID)
+
+        if (banner != null) {
+            songsViewModel.getBannerDetail(banner!!)
+        } else if (title == resources.getString(R.string.recently_played)) {
             songsViewModel.getSavedPlaylist()
+        } else if (!singerId.isNullOrEmpty()){
+            songsViewModel.getSongsOfSinger(singerId!!)
         } else {
-            songsViewModel.getSongsOfSinger(title)
+            songsViewModel.getSongsOfSingerByName(title)
         }
 
         supportFragmentManager
@@ -96,5 +101,6 @@ class SongsActivity: AppCompatActivity(), BottomSheetActivity {
     companion object {
         const val BUNDLE_SONGS_TITLE = "BUNDLE_SONGS_TITLE"
         const val BUNDLE_SINGER_ID = "BUNDLE_SINGER_ID"
+        const val BUNDLE_FROM_BANNER = "BUNDLE_FROM_BANNER"
     }
 }

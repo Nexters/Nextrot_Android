@@ -1,0 +1,22 @@
+[
+  {
+    "id": "5e47d19ae76841c34af7d616",
+    "imageUrl": "https://dailyissue.s3.ap-northeast-2.amazonaws.com/Banner0217(1).png",
+    "state": "C",
+    "title": "미스터 트롯 보자!",
+    "actionType": 0,
+    "data": null,
+    "createdAt": "2020-01-30T08:11:06.934+0000",
+    "updatedAt": "2020-01-30T08:11:06.934+0000"
+  },
+  {
+    "id": "5e47d1c2e76841c34af7d617",
+    "imageUrl": "https://dailyissue.s3.ap-northeast-2.amazonaws.com/Banner_0215(2).png",
+    "state": "C",
+    "title": "미스트롯 보자!",
+    "actionType": 0,
+    "data": null,
+    "createdAt": "2020-01-30T08:11:06.934+0000",
+    "updatedAt": "2020-01-30T08:11:06.934+0000"
+  }
+]
