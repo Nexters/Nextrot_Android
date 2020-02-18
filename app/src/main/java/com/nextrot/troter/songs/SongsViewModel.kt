@@ -61,6 +61,18 @@ class SongsViewModel(private val repo: VideoRepository): ViewModel() {
         }
     }
 
+    // Fake repository
+    fun getSongsOfSingerByName(singerName: String) {
+        viewModelScope.launch {
+            try {
+                val result = repo.songsOfSingerByName(singerName)
+                currentList.value = ArrayList(result)
+            } catch (e: Exception) {
+                Log.e("Troter", "Something went wrong : $e")
+            }
+        }
+    }
+
     fun clearSelectedItem() {
         if (selectedItems.value.isNullOrEmpty()) {
             return
@@ -114,6 +126,17 @@ class SongsViewModel(private val repo: VideoRepository): ViewModel() {
         viewModelScope.launch {
             try {
                 val playlist = repo.getSavedPlaylist()
+                currentList.value = ArrayList(playlist)
+            } catch (e: Exception) {
+                Log.e("Troter", "Something went wrong : $e")
+            }
+        }
+    }
+
+    fun getBannerDetail(banner: Banner) {
+        viewModelScope.launch {
+            try {
+                val playlist = repo.getBannerDetail(banner.id)
                 currentList.value = ArrayList(playlist)
             } catch (e: Exception) {
                 Log.e("Troter", "Something went wrong : $e")

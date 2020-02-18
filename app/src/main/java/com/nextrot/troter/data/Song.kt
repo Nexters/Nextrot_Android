@@ -2,10 +2,10 @@ package com.nextrot.troter.data
 
 
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import android.os.Parcelable
-import java.util.*
+import javax.annotation.Nullable
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -13,7 +13,14 @@ data class Song(
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("id")
-    val id: String,
+    @Nullable
+    val id: String?,
+    @SerializedName("songId")
+    @Nullable
+    val songId: String?,
+    @SerializedName("singerName")
+    @Nullable
+    val singerName: String?,
     @SerializedName("like")
     val like: Int,
     @SerializedName("lyrics")
