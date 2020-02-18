@@ -25,7 +25,9 @@ interface VideoRepository {
 
 class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepository {
     override suspend fun popular(): List<Song> {
-        return remoteClient.getPopular("view", 30)
+        return remoteClient.getPopular("view", 30).filter {
+            it.video.isNullOrEmpty() || it.video[0].key.isNullOrEmpty()
+        }
     }
 
     override suspend fun singers(): List<Singer> {
@@ -33,7 +35,9 @@ class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepos
     }
 
     override suspend fun songsOfSinger(singerId: String): List<Song> {
-        return remoteClient.getSongsOfSinger(singerId, 0, 30)
+        return remoteClient.getSongsOfSinger(singerId, 0, 30).filter {
+            it.video.isNullOrEmpty() || it.video[0].key.isNullOrEmpty()
+        }
     }
 
     override suspend fun songsOfSingerByName(singerName: String): List<Song> {
@@ -57,7 +61,9 @@ class RemoteVideoRepository(private val remoteClient: RemoteClient) : VideoRepos
     }
 
     override suspend fun getBannerDetail(bannerId: String): List<Song> {
-        return remoteClient.getBannerDetail(bannerId)
+        return remoteClient.getBannerDetail(bannerId).filter {
+            it.video.isNullOrEmpty() || it.video[0].key.isNullOrEmpty()
+        }
     }
 }
 

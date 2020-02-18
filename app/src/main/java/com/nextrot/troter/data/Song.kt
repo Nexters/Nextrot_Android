@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import javax.annotation.Nullable
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -13,13 +12,10 @@ data class Song(
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("id")
-    @Nullable
     val id: String?,
     @SerializedName("songId")
-    @Nullable
     val songId: String?,
     @SerializedName("singerName")
-    @Nullable
     val singerName: String?,
     @SerializedName("like")
     val like: Int,

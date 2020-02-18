@@ -68,7 +68,7 @@ class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
     }
 
     // TODO: SongsFragment와 MainActivity에서 중복 코드.. 어디로 빼지ㅎㅎ..
-    fun showPlayerNoticeDialog() {
+    private fun showPlayerNoticeDialog() {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("백그라운드 재생 불가 안내")
         builder.setMessage("이 앱은 유튜브 영상재생 정책을 따릅니다.\n화면이 꺼지거나 재생영상이 화면에서 사라지면 재생이 불가하오니 이점 양해 부탁드립니다.")
@@ -88,7 +88,7 @@ class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
     }
 
     // TODO: SongsFragment와 MainActivity에서 중복 코드.. 어디로 빼지ㅎㅎ..
-    fun startPlayerActivity(items: ArrayList<Song>){
+    private fun startPlayerActivity(items: ArrayList<Song>){
         val intent = Intent(context, PlayerActivity::class.java).apply {
             putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, items)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
