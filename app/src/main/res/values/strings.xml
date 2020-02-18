@@ -23,4 +23,6 @@
     <string name="scale">%d배</string>
     <string name="skip">건너뛰기</string>
     <string name="next">다음</string>
+    <string name="open_source_licence">오픈소스 라이센스</string>
+    <string name="settings">설정</string>
 </resources>

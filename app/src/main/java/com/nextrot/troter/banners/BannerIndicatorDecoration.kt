@@ -12,7 +12,7 @@ import com.nextrot.troter.CommonUtil
 class BannerIndicatorDecoration : RecyclerView.ItemDecoration() {
     private val colorActive = Color.parseColor("#ffffff")
     private val colorInactive = Color.parseColor("#66ffffff")
-    private val defaultPosLeft = CommonUtil.toDP(18)
+    private val defaultPosLeft = CommonUtil.toDP(24)
     private val defaultPosBottom = CommonUtil.toDP(30)
     private val indicatorItemLength = CommonUtil.toDP(6)
     private val indicatorMargin = CommonUtil.toDP(6)

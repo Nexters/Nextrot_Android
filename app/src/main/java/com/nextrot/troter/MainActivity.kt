@@ -23,6 +23,7 @@ import com.nextrot.troter.base.SongsFragment
 import com.nextrot.troter.data.Banner
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
+import com.nextrot.troter.settings.SettingsActivity
 import com.nextrot.troter.singers.SingersFragment
 import com.nextrot.troter.songs.SectionsPagerAdapter
 import com.nextrot.troter.songs.SongsActivity
@@ -157,6 +158,12 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
         startActivityForResult(intent, MAIN_ACTIVITY_REQUEST_CODE)
     }
 
+    fun onClickSettings() {
+        val intent = Intent(this, SettingsActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+        startActivity(intent)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
