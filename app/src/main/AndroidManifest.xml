@@ -23,13 +23,7 @@
         <activity
             android:name=".OnBoardingActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".player.PlayerActivity"
             android:launchMode="singleInstance"
@@ -42,7 +36,11 @@
             android:name=".MainActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

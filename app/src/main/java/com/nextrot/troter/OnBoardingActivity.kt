@@ -47,10 +47,8 @@ class OnBoardingActivity : AppCompatActivity(){
 
     @SuppressLint("CommitPrefEdits")
     fun onClickNext(){
-        if(!sharedPreferences.getBoolean(IS_FIRST, true) || !it.hasNext()){
-            sharedPreferences.edit().putBoolean(IS_FIRST, false).apply()
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+        if(!it.hasNext()){
+            skipOnboarding()
         } else {
             val item = it.next()
             onBoardingActivityBinding.title.text=item.title
@@ -61,6 +59,12 @@ class OnBoardingActivity : AppCompatActivity(){
             onBoardingActivityBinding.nextButton.text=item.next
             onBoardingActivityBinding.indicator.setImageResource(item.indicator)
         }
+    }
+
+    fun skipOnboarding(){
+        sharedPreferences.edit().putBoolean(IS_FIRST, false).apply()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }
 
