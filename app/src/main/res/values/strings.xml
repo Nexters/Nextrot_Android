@@ -21,4 +21,6 @@
     <string name="go_to_popular"><u>인기곡 보러가기</u></string>
     <string name="select_all">전체 선택</string>
     <string name="scale">%d배</string>
+    <string name="skip">건너뛰기</string>
+    <string name="next">다음</string>
 </resources>

@@ -21,6 +21,10 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APPLICATION_ID"/>
         <activity
+            android:name=".OnBoardingActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".player.PlayerActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>

@@ -2,6 +2,7 @@ package com.nextrot.troter
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,14 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
     private val songsViewModel: SongsViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
 
+    private val sharedPreferences: SharedPreferences by inject()
+    private fun showOnboardingWhenFirst(){
+        if(sharedPreferences.getBoolean(IS_FIRST, true)){
+            startActivity(Intent(this, OnBoardingActivity::class.java))
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,6 +54,7 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
         mainActivityBinding.viewmodel = songsViewModel
         mainActivityBinding.activity = this
 
+        showOnboardingWhenFirst()
         initActionBar()
         initBanners()
         initContents()

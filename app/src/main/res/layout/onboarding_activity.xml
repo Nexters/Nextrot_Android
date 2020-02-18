@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="activity"
+            type="com.nextrot.troter.OnBoardingActivity" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_animation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true" />
+    <TextView
+        android:id="@+id/skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:letterSpacing="-0.04"
+        android:text="@string/skip"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:onClick="@{()->activity.skipOnboarding()}"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans"
+        android:letterSpacing="-0.02"
+        android:text="제목"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="237dp"
+        android:layout_height="wrap_content"
+        android:breakStrategy="balanced"
+        android:gravity="start"
+        android:textAlignment="center"
+        android:text="자막"
+        android:textColor="@color/black_opa_70"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="23dp"
+        app:srcCompat="@drawable/ic_paging_1"
+        android:contentDescription="indicator" />
+    <TextView
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@drawable/rounded_button_primary"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="36dp"
+        android:onClick="@{() -> activity.onClickNext()}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@android:color/white"
+        android:elevation="0dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/next"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
