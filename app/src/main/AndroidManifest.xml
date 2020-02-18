@@ -33,6 +33,10 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".settings.SettingsActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".MainActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
