@@ -11,7 +11,7 @@ import android.os.Parcelable
 data class Video(
     val createdAt: String,
     val id: String,
-    val key: String,
+    val key: String? = "",
     val like: Int,
     val updatedAt: String,
     val view: Int

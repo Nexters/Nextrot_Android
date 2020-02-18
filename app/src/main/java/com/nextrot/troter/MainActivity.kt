@@ -1,10 +1,8 @@
 package com.nextrot.troter
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +21,6 @@ import com.nextrot.troter.banners.BannersListAdapter
 import com.nextrot.troter.base.BottomSheetActivity
 import com.nextrot.troter.base.SongsFragment
 import com.nextrot.troter.data.Banner
-import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.singers.SingersFragment
@@ -42,7 +39,8 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
     private val songsViewModel: SongsViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
     private val sharedPreferences: SharedPreferences by inject()
-    private fun showOnboardingWhenFirst(){
+
+    private fun showOnBoardingWhenFirst(){
         if(sharedPreferences.getBoolean(IS_FIRST, true)){
             startActivity(Intent(this, OnBoardingActivity::class.java))
             finish()
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
         mainActivityBinding.viewmodel = songsViewModel
         mainActivityBinding.activity = this
 
-        showOnboardingWhenFirst()
+        showOnBoardingWhenFirst()
         initActionBar()
         initBanners()
         initContents()
@@ -139,36 +137,8 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
     3. SearchFragment 안에서 CoordinatorLayout 을 사용하게 되면 main activity 의 CoordinatorLayout 의 동작과 충돌하여 정상 동작하지 않는 듯 함
      */
     override fun onClickPlay() {
-        if(sharedPreferences.getBoolean(IS_FIRST_PLAY_SONGS, true))
-            showPlayerNoticeDialog()
-        else
-            startPlayerActivity(songsViewModel.selectedItems.value!!)
-    }
-
-    // TODO: SongsFragment와 MainActivity에서 중복 코드.. 어디로 빼지ㅎㅎ..
-    fun showPlayerNoticeDialog() {
-        val builder = AlertDialog.Builder(this).apply {
-            setTitle("백그라운드 재생 불가 안내")
-            setMessage("이 앱은 유튜브 영상재생 정책을 따릅니다.\n화면이 꺼지거나 재생영상이 화면에서 사라지면 재생이 불가하오니 이점 양해 부탁드립니다.")
-                // TODO: message 또는 MultiChoice 양자택일 해야 합니다.. 리팩 때 디자인 나오면 수정 고고
-                //  builder.setMultiChoiceItems(
-                //      arrayOf("다시 보지 않기"), booleanArrayOf(false)) { dialog, which, isChecked -> }
-            .setPositiveButton("확인") { dialog, which ->
-                startPlayerActivity(songsViewModel.selectedItems.value!!)
-                this@MainActivity.sharedPreferences.edit().putBoolean(IS_FIRST_PLAY_SONGS, false).apply()
-            }
-        }
-        val dialog = builder.create()
-        dialog.show()
-
-        // show로 dialog가 생성되어야함.. NPE 주의
-        val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-        positiveBtn.setTextColor(Color.parseColor("#1884ff"))
-    }
-
-    fun startPlayerActivity(items: ArrayList<Song>){
         val intent = Intent(this, PlayerActivity::class.java).apply {
-            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, items)
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, songsViewModel.selectedItems.value!!)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
