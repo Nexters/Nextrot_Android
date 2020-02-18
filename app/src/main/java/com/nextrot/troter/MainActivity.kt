@@ -147,15 +147,16 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
 
     // TODO: SongsFragment와 MainActivity에서 중복 코드.. 어디로 빼지ㅎㅎ..
     fun showPlayerNoticeDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("백그라운드 재생 불가 안내")
-        builder.setMessage("이 앱은 유튜브 영상재생 정책을 따릅니다.\n화면이 꺼지거나 재생영상이 화면에서 사라지면 재생이 불가하오니 이점 양해 부탁드립니다.")
-        // TODO: message 또는 MultiChoice 양자택일 해야 합니다.. 리팩 때 디자인 나오면 수정 고고
-        //  builder.setMultiChoiceItems(
-        //      arrayOf("다시 보지 않기"), booleanArrayOf(false)) { dialog, which, isChecked -> }
-        builder.setPositiveButton("확인") { dialog, which ->
-            startPlayerActivity(songsViewModel.selectedItems.value!!)
-            this.sharedPreferences.edit().putBoolean(IS_FIRST_PLAY_SONGS, false).apply()
+        val builder = AlertDialog.Builder(this).apply {
+            setTitle("백그라운드 재생 불가 안내")
+            setMessage("이 앱은 유튜브 영상재생 정책을 따릅니다.\n화면이 꺼지거나 재생영상이 화면에서 사라지면 재생이 불가하오니 이점 양해 부탁드립니다.")
+                // TODO: message 또는 MultiChoice 양자택일 해야 합니다.. 리팩 때 디자인 나오면 수정 고고
+                //  builder.setMultiChoiceItems(
+                //      arrayOf("다시 보지 않기"), booleanArrayOf(false)) { dialog, which, isChecked -> }
+            .setPositiveButton("확인") { dialog, which ->
+                startPlayerActivity(songsViewModel.selectedItems.value!!)
+                this@MainActivity.sharedPreferences.edit().putBoolean(IS_FIRST_PLAY_SONGS, false).apply()
+            }
         }
         val dialog = builder.create()
         dialog.show()

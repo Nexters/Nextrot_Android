@@ -112,6 +112,21 @@ class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
         }
     }
 
+    // 현재는 유튜브 링크 및 스토어 링를 공유하도록 한다.
+    fun onClickShare(item: Song) {
+        val content = "${item.singerName} - ${item.name}" +
+            "\nhttp://youtou.be/${item.video[0].key}" +
+            "\nhttp://play.google.com/store/apps/details?id=${context!!.applicationContext.packageName}"
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, content)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, "트로트 공유하기")
+        startActivity(shareIntent)
+    }
+
     private fun changeCheckboxView() {
         if (songsViewModel.isAllSelected()) {
             binding.selectAllCheckbox.setImageResource(R.drawable.checkbox_checked)
