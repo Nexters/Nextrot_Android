@@ -1,8 +1,10 @@
 package com.nextrot.troter
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,7 @@ import com.nextrot.troter.banners.BannersListAdapter
 import com.nextrot.troter.base.BottomSheetActivity
 import com.nextrot.troter.base.SongsFragment
 import com.nextrot.troter.data.Banner
+import com.nextrot.troter.data.Song
 import com.nextrot.troter.databinding.MainActivityBinding
 import com.nextrot.troter.player.PlayerActivity
 import com.nextrot.troter.singers.SingersFragment
@@ -31,13 +34,13 @@ import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
+const val IS_FIRST_PLAY_SONGS = "IS_FIRST_PLAY_SONGS"
 
 class MainActivity : AppCompatActivity(), BottomSheetActivity {
     private lateinit var songsFragment: SongsFragment
     private val singersFragment: SingersFragment by inject()
     private val songsViewModel: SongsViewModel by viewModel()
     private lateinit var mainActivityBinding: MainActivityBinding
-
     private val sharedPreferences: SharedPreferences by inject()
     private fun showOnboardingWhenFirst(){
         if(sharedPreferences.getBoolean(IS_FIRST, true)){
@@ -117,27 +120,46 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
     }
 
     fun onClickBanner(banner: Banner) {
-        // TODO: ActionType enum 으로 만들 것
-        if (banner.actionType == 0) {
-            val intent = Intent(this, SongsActivity::class.java).apply {
-                putExtra(SongsActivity.BUNDLE_FROM_BANNER, banner)
-                putExtra(SongsActivity.BUNDLE_SINGER_ID, "")
-                putExtra(SongsActivity.BUNDLE_SONGS_TITLE, banner.title)
-            }
-            startActivityForResult(intent, MAIN_ACTIVITY_REQUEST_CODE)
-        }
+        // TODO: 배너 클릭 구현
     }
 
     /**
-     TODO: 레이아웃 형식상 bottom sheet 레이아웃이 main activity 에 오게 됨으로써 얻는 기술부채가 많다.
-     참고사항
-     1. selectedItems 를 viewModel 로 옮기기 싫었는데, 옮기지 않으면 일정을 맞추기 어려울 듯
-     2. 가능하다면 selectedItems 는 SearchFragment 가 들고 있는 것이 낫지 않을까?
-     3. SearchFragment 안에서 CoordinatorLayout 을 사용하게 되면 main activity 의 CoordinatorLayout 의 동작과 충돌하여 정상 동작하지 않는 듯 함
+    TODO: 레이아웃 형식상 bottom sheet 레이아웃이 main activity 에 오게 됨으로써 얻는 기술부채가 많다.
+    참고사항
+    1. selectedItems 를 viewModel 로 옮기기 싫었는데, 옮기지 않으면 일정을 맞추기 어려울 듯
+    2. 가능하다면 selectedItems 는 SearchFragment 가 들고 있는 것이 낫지 않을까?
+    3. SearchFragment 안에서 CoordinatorLayout 을 사용하게 되면 main activity 의 CoordinatorLayout 의 동작과 충돌하여 정상 동작하지 않는 듯 함
      */
     override fun onClickPlay() {
+        if(sharedPreferences.getBoolean(IS_FIRST_PLAY_SONGS, true))
+            showPlayerNoticeDialog()
+        else
+            startPlayerActivity(songsViewModel.selectedItems.value!!)
+    }
+
+    // TODO: SongsFragment와 MainActivity에서 중복 코드.. 어디로 빼지ㅎㅎ..
+    fun showPlayerNoticeDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("백그라운드 재생 불가 안내")
+        builder.setMessage("이 앱은 유튜브 영상재생 정책을 따릅니다.\n화면이 꺼지거나 재생영상이 화면에서 사라지면 재생이 불가하오니 이점 양해 부탁드립니다.")
+        // TODO: message 또는 MultiChoice 양자택일 해야 합니다.. 리팩 때 디자인 나오면 수정 고고
+        //  builder.setMultiChoiceItems(
+        //      arrayOf("다시 보지 않기"), booleanArrayOf(false)) { dialog, which, isChecked -> }
+        builder.setPositiveButton("확인") { dialog, which ->
+            startPlayerActivity(songsViewModel.selectedItems.value!!)
+            this.sharedPreferences.edit().putBoolean(IS_FIRST_PLAY_SONGS, false).apply()
+        }
+        val dialog = builder.create()
+        dialog.show()
+
+        // show로 dialog가 생성되어야함.. NPE 주의
+        val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positiveBtn.setTextColor(Color.parseColor("#1884ff"))
+    }
+
+    fun startPlayerActivity(items: ArrayList<Song>){
         val intent = Intent(this, PlayerActivity::class.java).apply {
-            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, songsViewModel.selectedItems.value)
+            putParcelableArrayListExtra(PlayerActivity.BUNDLE_SONGS, items)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
