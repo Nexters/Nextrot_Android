@@ -25,6 +25,7 @@ val openSourcesList = arrayListOf(
     "org.koin:koin-android-viewmodel",
     "com.squareup.retrofit2:retrofit",
     "com.squareup.retrofit2:converter-gson",
+    "com.squareup.okhttp3:okhttp",
     "com.facebook.stetho:stetho-okhttp3",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core",
     "com.github.bumptech.glide:glide",

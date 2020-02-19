@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nextrot.troter.data.VideoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.util.*

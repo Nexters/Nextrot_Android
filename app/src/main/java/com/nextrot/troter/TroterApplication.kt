@@ -12,10 +12,8 @@ import com.nextrot.troter.singers.SingersFragment
 import com.nextrot.troter.songs.PlayerViewModel
 import com.nextrot.troter.songs.SongsActivity
 import com.nextrot.troter.songs.SongsViewModel
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
-import okhttp3.ResponseBody.Companion.toResponseBody
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -34,37 +32,27 @@ val appModule = module {
         val httpClient = OkHttpClient
             .Builder()
             .addNetworkInterceptor(HttpLoggingInterceptor().apply {
-                setLevel(HttpLoggingInterceptor.Level.BASIC)
+                level = HttpLoggingInterceptor.Level.BASIC
             })
             .addNetworkInterceptor(StethoInterceptor())
-            .addNetworkInterceptor(object: Interceptor {
-                // Auth token header
-                override fun intercept(chain: Interceptor.Chain): Response {
-                    val request = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer " + BuildConfig.AUTH_TOKEN)
-                        .build()
-                    return chain.proceed(request)
+            .addNetworkInterceptor{ chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer " + BuildConfig.AUTH_TOKEN)
+                    .build()
+                chain.proceed(request)
+            }
+            .addInterceptor{ chain ->
+                val response = chain.proceed(chain.request())
+                val parsed = Gson().fromJson(response.body()!!.string(), TroterResponse::class.java)
+                if (parsed.statusCode == RESPONSE_SUCCESS) {
+                    val extractedBody = ResponseBody
+                        .create(response.body()!!.contentType(), Gson().toJson(parsed.data).toString())
+                    response.newBuilder().body(extractedBody).build()
+                } else {
+                    // TODO : global error handle
+                    response
                 }
-
-            })
-            .addInterceptor(object: Interceptor {
-                // response body extractor
-                override fun intercept(chain: Interceptor.Chain): Response {
-                    val response = chain.proceed(chain.request())
-                    val parsed = Gson().fromJson(response.body?.string(), TroterResponse::class.java)
-                    return if (parsed.statusCode == RESPONSE_SUCCESS) {
-                        val extractedBody = Gson()
-                            .toJson(parsed.data)
-                            .toString()
-                            .toResponseBody(response.body?.contentType())
-                        response.newBuilder().body(extractedBody).build()
-                    } else {
-                        // TODO : global error handle
-                        response
-                    }
-                }
-
-            })
+            }
             .build()
 
         Retrofit
