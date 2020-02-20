@@ -47,6 +47,7 @@ class SongsFragment(private val songsViewModel: SongsViewModel) : Fragment() {
 
         songsViewModel.currentList.observe(this.viewLifecycleOwner, Observer {
             (binding.list.adapter as SongsListAdapter).submitList(it)
+            binding.list.adapter?.notifyDataSetChanged()
         })
 
         binding.list.adapter = SongsListAdapter(songsViewModel, this)

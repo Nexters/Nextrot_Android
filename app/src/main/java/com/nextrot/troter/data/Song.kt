@@ -13,8 +13,6 @@ data class Song(
     val createdAt: String,
     @SerializedName("id")
     val id: String?,
-    @SerializedName("songId")
-    val songId: String?,
     @SerializedName("singerName")
     val singerName: String?,
     @SerializedName("like")
@@ -23,8 +21,8 @@ data class Song(
     val lyrics: String,
     @SerializedName("name")
     val name: String,
-//    @SerializedName("singerId")
-//    val singerId: String = "",
+    @SerializedName("singerId")
+    val singerId: String = "",
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("video")

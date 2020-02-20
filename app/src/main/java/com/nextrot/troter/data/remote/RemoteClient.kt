@@ -35,6 +35,9 @@ interface RemoteClient {
     @GET("api/v1/banner/list")
     suspend fun getBanners(): List<Banner>
 
-    @GET("/api/v1/banner/data")
-    suspend fun getBannerDetail(@Query("bannerId") bannerId: String): List<Song>
+    @GET("/api/v1/banner/action")
+    suspend fun getBannerDetail(
+        @Query("key") key: String,
+        @Query("actionType") actionType: Int
+    ): List<Song>
 }

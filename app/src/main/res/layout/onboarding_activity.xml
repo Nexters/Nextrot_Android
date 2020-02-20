@@ -16,8 +16,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_animation_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:translationY="40dp"/>
+        android:layout_height="match_parent"/>
     <TextView
         android:id="@+id/skip_button"
         android:layout_width="wrap_content"

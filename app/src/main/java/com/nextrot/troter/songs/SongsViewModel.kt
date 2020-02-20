@@ -136,7 +136,7 @@ class SongsViewModel(private val repo: VideoRepository): ViewModel() {
     fun getBannerDetail(banner: Banner) {
         viewModelScope.launch {
             try {
-                val playlist = repo.getBannerDetail(banner.id)
+                val playlist = repo.getBannerDetail(banner.key, banner.actionType)
                 currentList.value = ArrayList(playlist)
             } catch (e: Exception) {
                 Log.e("Troter", "Something went wrong : $e")

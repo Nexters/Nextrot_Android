@@ -127,6 +127,13 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
                 putExtra(SongsActivity.BUNDLE_SONGS_TITLE, banner.title)
             }
             startActivityForResult(intent, MAIN_ACTIVITY_REQUEST_CODE)
+        } else {
+            val intent = Intent(this, SongsActivity::class.java).apply {
+                putExtra(SongsActivity.BUNDLE_FROM_BANNER, banner)
+                putExtra(SongsActivity.BUNDLE_SINGER_ID, "")
+                putExtra(SongsActivity.BUNDLE_SONGS_TITLE, banner.title)
+            }
+            startActivityForResult(intent, MAIN_ACTIVITY_REQUEST_CODE)
         }
     }
 

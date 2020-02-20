@@ -15,9 +15,8 @@ data class Banner(
     val createdAt: String,
     @SerializedName("title")
     val title: String,
-//    @SerializedName("data")
-//    @Nullable
-//    val `data`: Any?,
+    @SerializedName("key")
+    val key: String,
     @SerializedName("id")
     val id: String,
     @SerializedName("imageUrl")
