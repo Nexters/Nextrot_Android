@@ -24,27 +24,33 @@ class TokenRepository {
     var uuid: String = ""
 
     fun getProperToken(): String {
-        if (!token.isNullOrEmpty()) {
+        synchronized(this) {
+            if (!token.isNullOrEmpty()) {
+                return token!!
+            }
+            val newToken = requestNewToken()
+            token = newToken
+            saveRemoteToken()
             return token!!
         }
-        val newToken = requestNewToken()
-        token = newToken
-        saveRemoteToken()
-        return token!!
     }
 
     fun loadUuid() {
-        var uuid = sharedPreferences?.getString(PREF_UUID, "") ?: ""
-        if (uuid.isEmpty()) {
-            uuid = UUID.randomUUID().toString()
+        synchronized(this) {
+            var uuid = sharedPreferences?.getString(PREF_UUID, "") ?: ""
+            if (uuid.isEmpty()) {
+                uuid = UUID.randomUUID().toString()
+            }
+            this.uuid = uuid
+            saveUuid()
         }
-        this.uuid = uuid
-        saveUuid()
     }
 
     fun loadToken() {
-        val token = sharedPreferences?.getString(PREF_REMOTE_TOKEN, "") ?: ""
-        this.token = token
+        synchronized(this) {
+            val token = sharedPreferences?.getString(PREF_REMOTE_TOKEN, "") ?: ""
+            this.token = token
+        }
     }
 
     private fun requestNewToken(): String {
@@ -67,16 +73,19 @@ class TokenRepository {
     }
 
     fun requestRefreshToken(): String {
-        val response: String =
-            httpClient
-                .newCall(makeRefreshTokenRequest(token!!))
-                .execute()
-                .body()!!
-                .string()
+        synchronized(this) {
+            val response: String =
+                httpClient
+                    .newCall(makeRefreshTokenRequest(token!!))
+                    .execute()
+                    .body()!!
+                    .string()
 
-        val result = JSONObject(response).getString("refreshToken")
-        token = result
-        return result
+            val result = JSONObject(response).getString("refreshToken")
+            token = result
+            saveRemoteToken()
+            return result
+        }
     }
 
     private fun makeRefreshTokenRequest(oldToken: String): Request {
