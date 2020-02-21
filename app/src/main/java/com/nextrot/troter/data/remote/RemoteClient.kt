@@ -7,6 +7,11 @@ import com.nextrot.troter.data.Video
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+const val RESPONSE_SUCCESS = 200
+const val TOKEN_EXPIRED = 731
+const val NOT_AUTHORIZED = 733
+const val INVALID_TOKEN = 732
+
 interface RemoteClient {
     @GET("/api/v1/songs/favorite")
     suspend fun getPopular(
