@@ -22,17 +22,16 @@ android {
         release {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_ADDRESS", API_ADDRESS
-            buildConfigField "String", "AUTH_TOKEN", AUTH_TOKEN
             buildConfigField "String", "ADMOB_BANNER_ID", ADMOB_BANNER_ID
             // string 대소문자 주의
             resValue "string", "ADMOB_APPLICATION_ID", ADMOB_APPLICATION_ID
         }
         debug {
             buildConfigField "String", "API_ADDRESS", API_ADDRESS
-            buildConfigField "String", "AUTH_TOKEN", AUTH_TOKEN
             buildConfigField "String", "ADMOB_BANNER_ID", ADMOB_BANNER_ID
             // string 대소문자 주의
             resValue "string", "ADMOB_APPLICATION_ID", ADMOB_APPLICATION_ID
+            debuggable true
         }
     }
 
