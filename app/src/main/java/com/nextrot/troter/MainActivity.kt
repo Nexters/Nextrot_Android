@@ -234,17 +234,17 @@ class MainActivity : AppCompatActivity(), BottomSheetActivity {
 
     // TODO: lifecycle 바인딩 시킬 수 있는 지 확인
     public override fun onPause() {
-        adView.pause()
+//        adView.pause()
         super.onPause()
     }
 
     public override fun onResume() {
         super.onResume()
-        adView.resume()
+//        adView.resume()
     }
 
     public override fun onDestroy() {
-        adView.destroy()
+//        adView.destroy()
         super.onDestroy()
     }
 
