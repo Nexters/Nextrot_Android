@@ -24,8 +24,7 @@
             android:value="@string/ADMOB_APPLICATION_ID"/>
         <activity
             android:name=".SplashActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait">
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,24 +33,19 @@
         </activity>
         <activity
             android:name=".OnBoardingActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".player.PlayerActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".songs.SongsActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".settings.SettingsActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait">
+            android:launchMode="singleInstance">
 
         </activity>
     </application>
