@@ -31,7 +31,7 @@ class OnBoardingActivity : AppCompatActivity(){
             R.drawable.ic_paging_2),
         OnBoarding(
             "확대 하기",
-            "가사가 잘 안보이면 확대하<br>버튼을 눌러 크 보셔유! <b>지화자~!</b>",
+            "가사가 잘 안보이면 확대하기<br>버튼을 눌러 크 보셔유! <b>지화자~!</b>",
             "onboarding_repeat.json",
             "트로트 들으러 가기",
             R.drawable.ic_paging_3)
